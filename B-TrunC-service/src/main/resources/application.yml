@@ -1,0 +1,29 @@
+server:
+  port: 8762
+  context-path: /B-TrunC-service
+
+spring:
+  application:
+    name: B-TrunC-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+      preferIpAddress: true
+
+logging:
+    config: classpath:logback.xml
+
+#datasource config
+jdbc:
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://120.77.182.140:3306/nmxy?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8
+  username: nmxy
+  password: Nmxy@020
+
+#mybatis config
+mybatis:
+  typeentityAliasesPackage: com.dhxx.common.
+  mapperLocations: classpath:mapper/**/*.xml

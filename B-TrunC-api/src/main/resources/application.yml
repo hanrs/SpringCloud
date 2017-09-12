@@ -1,0 +1,26 @@
+server:
+  port: 8765
+  context-path: /B-TrunC-api
+
+spring:
+  application:
+    name: B-TrunC-api
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password:
+  use-pool: true
+
+logging:
+    config: classpath:logback.xml
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+      preferIpAddress: true
+
+feign:
+  hystrix:
+    enabled: true

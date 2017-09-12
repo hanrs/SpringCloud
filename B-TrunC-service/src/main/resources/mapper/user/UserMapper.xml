@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.user.UserMapper">
+
+	<select id="list" parameterType="com.dhxx.common.entity.user.User" resultType="com.dhxx.common.entity.user.User">
+		select  u.id,
+				u.user_account userAccount,
+				u.user_name userName,
+				u.user_password userPassword,
+				u.salt,
+				u.phone,
+				u.role,
+				u.id_card idCard,
+				u.status,
+				u.register_date registerDate
+ 		from t_user u
+    	where 1 = 1
+    	<if test="userName != null and userName != ''">
+			and u.user_name like '%'||#{userName}||'%'
+		</if>
+    	<if test="userAccount != null and userAccount != ''">
+			and u.user_account like '%'||#{userAccount}||'%'
+		</if>
+	</select>
+	
+	<select id="listByName" parameterType="java.lang.String" resultType="com.dhxx.common.entity.user.User">
+		select  u.id,
+				u.user_account userAccount,
+				u.user_name userName,
+				u.user_password userPassword,
+				u.salt,
+				u.phone,
+				u.id_card idCard,
+				u.status,
+				u.register_date registerDate
+ 		from t_user u
+    	where u.user_name = #{userName}
+	</select>
+	
+	<select id="info" parameterType="com.dhxx.common.entity.user.User" resultType="com.dhxx.common.entity.user.User">
+		select  u.id,
+				u.user_account userAccount,
+				u.user_name userName,
+				u.user_password userPassword,
+				u.salt,
+				u.phone,
+				u.role,
+				u.id_card idCard,
+				u.status,
+				u.register_date registerDate
+ 		from t_user u 
+ 		where 1 = 1
+		<if test="userAccount != null and userAccount != ''">
+			and u.user_account = #{userAccount} or u.phone = #{userAccount}
+		</if>
+		<if test="phone != null and phone != ''">
+			and u.user_account = #{phone} or u.phone = #{phone}
+		</if>
+	</select>
+	
+	<insert id="save" parameterType="com.dhxx.common.entity.user.User">
+		insert into t_user(
+				user_account, 
+				user_name, 
+				user_password, 
+				salt, 
+				phone, 
+				role, 
+				id_card, 
+				status, 
+				register_date)  
+		values(
+				#{userAccount,jdbcType=VARCHAR}, 
+				#{userName,jdbcType=VARCHAR}, 
+				#{userPassword,jdbcType=VARCHAR}, 
+				#{salt,jdbcType=VARCHAR},
+				#{phone,jdbcType=VARCHAR},
+				#{role,jdbcType=VARCHAR},
+				#{idCard,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{registerDate,jdbcType=VARCHAR})  
+	</insert>
+	
+	<update id="update" parameterType="com.dhxx.common.entity.user.User">
+		update t_user 
+		<set>
+			<if test="userName != null and userName != ''">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null and userPassword != ''">
+				user_password = #{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null and salt != ''">
+				salt = #{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status=#{status},
+			</if>
+		</set> 
+        where user_account = #{userAccount}
+	</update>
+	
+	<delete id="delete" parameterType="com.dhxx.common.entity.user.User">
+		delete from t_user where user_account = #{userAccount}
+	</delete>
+	
+</mapper>
