@@ -20,9 +20,8 @@ logging:
 jdbc:
   driverClassName: com.mysql.jdbc.Driver
   url: jdbc:mysql://119.23.160.82:3306/jxds?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8
-    #jdbc:mysql://120.77.182.140:3306/nmxy?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8
-  username: poctalk01  #nmxy
-  password: Poctalk@020 #Nmxy@020
+  username: poctalk01
+  password: Poctalk@020
 
 #mybatis config
 mybatis:
