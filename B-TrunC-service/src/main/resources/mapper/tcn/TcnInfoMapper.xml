@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.tcn.TcnInfoMapper">
+
+    <insert id="save" parameterType="com.dhxx.common.entity.tcn.TcnInfo" >
+        insert into TB_TCN_INFO(
+				account,
+				ip,
+				route_address,
+				dns,
+				realm)
+		values(
+				#{account,jdbcType=VARCHAR},
+				#{ip,jdbcType=VARCHAR},
+				#{routeAddress,jdbcType=VARCHAR},
+				#{dns,jdbcType=VARCHAR},
+				#{realm,jdbcType=VARCHAR}}
+				)
+	</insert>
+
+    <update id="update" parameterType="com.dhxx.common.entity.tcn.TcnInfo">
+        update TB_TCN_INFO
+        <set>
+            <if test="ip != null and ip != ''">
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+
+            <if test="routeAddress != null and routeAddress != ''">
+                route_address = #{routeAddress,jdbcType=VARCHAR},
+            </if>
+
+            <if test="dns != null and dns != ''">
+                dns = #{dns,jdbcType=VARCHAR},
+            </if>
+
+            <if test="realm != null and realm != ''">
+                realm = #{realm,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+        where account = #{account}
+    </update>
+
+    <delete id="delete" parameterType="com.dhxx.common.entity.tcn.TcnInfo">
+        delete from TB_MS_INFO where account = #{account}
+    </delete>
+</mapper>

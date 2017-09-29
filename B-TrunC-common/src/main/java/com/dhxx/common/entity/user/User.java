@@ -8,7 +8,7 @@ import java.util.Date;
  * @author hanrs
  * Date: 2017年07月20日
  * @version 1.01
- * 用户表 (tb_user)
+ * 用户表 (TB_USER)
  */
 public class User implements Serializable {
 
@@ -16,104 +16,75 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;// 主键
-	private String userAccount;// 用户账号
-	private String userName;// 用户名
-	private String userPassword;// 密码
+	private String account;// 用户账号
+	private String password;// 密码
 	private String salt;// 密码干扰
-	private String phone;// 手机号
+	private String userName;// 用户名
+	private String udn; //用户号码
 	private String role;// 角色 [sys_admin, sys_user, ]
-	private String idCard;// 身份证号
-	private int status;// 状态 0: 启用 1:禁用
+	private int status;// 状态 0: 正常 1:注销
 	private Date registerDate;// 注册时间
-	
+
+	private String area; //TZ地区
+	private String city; //TZ城市
+	private String server; //NTP服务器
+	private String remark; //备注
+
 	private String newPassword;// 新密码：只做修改密码的时候使用
 
-	public Long getId() {
-		return id;
-	}
+	public Long getId() { return id; }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	public void setId(Long id) { this.id = id; }
 
-	public String getUserAccount() {
-		return userAccount;
-	}
+	public String getAccount() { return account; }
 
-	public void setUserAccount(String userAccount) {
-		this.userAccount = userAccount;
-	}
+	public void setAccount(String account) { this.account = account; }
 
-	public String getUserName() {
-		return userName;
-	}
+	public String getPassword() { return password; }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+	public void setPassword(String password) { this.password = password; }
 
-	public String getUserPassword() {
-		return userPassword;
-	}
+	public String getSalt() { return salt; }
 
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
-	}
+	public void setSalt(String salt) { this.salt = salt; }
 
-	public String getSalt() {
-		return salt;
-	}
+	public String getUserName() { return userName; }
 
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
+	public void setUserName(String userName) { this.userName = userName; }
 
-	public String getPhone() {
-		return phone;
-	}
+	public String getUdn() { return udn; }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+	public void setUdn(String udn) { this.udn = udn; }
 
-	public String getRole() {
-		return role;
-	}
+	public String getRole() { return role; }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+	public void setRole(String role) { this.role = role; }
 
-	public String getIdCard() {
-		return idCard;
-	}
+	public int getStatus() { return status; }
 
-	public void setIdCard(String idCard) {
-		this.idCard = idCard;
-	}
+	public void setStatus(int status) { this.status = status; }
 
-	public int getStatus() {
-		return status;
-	}
+	public Date getRegisterDate() { return registerDate; }
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+	public void setRegisterDate(Date registerDate) { this.registerDate = registerDate; }
 
-	public Date getRegisterDate() {
-		return registerDate;
-	}
+	public String getArea() { return area; }
 
-	public void setRegisterDate(Date registerDate) {
-		this.registerDate = registerDate;
-	}
+	public void setArea(String area) { this.area = area; }
 
-	public String getNewPassword() {
-		return newPassword;
-	}
+	public String getCity() { return city; }
 
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
+	public void setCity(String city) { this.city = city; }
 
+	public String getServer() { return server; }
+
+	public void setServer(String server) { this.server = server; }
+
+	public String getRemark() { return remark; }
+
+	public void setRemark(String remark) { this.remark = remark; }
+
+	public String getNewPassword() { return newPassword; }
+
+	public void setNewPassword(String newPassword) { this.newPassword = newPassword; }
 }

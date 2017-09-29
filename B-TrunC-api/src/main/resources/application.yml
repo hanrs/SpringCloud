@@ -11,6 +11,7 @@ redis:
   password:
   use-pool: true
 
+
 logging:
     config: classpath:logback.xml
 

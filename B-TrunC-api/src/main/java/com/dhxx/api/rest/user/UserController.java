@@ -8,10 +8,9 @@ import com.dhxx.common.entity.user.User;
 import com.dhxx.common.entity.user.UserInfo;
 import com.dhxx.common.utils.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("user")
@@ -23,22 +22,55 @@ public class UserController {
     @Autowired
     TokenManager manager;
 
-    @PostMapping("save/{phone}")
-    public Object save(@PathVariable String phone) throws Exception {
+    @PostMapping("login")
+    public Object login(@RequestBody User user) throws Exception {
         UserInfo u = new UserInfo();
-        u.setToken(phone);
-        manager.createToken(u);
+        User usered = userFeignClient.login(user);
+        if(usered!=null){
+            String token = UUID.randomUUID().toString();
+            u.setAccount(user.getAccount());
+            u.setRole(user.getRole());
+            u.setUserName(user.getUserName());
+            u.setToken(token);
+            manager.createToken(u);
+        }
         return Resp.SUCCESS(u);
     }
 
-    @PostMapping("info/{phone}")
-    @Authorization
-    public Object info(@PathVariable String phone) {
-        User u = new User();
-        u.setPhone(phone);
-        u = userFeignClient.info(u);
-        if (u == null)
-            throw RestException.USER_NOT_EXISTS;
-        return Resp.SUCCESS(u);
+    @PostMapping("save")
+    public Object save(@RequestBody User user) throws Exception {
+        try {
+            userFeignClient.save(user);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return Resp.SUCCESS(user);
+    }
+
+    @PostMapping("update")
+    public Object update(@RequestBody User user) throws  Exception {
+        try {
+            userFeignClient.update(user);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return Resp.SUCCESS(user);
+
+    }
+
+    @PostMapping("delete")
+    public Object delete(@RequestBody User user) throws  Exception {
+        try {
+            userFeignClient.delete(user);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return Resp.SUCCESS(user);
     }
 }

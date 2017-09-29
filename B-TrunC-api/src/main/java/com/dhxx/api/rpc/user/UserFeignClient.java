@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * 使用@FeignClient("B-TrunC-service")注解绑定B-TrunC-service服务，还可以使用url参数指定一个URL。
+ *
  * @author hanrs
  */
 @Primary
@@ -27,8 +28,18 @@ public interface UserFeignClient {
      * @param user
      * @return user
      */
-    @PostMapping("/B-TrunC-service/user/info")
-    public User info(User user);
+
+    @PostMapping("/B-TrunC-service/user/login")
+    public User login(User user);
+
+    @PostMapping("/B-TrunC-service/user/save")
+    public void save(User user);
+
+    @PostMapping("/B-TrunC-service/user/update")
+    public void update(User user);
+
+    @PostMapping("/B-TrunC-service/user/delete")
+    public void delete(User user);
 
     @Component
     static class HystrixUserFeignClientFallback implements UserFeignClient {
@@ -36,14 +47,30 @@ public interface UserFeignClient {
         private static final Logger log = LoggerFactory.getLogger(HystrixUserFeignClientFallback.class);
 
         @Override
-        public User info(User user) {
-            log.error("application=B-TrunC-service,url=/user/info 异常发生，进入fallback方法，接收的参数：user = "+ JSON.toJSONString(user));
+        public User login(User user) {
+            log.error("application=B-TrunC-service,url=/user/login 异常发生，进入fallback方法，接收的参数：user = " + JSON.toJSONString(user));
             user.setId(-1L);
             return user;
         }
+
+        @Override
+        public void save(User user) {
+            log.error("application=B-TrunC-service,url=/user/save 异常发生，进入fallback方法，接收的参数：user = " + JSON.toJSONString(user));
+            user.setId(-1L);
+        }
+
+        @Override
+        public void update(User user) {
+            log.error("application=B-TrunC-service,url=/user/update 异常发生，进入fallback方法，接收的参数：user = " + JSON.toJSONString(user));
+            user.setId(-1L);
+        }
+
+        @Override
+        public void delete(User user) {
+            log.error("application=B-TrunC-service,url=/user/delete 异常发生，进入fallback方法，接收的参数：user = " + JSON.toJSONString(user));
+            user.setId(-1L);
+        }
     }
-
-
 }
 
 

@@ -61,7 +61,7 @@ public class AuthorizationAspect {
 
         userInfo = manager.getToken(token);// 从redis获取
         if (manager.checkToken(userInfo)) {
-            logger.info("the user Account is " + userInfo.getUserAccount() + " using token is " + token);
+            logger.info("the user Account is " + userInfo.getAccount() + " using token is " + token);
             Object obj= joinPoint.proceed();
             logger.debug("=====SysLogAspect 环绕通知结束=====");
             return  obj;

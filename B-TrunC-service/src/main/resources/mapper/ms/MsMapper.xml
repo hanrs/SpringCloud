@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.ms.MsMapper">
+
+    <insert id="save" parameterType="com.dhxx.common.entity.ms.MsInfo" >
+        insert into TB_MS_INFO(
+				udn,
+				online_status,
+				status,
+				type,
+				is_tcn,
+				is_sub_group,
+				is_sub_register)
+		values(
+				#{udn,jdbcType=VARCHAR},
+				#{onlineStatus,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{type,jdbcType=VARCHAR},
+				#{isTcn,jdbcType=VARCHAR},
+				#{isSubGroup,jdbcType=VARCHAR},
+				#{isSubRegister,jdbcType=VARCHAR}
+				)
+	</insert>
+
+    <update id="update" parameterType="com.dhxx.common.entity.ms.MsInfo">
+        update TB_MS_INFO
+        <set>
+            <if test="udn != null and udn != ''">
+                udn = #{udn,jdbcType=VARCHAR},
+            </if>
+            <if test="onlineStatus != null and onlineStatus != ''">
+                online_status = #{onlineStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="isTcn != null and isTcn != ''">
+                is_tcn = #{isTcn,jdbcType=VARCHAR},
+            </if>
+
+            <if test="isSubGroup != null and isSubGroup != ''">
+                is_sub_group = #{isSubGroup,jdbcType=VARCHAR},
+            </if>
+
+            <if test="isSubRegister != null and isSubRegister != ''">
+                is_sub_register = #{isSubRegister,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+        where udn = #{udn}
+    </update>
+
+    <delete id="delete" parameterType="com.dhxx.common.entity.ms.MsInfo">
+        delete from TB_MS_INFO where udn = #{udn}
+    </delete>
+</mapper>

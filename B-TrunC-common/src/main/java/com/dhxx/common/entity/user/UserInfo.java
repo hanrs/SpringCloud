@@ -9,7 +9,7 @@ public class UserInfo implements Serializable {
 
     private String userName;// 用户名称
 
-    private String userAccount;// 登录帐号
+    private String account;// 登录帐号
     
     private String role;// 角色
     
@@ -27,13 +27,9 @@ public class UserInfo implements Serializable {
         this.userName = userName;
     }
 
-    public String getUserAccount() {
-        return userAccount;
-    }
+    public String getAccount() { return account; }
 
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
-    }
+    public void setAccount(String account) { this.account = account; }
 
     public String getRole() {
         return role;

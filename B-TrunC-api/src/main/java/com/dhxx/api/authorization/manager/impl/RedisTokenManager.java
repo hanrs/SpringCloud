@@ -33,7 +33,7 @@ public class RedisTokenManager implements TokenManager {
 
     @SuppressWarnings("unused")
     public Long findTokenByUser(UserInfo userInfo) {
-        String token = (String) redisTemplate.boundValueOps(USER + userInfo.getUserAccount()).get();
+        String token = (String) redisTemplate.boundValueOps(USER + userInfo.getAccount()).get();
         Long time = redisTemplate.boundValueOps(ACCESS + userInfo.getToken()).getExpire();
         return time;
     }

@@ -2,106 +2,119 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dhxx.service.mapper.user.UserMapper">
 
-	<select id="list" parameterType="com.dhxx.common.entity.user.User" resultType="com.dhxx.common.entity.user.User">
-		select  u.id,
-				u.user_account userAccount,
-				u.user_name userName,
-				u.user_password userPassword,
-				u.salt,
-				u.phone,
-				u.role,
-				u.id_card idCard,
-				u.status,
-				u.register_date registerDate
- 		from t_user u
-    	where 1 = 1
-    	<if test="userName != null and userName != ''">
-			and u.user_name like '%'||#{userName}||'%'
-		</if>
-    	<if test="userAccount != null and userAccount != ''">
-			and u.user_account like '%'||#{userAccount}||'%'
-		</if>
-	</select>
-	
-	<select id="listByName" parameterType="java.lang.String" resultType="com.dhxx.common.entity.user.User">
-		select  u.id,
-				u.user_account userAccount,
-				u.user_name userName,
-				u.user_password userPassword,
-				u.salt,
-				u.phone,
-				u.id_card idCard,
-				u.status,
-				u.register_date registerDate
- 		from t_user u
-    	where u.user_name = #{userName}
-	</select>
-	
-	<select id="info" parameterType="com.dhxx.common.entity.user.User" resultType="com.dhxx.common.entity.user.User">
-		select  u.id,
-				u.user_account userAccount,
-				u.user_name userName,
-				u.user_password userPassword,
-				u.salt,
-				u.phone,
-				u.role,
-				u.id_card idCard,
-				u.status,
-				u.register_date registerDate
- 		from t_user u 
- 		where 1 = 1
-		<if test="userAccount != null and userAccount != ''">
-			and u.user_account = #{userAccount} or u.phone = #{userAccount}
-		</if>
-		<if test="phone != null and phone != ''">
-			and u.user_account = #{phone} or u.phone = #{phone}
-		</if>
-	</select>
-	
-	<insert id="save" parameterType="com.dhxx.common.entity.user.User">
-		insert into t_user(
-				user_account, 
-				user_name, 
-				user_password, 
-				salt, 
-				phone, 
-				role, 
-				id_card, 
+    <select id="list" parameterType="com.dhxx.common.entity.user.User" resultType="com.dhxx.common.entity.user.User">
+        select u.id,
+        u.account account,
+        u.password password,
+        u.salt salt,
+        u.userName userName,
+        u.udn udn,
+        u.role,
+        u.status status,
+        u.register_date registerDate,
+        u.area area,
+        u.city city,
+        u.server server,
+        u.remark remark
+        from TB_USER u
+        where 1 = 1
+        <if test="userName != null and userName != ''">
+            and u.userName like '%'||#{userName}||'%'
+        </if>
+        <if test="account != null and account != ''">
+            and u.account like '%'||#{account}||'%'
+        </if>
+    </select>
+
+    <select id="infoByAccout" resultType="com.dhxx.common.entity.user.User">
+        select u.id,
+        u.account account,
+        u.password password,
+        u.salt salt,
+        u.user_name userName,
+        u.udn udn,
+        u.role role,
+        u.status status,
+        u.register_date registerDate,
+        u.area area,
+        u.city city,
+        u.server server,
+        u.remark remark
+        from TB_USER u
+        where 1 = 1
+        <if test="account != null and account != ''">
+            and u.account = #{account}
+        </if>
+    </select>
+
+    <insert id="save" parameterType="com.dhxx.common.entity.user.User">
+		insert into TB_USER(
+				account,
+				password,
+				salt,
+				user_name,
+				udn,
+				role,
 				status, 
-				register_date)  
+				register_date,
+				area,
+				city,
+				server,
+				remark)
 		values(
-				#{userAccount,jdbcType=VARCHAR}, 
-				#{userName,jdbcType=VARCHAR}, 
-				#{userPassword,jdbcType=VARCHAR}, 
+				#{account,jdbcType=VARCHAR},
+				#{password,jdbcType=VARCHAR},
 				#{salt,jdbcType=VARCHAR},
-				#{phone,jdbcType=VARCHAR},
+				#{userName,jdbcType=VARCHAR},
+				#{udn,jdbcType=VARCHAR},
 				#{role,jdbcType=VARCHAR},
-				#{idCard,jdbcType=VARCHAR},
 				#{status,jdbcType=VARCHAR},
-				#{registerDate,jdbcType=VARCHAR})  
+				#{registerDate,jdbcType=VARCHAR},
+				#{area,jdbcType=VARCHAR},
+				#{city,jdbcType=VARCHAR},
+				#{server,jdbcType=VARCHAR},
+				#{remark,jdbcType=VARCHAR})
 	</insert>
-	
-	<update id="update" parameterType="com.dhxx.common.entity.user.User">
-		update t_user 
-		<set>
-			<if test="userName != null and userName != ''">
-				user_name = #{userName,jdbcType=VARCHAR},
-			</if>
-			<if test="userPassword != null and userPassword != ''">
-				user_password = #{userPassword,jdbcType=VARCHAR},
-			</if>
-			<if test="salt != null and salt != ''">
-				salt = #{salt,jdbcType=VARCHAR},
-			</if>
-			<if test="status != null">
-				status=#{status},
-			</if>
-		</set> 
-        where user_account = #{userAccount}
-	</update>
-	
-	<delete id="delete" parameterType="com.dhxx.common.entity.user.User">
-		delete from t_user where user_account = #{userAccount}
+
+    <update id="update" parameterType="com.dhxx.common.entity.user.User">
+        update TB_USER
+        <set>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null and userPassword != ''">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null and salt != ''">
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="udn != null and udn != ''">
+                udn = #{udn,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null and role != ''">
+                role = #{role,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status=#{status},
+            </if>
+            <if test="area != null and area != ''">
+                area = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null and city != ''">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="server != null and server != ''">
+                server = #{server,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where account = #{account}
+    </update>
+
+    <delete id="delete" parameterType="com.dhxx.common.entity.user.User">
+		delete from TB_USER where account = #{account}
 	</delete>
-	
+
 </mapper>
