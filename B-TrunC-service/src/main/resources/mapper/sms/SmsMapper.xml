@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.sms.SmsMapper">
+
+    <resultMap id="smsMap" type="com.dhxx.common.entity.sms.SmsLog">
+        <id column="id" property="id" />
+        <result column="udn" property="udn" />
+        <result column="send_udn" property="sendUdn" />
+        <result column="content" property="content" />
+        <result column="status" property="status" />
+        <result column="rec_time" property="recTime" />
+    </resultMap>
+
+    <insert id="save" parameterType="com.dhxx.common.entity.sms.SmsLog" >
+        insert into TB_SMS_LOG(
+        udn,
+        send_udn,
+        content,
+        status,
+        rec_time)
+        values(
+        #{udn,jdbcType=VARCHAR},
+        #{sendUdn,jdbcType=VARCHAR},
+        #{content,jdbcType=VARCHAR},
+        #{status,jdbcType=VARCHAR},
+        #{recTime,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="com.dhxx.common.entity.sms.SmsLog">
+        delete from TB_SMS_LOG where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.dhxx.common.entity.sms.SmsLog">
+        update TB_SMS_LOG set status = 1
+        where id = #{id}
+    </update>
+
+    <select id="findSmsLogByPage" resultMap="smsMap">
+        select s.ID,
+        s.UDN,
+        s.SEND_UDN,
+        s.CONTENT,
+        s.STATUS,
+        s.REC_TIME
+        from TB_SMS_LOG s
+        where s.UDN = #{udn} or s.SEND_UDN = #{udn}
+
+        <if test="type != null and type != ''">
+            and s.STATUS = #{type}
+        </if>
+
+        <if test="isWeek != null and isWeek != ''">
+            and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(s.REC_TIME)
+        </if>
+
+        <if test="startTime != null and endTime != null">
+            and s.REC_TIME BETWEEN  #{startTime} AND #{endTime}
+        </if>
+
+        <if test="queryUdn != null and queryUdn != ''">
+            and s.UDN = #{queryUdn} or s.SEND_UDN = #{queryUdn}
+        </if>
+
+        <if test="userName != null and userName != ''">
+            and s.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
+            or s.SEND_UDN = select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
+        </if>
+
+        limit ${(pageNow-1)*pageSize)}, #{pageSize}
+    </select>
+
+    <select id="findSmsLogByCount" resultType="java.lang.Double">
+        select count(1)
+        from TB_SMS_LOG s
+        where s.UDN = #{udn} or s.SEND_UDN = #{udn}
+
+        <if test="type != null and type != ''">
+            and s.STATUS = #{type}
+        </if>
+
+        <if test="isWeek != null and isWeek != ''">
+            and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(s.REC_TIME)
+        </if>
+
+        <if test="startTime != null and endTime != null">
+            and s.REC_TIME BETWEEN  #{startTime} AND #{endTime}
+        </if>
+
+        <if test="queryUdn != null and queryUdn != ''">
+            and s.UDN = #{queryUdn} or s.SEND_UDN = #{queryUdn}
+        </if>
+
+        <if test="userName != null and userName != ''">
+            and s.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
+            or s.SEND_UDN = select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
+        </if>
+
+    </select>
+
+    <select id="smsCountByStatus0" resultType="java.lang.Integer">
+        select count(1) from TB_SMS_LOG s
+        where s.UDN = #{udn}
+        and s.status = 0
+    </select>
+
+</mapper>

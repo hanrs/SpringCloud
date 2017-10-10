@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.grpms.GrpMsMapper">
+
+    <resultMap id="grpMsMap" type="com.dhxx.common.entity.grpms.GroupMs">
+        <id column="id" property="id" />
+        <result column="grp_id" property="grpId" />
+        <result column="udn" property="udn" />
+        <result column="is_sub_call" property="isSubCall" />
+        <result column="user_name" property="userName" />
+        <result column="grp_name" property="grpName" />
+    </resultMap>
+
+    <insert id="save" parameterType="com.dhxx.common.entity.grpms.GroupMs" >
+        insert into TB_GROUP_MS(
+        grp_id,
+        udn,
+        is_sub_call)
+        values(
+        #{grpId,jdbcType=VARCHAR},
+        #{udn,jdbcType=VARCHAR},
+        #{isSubCall,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.dhxx.common.entity.grpms.GroupMs">
+        update TB_GROUP_MS
+        <set>
+            <if test="isSubCall != null and isSubCall != ''">
+                is_sub_call = #{isSubCall,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where grp_id = #{grpId}
+        and udn = #{udn}
+    </update>
+
+    <delete id="delete" parameterType="com.dhxx.common.entity.grpms.GroupMs">
+        delete from TB_GROUP_MS where grp_id = #{grpId}  and udn = #{udn}
+    </delete>
+
+    <select id="queryGrpMsByUdn" resultMap="grpMsMap">
+        select gm.GRP_ID,grp.GRP_NAME,gm.UDN,gm.IS_SUB_CALL from TB_GROUP_MS gm
+        inner join TB_GROUP_INFO grp on grp.GRP_ID=gm.GRP_ID
+        where gm.UDN = #{udn}
+    </select>
+
+    <select id="queryGrpMsByGrpId"  resultMap="grpMsMap">
+       select gm.GRP_ID,gm.UDN,u.USER_NAME,gm.IS_SUB_CALL from TB_GROUP_MS gm
+        inner join TB_USER u on gm.UDN=u.UDN
+        where gm.GRP_ID = #{grpId}
+        and gm.UDN != #{udn}
+    </select>
+</mapper>

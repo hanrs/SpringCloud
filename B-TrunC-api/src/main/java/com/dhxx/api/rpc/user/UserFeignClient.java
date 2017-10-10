@@ -8,6 +8,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 使用@FeignClient("B-TrunC-service")注解绑定B-TrunC-service服务，还可以使用url参数指定一个URL。
@@ -50,7 +51,7 @@ public interface UserFeignClient {
         public User login(User user) {
             log.error("application=B-TrunC-service,url=/user/login 异常发生，进入fallback方法，接收的参数：user = " + JSON.toJSONString(user));
             user.setId(-1L);
-            return user;
+            return null;
         }
 
         @Override

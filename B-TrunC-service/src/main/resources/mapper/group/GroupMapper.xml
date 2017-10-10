@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.group.GroupMapper">
+
+    <resultMap id="grpMap" type="com.dhxx.common.entity.group.GroupInfo">
+        <id column="id" property="id" />
+        <result column="grp_id" property="grpId" />
+        <result column="grp_name" property="grpName" />
+        <result column="type" property="type" />
+        <result column="is_temp" property="isTemp" />
+        <result column="meet_type" property="meetType" />
+        <result column="create_time" property="createTime" />
+        <result column="remark" property="remark" />
+        <result column="count" property="count" />
+    </resultMap>
+
+    <insert id="save" parameterType="com.dhxx.common.entity.group.GroupInfo" >
+        insert into TB_GROUP_INFO(
+        grp_id,
+        grp_name,
+        type,
+        is_temp,
+        meet_type,
+        create_time,
+        remark)
+        values(
+        #{grpId,jdbcType=VARCHAR},
+        #{grpName,jdbcType=VARCHAR},
+        #{type,jdbcType=VARCHAR},
+        #{isTemp,jdbcType=VARCHAR},
+        #{meetType,jdbcType=VARCHAR},
+        #{createTime,jdbcType=VARCHAR},
+        #{remark,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.dhxx.common.entity.group.GroupInfo">
+        update TB_GROUP_INFO
+        <set>
+            <if test="grpName != null and grpName != ''">
+                grp_name = #{grpName,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="isTemp != null and isTemp != ''">
+                is_temp = #{isTemp,jdbcType=VARCHAR},
+            </if>
+            <if test="meetType != null and meetType != ''">
+                meet_type = #{meetType,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+        where grp_id = #{grpId}
+    </update>
+
+    <delete id="delete" parameterType="com.dhxx.common.entity.group.GroupInfo">
+        delete from TB_GROUP_INFO where grp_id = #{grpId}
+    </delete>
+
+    <select id="findGrpByPage" resultMap="grpMap">
+        select g.GRP_ID,
+               g.GRP_NAME,
+               gm.IS_SUB_CALL,
+               g.CREATE_TIME,
+               g.REMARK,(select count(gm1.UDN) from TB_GROUP_MS gm1 where gm1.GRP_ID=g.GRP_ID) count
+        from TB_GROUP_INFO g
+        inner join TB_GROUP_MS gm on gm.GRP_ID = g.GRP_ID
+        where g.IS_TEMP = #{isTemp}
+        and gm.UDN = #{udn}
+
+        limit (#{pageNow}-1) * #{pageSize}) , #{pageSize}
+    </select>
+
+    <select id="findGrpByCount" resultType="java.lang.Double">
+        select count(1)
+        from TB_GROUP_INFO g
+        inner join TB_GROUP_MS gm on gm.GRP_ID = g.GRP_ID
+        where g.IS_TEMP = #{isTemp}
+        and gm.UDN = #{udn}
+
+    </select>
+
+</mapper>

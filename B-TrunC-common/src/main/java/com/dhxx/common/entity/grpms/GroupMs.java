@@ -1,4 +1,4 @@
-package com.dhxx.common.entity.groupms;
+package com.dhxx.common.entity.grpms;
 
 /**
  * <p> 类说明 </p>
@@ -8,15 +8,17 @@ package com.dhxx.common.entity.groupms;
  * 群组终端关系表 (TB_GROUP_MS)
  */
 public class GroupMs {
-    private Integer id; //主键
+    private Long id; //主键
     private String grpId; //群组ID
     private String udn; //用户号码
     private Integer isSubCall; //呼叫状态获取订阅（0已订阅1不订阅）
-    private String remark; //备注
 
-    public Integer getId() { return id; }
+    private String grpName; //群组名
+    private String userName; //用户名
 
-    public void setId(Integer id) { this.id = id; }
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     public String getGrpId() { return grpId; }
 
@@ -30,7 +32,11 @@ public class GroupMs {
 
     public void setIsSubCall(Integer isSubCall) { this.isSubCall = isSubCall; }
 
-    public String getRemark() { return remark; }
+    public String getGrpName() { return grpName; }
 
-    public void setRemark(String remark) { this.remark = remark; }
+    public void setGrpName(String grpName) { this.grpName = grpName; }
+
+    public String getUserName() { return userName; }
+
+    public void setUserName(String userName) { this.userName = userName; }
 }

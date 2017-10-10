@@ -18,8 +18,7 @@ public class AudioVideo {
     private String filePath; //文件路径
     private Integer recDuration; //录制时长（s）
     private Integer type; //记录类型（0录音文件夹，1照片文件夹2录像文件夹）
-    private Date startTime; //开始时间
-    private Date endTime; //结束时间
+    private Date createTime; //开始时间
 
     public Long getId() { return id; }
 
@@ -53,11 +52,7 @@ public class AudioVideo {
 
     public void setType(Integer type) { this.type = type; }
 
-    public Date getStartTime() { return startTime; }
+    public Date getCreateTime() { return createTime; }
 
-    public void setStartTime(Date startTime) { this.startTime = startTime; }
-
-    public Date getEndTime() { return endTime; }
-
-    public void setEndTime(Date endTime) { this.endTime = endTime; }
+    public void setCreateTime(Date createTime) { this.createTime = createTime; }
 }

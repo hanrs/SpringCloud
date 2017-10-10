@@ -21,16 +21,22 @@ public class TcnInfoController {
     @Autowired
     private TcnInfoFeignClient tcninfoFeignClient;
 
+    private String msg = null;
+    private boolean isSuccess = true;
+
     @PostMapping("save")
     public Object save(@RequestBody TcnInfo tcn) throws Exception {
         try {
             tcninfoFeignClient.save(tcn);
+            msg = "保存成功";
         }catch (Exception e) {
             e.printStackTrace();
+            msg = "保存失败";
+            isSuccess = false;
             return null;
         }
 
-        return Resp.SUCCESS(tcn);
+        return Resp.SUCCESS(isSuccess, msg, tcn);
     }
 
     @PostMapping("update")

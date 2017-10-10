@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.call.CallMapper">
+
+    <resultMap id="callMap" type="com.dhxx.common.entity.call.CallLog">
+        <id column="id" property="id" />
+        <result column="udn" property="udn" />
+        <result column="caller_udn" property="callerUdn" />
+        <result column="type" property="type" />
+        <result column="is_emg_call" property="isEmgCall" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+    </resultMap>
+
+    <insert id="save" parameterType="com.dhxx.common.entity.call.CallLog" >
+        insert into TB_CALL_LOG(
+        udn,
+        caller_udn,
+        type,
+        is_emg_call,
+        start_time,
+        end_time)
+        values(
+        #{udn,jdbcType=VARCHAR},
+        #{callerUdn,jdbcType=VARCHAR},
+        #{type,jdbcType=VARCHAR},
+        #{isEmgCall,jdbcType=VARCHAR},
+        #{startTime,jdbcType=VARCHAR},
+        #{endTime,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="com.dhxx.common.entity.call.CallLog">
+        delete from TB_CALL_LOG where id = #{id}
+    </delete>
+
+    <select id="findCallLogByType" resultMap="callMap">
+        select c.ID,
+               c.UDN,
+               c.CALLER_UDN,
+               c.TYPE,
+               c.IS_EMG_CALL,
+               c.START_TIME,
+               c.END_TIME
+        from TB_CALL_LOG c
+        where c.UDN = #{udn}
+        <if test="type != null and type != ''">
+            and  c.TYPE= #{type}
+        </if>
+
+        limit ${(pageNow-1)*pageSize}, #{pageSize}
+    </select>
+
+    <select id="findCallLogByCount" resultType="java.lang.Double">
+        select count(1)
+        from TB_CALL_LOG c
+        where c.UDN = #{udn}
+        <if test="type != null and type != ''">
+            and  c.TYPE= #{type}
+        </if>
+
+    </select>
+
+    <select id="missedCalls" resultType="java.lang.Integer">
+        select count(1) from TB_CALL_LOG c
+        where c.UDN = #{udn}
+        and c.TYPE = 2
+        and c.IS_EMG_CALL = 0
+    </select>
+
+    <select id="emgCall" resultType="java.lang.Integer">
+        select count(1) from TB_CALL_LOG c
+        where c.UDN = #{udn}
+        and c.TYPE = 2
+        and c.IS_EMG_CALL = 1
+    </select>
+</mapper>

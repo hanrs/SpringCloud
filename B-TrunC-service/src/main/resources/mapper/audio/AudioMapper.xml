@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.audio.AudioMapper">
+
+    <resultMap id="audioMap" type="com.dhxx.common.entity.audio.AudioVideo">
+        <id column="id" property="id" />
+        <result column="udn" property="udn" />
+        <result column="caller_udn" property="callerUdn" />
+        <result column="file_name" property="fileName" />
+        <result column="file_size" property="fileSize" />
+        <result column="file_path" property="filePath" />
+        <result column="rec_duration" property="recDuration" />
+        <result column="type" property="type" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <insert id="save" parameterType="com.dhxx.common.entity.audio.AudioVideo" >
+        insert into TB_AUDIO_VIDEO(
+        udn,
+        caller_udn,
+        file_name,
+        file_size,
+        file_path,
+        rec_duration,
+        type,
+        create_time)
+        values(
+        #{udn,jdbcType=VARCHAR},
+        #{callerUdn,jdbcType=VARCHAR},
+        #{fileName,jdbcType=VARCHAR},
+        #{fileSize,jdbcType=VARCHAR},
+        #{filePath,jdbcType=VARCHAR},
+        #{recDuration,jdbcType=VARCHAR},
+        #{type,jdbcType=VARCHAR},
+        #{createTime,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="com.dhxx.common.entity.audio.AudioVideo">
+        delete from TB_AUDIO_VIDEO where id = #{id}
+    </delete>
+
+    <select id="findAudioVideoByPage" resultMap="audioMap">
+        select a.ID,
+               a.UDN,
+               a.CALLER_UDN,
+               a.FILE_NAME,
+               a.FILE_SIZE,
+               a.FILE_PATH,
+               a.REC_DURATION,
+               a.TYPE,
+               a.CREATE_TIME
+        from TB_AUDIO_VIDEO a
+        where a.UDN = #{udn} or a.CALLER_UDN = #{udn}
+
+        <if test="type != null and type != ''">
+            and a.TYPE = #{type}
+        </if>
+
+        <if test="isWeek != null and isWeek != ''">
+            and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(a.CREATE_TIME)
+        </if>
+
+        <if test="startTime != null and endTime != null">
+            and a.CREATE_TIME BETWEEN  #{startTime} AND #{endTime}
+        </if>
+
+        <if test="queryUdn != null and queryUdn != ''">
+            and a.UDN = #{queryUdn} or a.CALLER_UDN = #{queryUdn}
+        </if>
+
+        <if test="userName != null and userName != ''">
+            and a.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
+            or a.CALLER_UDN = select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
+        </if>
+
+        limit (#{pageNow}-1) * #{pageSize}) , #{pageSize}
+    </select>
+
+    <select id="findAudioVideoByCount" resultType="java.lang.Double">
+        select count(1)
+        from TB_AUDIO_VIDEO a
+        where a.UDN = #{udn} or a.CALLER_UDN = #{udn}
+
+        <if test="type != null and type != ''">
+            and a.TYPE = #{type}
+        </if>
+
+        <if test="isWeek != null and isWeek != ''">
+            and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(a.CREATE_TIME)
+        </if>
+
+        <if test="startTime != null and endTime != null">
+            and a.CREATE_TIME BETWEEN  #{startTime} AND #{endTime}
+        </if>
+
+        <if test="queryUdn != null and queryUdn != ''">
+            and a.UDN = #{queryUdn} or a.CALLER_UDN = #{queryUdn}
+        </if>
+
+        <if test="userName != null and userName != ''">
+            and a.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
+            or a.CALLER_UDN = select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
+        </if>
+
+    </select>
+
+</mapper>

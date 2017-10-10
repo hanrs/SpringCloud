@@ -11,13 +11,17 @@ package com.dhxx.common.entity.ms;
 public class MsInfo {
     private Long id; //主键
     private String udn; //用户号码
-    private Integer onineStatus; //在线状态（0空闲，1离线，2未注册，3通话中）
+    private Integer onlineStatus; //在线状态（0空闲，1离线，2未注册，3通话中）
     private Integer status; //终端状态（0正常，1冻结）
     private Integer type; //设备类型
     private String imsi; //IMSI号码
     private Integer isTCN; //是否核心网激活（0否1是）
     private Integer isSubGroup; //所属组获取订阅（0不订阅1已订阅）
-    private Integer isSubPegister; //注册状态获取订阅（0不订阅1已订阅）
+    private Integer isSubRegister; //注册状态获取订阅（0不订阅1已订阅）
+
+    private String userName; //用户名
+    private String grpName; //群组名
+    private Integer isSubCall; //呼叫状态获取订阅（0已订阅1不订阅）
 
     public Long getId() { return id; }
 
@@ -27,9 +31,9 @@ public class MsInfo {
 
     public void setUdn(String udn) { this.udn = udn; }
 
-    public Integer getOnineStatus() { return onineStatus; }
+    public Integer getOnlineStatus() { return onlineStatus; }
 
-    public void setOnineStatus(Integer onineStatus) { this.onineStatus = onineStatus; }
+    public void setOnlineStatus(Integer onlineStatus) { this.onlineStatus = onlineStatus; }
 
     public Integer getStatus() { return status; }
 
@@ -51,7 +55,19 @@ public class MsInfo {
 
     public void setIsSubGroup(Integer isSubGroup) { this.isSubGroup = isSubGroup; }
 
-    public Integer getIsSubPegister() { return isSubPegister; }
+    public Integer getIsSubRegister() { return isSubRegister; }
 
-    public void setIsSubPegister(Integer isSubPegister) { this.isSubPegister = isSubPegister; }
+    public void setIsSubRegister(Integer isSubRegister) { this.isSubRegister = isSubRegister; }
+
+    public String getUserName() { return userName; }
+
+    public void setUserName(String userName) { this.userName = userName; }
+
+    public String getGrpName() { return grpName; }
+
+    public void setGrpName(String grpName) { this.grpName = grpName; }
+
+    public Integer getIsSubCall() { return isSubCall; }
+
+    public void setIsSubCall(Integer isSubCall) { this.isSubCall = isSubCall; }
 }

@@ -23,12 +23,12 @@ public class TcnInfoBiz {
     @Autowired
     private TcnInfoMapper tcninfoMapper;
 
-    //新增终端
+    //新增
     public void save(TcnInfo tcn) { tcninfoMapper.save(tcn); }
 
-    //删除终端
+    //删除
     public void delete(TcnInfo tcn) { tcninfoMapper.delete(tcn); }
 
-    //修改终端
+    //修改
     public  void update(TcnInfo tcn) { tcninfoMapper.update(tcn); }
 }
