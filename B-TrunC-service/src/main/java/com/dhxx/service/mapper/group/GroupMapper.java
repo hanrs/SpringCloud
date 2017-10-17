@@ -22,4 +22,12 @@ public interface GroupMapper {
 
     Double findGrpByCount(GrpPageVo grpPageVo); //组 总记录
 
+    List<GroupInfo> findGrpInfoByPGrpId(@Param("pgrpId") String pgrpId);//根据一级群组搜索隶属的二级群组
+
+    GroupInfo findGrpInfoByGrpId(@Param("grpId") String grpId); //根据grpId查找对象
+
+    GroupInfo findGrpIdIsMax(); //查最大的grpId
+
+    GroupInfo findGrpInfoById(@Param("id") Long id); //根据Id查找对象
+
 }

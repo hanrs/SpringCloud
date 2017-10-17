@@ -38,15 +38,15 @@ public class CallController {
     }
 
     @PostMapping("delete")
-    public Object delete(@RequestBody CallLog call) throws  Exception {
+    public Object delete(@RequestBody List<CallLog> calls) throws  Exception {
         try {
-            callFeignClient.delete(call);
+            callFeignClient.delete(calls);
         }catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
-        return Resp.SUCCESS(call);
+        return Resp.SUCCESS(calls);
     }
 
     @PostMapping("findCallLogByType")

@@ -25,7 +25,7 @@ public interface CallFeignClient {
     public void save(CallLog call);
 
     @PostMapping("/B-TrunC-service/call/delete")
-    public void delete(CallLog call);
+    public void delete(List<CallLog> calls);
 
     @PostMapping("/B-TrunC-service/call/findCallLogByType")
     public List<CallLog> findCallLogByType(CallPageVo callPageVo);
@@ -52,9 +52,8 @@ public interface CallFeignClient {
         }
 
         @Override
-        public void delete(CallLog call) {
-            log.error("application=B-TrunC-service,url=/call/delete 异常发生，进入fallback方法，接收的参数：call = " + JSON.toJSONString(call));
-            call.setId(-1L);
+        public void delete(List<CallLog> calls) {
+            log.error("application=B-TrunC-service,url=/call/delete 异常发生，进入fallback方法，接收的参数：call = " + JSON.toJSONString(calls));
         }
 
         @Override

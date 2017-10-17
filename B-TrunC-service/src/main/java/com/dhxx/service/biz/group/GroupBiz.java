@@ -25,10 +25,22 @@ public class GroupBiz {
     @Autowired
     private GroupMapper groupMapper;
 
+
     //新增
-    public void save(GroupInfo group) {
+    public GroupInfo save(GroupInfo group) {
+        GroupInfo groupInfo = null;
+        int grpId =Integer.valueOf(groupMapper.findGrpIdIsMax().getGrpId()) + 1;
+        group.setGrpId(String.valueOf(grpId));
         group.setCreateTime(new Date());
-        groupMapper.save(group);
+        try {
+            groupMapper.save(group);
+            groupInfo = groupMapper.findGrpInfoById(group.getId());
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return groupInfo;
     }
 
     //删除
@@ -48,5 +60,8 @@ public class GroupBiz {
         int totalPages = (int) Math.ceil(count/grpPageVo.getPageSize());
         return totalPages;
     }
+
+    //查找群组信息
+    public GroupInfo findGrpInfoByGrpId(String grpId){ return groupMapper.findGrpInfoByGrpId(grpId); }
 
 }

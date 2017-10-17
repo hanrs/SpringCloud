@@ -1,5 +1,8 @@
 package com.dhxx.common.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -23,6 +26,8 @@ public class User implements Serializable {
 	private String udn; //用户号码
 	private String role;// 角色 [sys_admin, sys_user, ]
 	private int status;// 状态 0: 正常 1:注销
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date registerDate;// 注册时间
 
 	private String area; //TZ地区

@@ -38,19 +38,19 @@ public class AudioController {
     }
 
     @PostMapping("delete")
-    public Object delete(@RequestBody  AudioVideo audioVideo) throws  Exception {
+    public Object delete(@RequestBody List<AudioVideo> audioVideos) throws  Exception {
         try {
-            audioFeignClient.delete(audioVideo);
+            audioFeignClient.delete(audioVideos);
         }catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
-        return Resp.SUCCESS(audioVideo);
+        return Resp.SUCCESS(audioVideos);
     }
 
     @PostMapping("findAudioVideoByPage")
-    public Object findAudioVideoByPage(AudioPageVo audioPageVo) throws  Exception {
+    public Object findAudioVideoByPage(@RequestBody AudioPageVo audioPageVo) throws  Exception {
         List<AudioVideo> list = new ArrayList<AudioVideo>();
         try {
             list = audioFeignClient.findAudioVideoByPage(audioPageVo);
@@ -62,7 +62,7 @@ public class AudioController {
     }
 
     @PostMapping("findCallLogByCount")
-    public Object findAudioVideoByCount(AudioPageVo audioPageVo) throws  Exception {
+    public Object findAudioVideoByCount(@RequestBody  AudioPageVo audioPageVo) throws  Exception {
         int count = -1;
         try {
             count = audioFeignClient.findAudioVideoByCount(audioPageVo);

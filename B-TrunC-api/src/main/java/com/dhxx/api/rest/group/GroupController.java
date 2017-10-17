@@ -27,14 +27,15 @@ public class GroupController {
 
     @PostMapping("save")
     public Object save(@RequestBody GroupInfo group) throws Exception {
+        GroupInfo grp = null;
         try {
-            groupFeignClient.save(group);
+            grp = groupFeignClient.save(group);
         }catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
-        return Resp.SUCCESS(group);
+        return Resp.SUCCESS(grp);
     }
 
     @PostMapping("update")
@@ -62,7 +63,7 @@ public class GroupController {
     }
 
     @PostMapping("findGrpByPage")
-    public Object findGrpByPage(GrpPageVo grpPageVo) throws Exception {
+    public Object findGrpByPage(@RequestBody GrpPageVo grpPageVo) throws Exception {
         List<GroupInfo> list = new ArrayList<GroupInfo>();
         try {
             list = groupFeignClient.findGrpByPage(grpPageVo);
@@ -74,7 +75,7 @@ public class GroupController {
     }
 
     @PostMapping("findGrpByCount")
-    public Object findGrpByCount(GrpPageVo grpPageVo) throws Exception {
+    public Object findGrpByCount(@RequestBody GrpPageVo grpPageVo) throws Exception {
         int count = -1;
         try {
             count = groupFeignClient.findGrpByCount(grpPageVo);
@@ -83,5 +84,17 @@ public class GroupController {
         }
 
         return count;
+    }
+
+    @PostMapping("findGrpInfoByGrpId")
+    public Object findGrpInfoByGrpId(@RequestBody GroupInfo groupInfo) throws Exception {
+        GroupInfo grpInfoRes = null;
+        try {
+            grpInfoRes = groupFeignClient.findGrpInfoByGrpId(groupInfo);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return grpInfoRes;
     }
 }

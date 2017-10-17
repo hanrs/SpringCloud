@@ -26,7 +26,7 @@ public interface SmsFeignClient {
     public void save(SmsLog sms);
 
     @PostMapping("/B-TrunC-service/sms/delete")
-    public void delete(SmsLog sms);
+    public void delete(List<SmsLog> sms);
 
     @PostMapping("/B-TrunC-service/sms/update")
     public void update(SmsLog sms);
@@ -53,9 +53,8 @@ public interface SmsFeignClient {
         }
 
         @Override
-        public void delete(SmsLog sms) {
+        public void delete(List<SmsLog> sms) {
             log.error("application=B-TrunC-service,url=/sms/delete 异常发生，进入fallback方法，接收的参数：sms = " + JSON.toJSONString(sms));
-            sms.setId(-1L);
         }
 
         @Override

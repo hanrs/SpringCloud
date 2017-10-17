@@ -1,5 +1,6 @@
 package com.dhxx.api.rest.grpms;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dhxx.api.rpc.group.GroupFeignClient;
 import com.dhxx.api.rpc.grpms.GrpMsFeignClient;
 import com.dhxx.common.entity.group.GroupInfo;
@@ -60,9 +61,9 @@ public class GrpMsController {
         return Resp.SUCCESS(groupMs);
     }
 
-    @PostMapping("queryGrpMsByUdn")
+    @PostMapping("getMenu")
     public Object queryGrpMsByUdn(@RequestBody GroupMs groupMs) throws Exception {
-        String jsonMenu = null;
+        JSONObject jsonMenu = null;
         try {
             jsonMenu = grpMsFeignClient.queryGrpMsByUdn(groupMs);
         } catch (Exception e) {

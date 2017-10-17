@@ -1,5 +1,8 @@
 package com.dhxx.common.entity.group;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -16,8 +19,11 @@ public class GroupInfo {
     private Integer type; //组呼类型（0语音组呼，1视频组呼）
     private Integer isTemp; //是否临时组（0不是1是）
     private Integer meetType; //会议模式（0自由模式1麦序模式2主席模式）
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime; //创建时间
     private String remark; //备注
+    private String pgrpId; //父级群组ID，0代表一级群组，最多二级群组
 
     private Integer count; //某个群组下的用户总数
 
@@ -56,4 +62,8 @@ public class GroupInfo {
     public Integer getCount() { return count; }
 
     public void setCount(Integer count) { this.count = count; }
+
+    public String getPgrpId() { return pgrpId; }
+
+    public void setPgrpId(String pgrpId) { this.pgrpId = pgrpId; }
 }

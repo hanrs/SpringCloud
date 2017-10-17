@@ -1,6 +1,7 @@
 package com.dhxx.service.rest.user;
 
 import com.alibaba.fastjson.JSON;
+import com.dhxx.common.entity.vo.UserVo;
 import com.dhxx.service.biz.user.UserBiz;
 import com.dhxx.common.entity.user.User;
 import org.slf4j.Logger;
@@ -76,5 +77,19 @@ public class UserController {
             logger.error(e.getMessage());
             return;
         }
+    }
+
+    @PostMapping("personalInfo")
+    public UserVo personalInfo(@RequestBody UserVo userVo) {
+        logger.debug("/user/personalInfo>>>>personalInfo="+ JSON.toJSONString(userVo));
+        UserVo userVoRps = null;
+        try {
+            userVoRps= userBiz.personalInfo(userVo);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return null;
+        }
+
+        return userVoRps;
     }
 }

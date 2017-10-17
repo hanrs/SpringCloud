@@ -13,8 +13,7 @@ public class SmsPageVo {
     private Integer isWeek; //是否一周内查询(0否，1是)
     private String startTime; //自定义时间查询 开始时间
     private String endTime; //自定义时间查询 结束时间
-    private String userName; //用户名
-    private String queryUdn; //要查找的用户号码
+    private String queryContent; //要查询的内容 用户名或UDN
     private String udn; //登陆的用户号码
 
     public Integer getPageNow() { return pageNow; }
@@ -41,13 +40,9 @@ public class SmsPageVo {
 
     public void setEndTime(String endTime) { this.endTime = endTime; }
 
-    public String getUserName() { return userName; }
+    public String getQueryContent() { return queryContent; }
 
-    public void setUserName(String userName) { this.userName = userName; }
-
-    public String getQueryUdn() { return queryUdn; }
-
-    public void setQueryUdn(String queryUdn) { this.queryUdn = queryUdn; }
+    public void setQueryContent(String queryContent) { this.queryContent = queryContent; }
 
     public String getUdn() { return udn; }
 

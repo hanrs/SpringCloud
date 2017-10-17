@@ -11,10 +11,11 @@
         <result column="meet_type" property="meetType" />
         <result column="create_time" property="createTime" />
         <result column="remark" property="remark" />
+        <result column="pgrp_id" property="pgrpId" />
         <result column="count" property="count" />
     </resultMap>
 
-    <insert id="save" parameterType="com.dhxx.common.entity.group.GroupInfo" >
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.dhxx.common.entity.group.GroupInfo" >
         insert into TB_GROUP_INFO(
         grp_id,
         grp_name,
@@ -69,7 +70,7 @@
         where g.IS_TEMP = #{isTemp}
         and gm.UDN = #{udn}
 
-        limit (#{pageNow}-1) * #{pageSize}) , #{pageSize}
+        limit ${(pageNow-1)*pageSize}, #{pageSize}
     </select>
 
     <select id="findGrpByCount" resultType="java.lang.Double">
@@ -81,4 +82,33 @@
 
     </select>
 
+    <select id="findGrpInfoByPGrpId" resultMap="grpMap">
+        select g.GRP_ID,
+               g.GRP_NAME
+        from TB_GROUP_INFO g where g.PGRP_ID = #{pgrpId}
+    </select>
+
+    <select id="findGrpInfoByGrpId" resultMap="grpMap">
+        select g.GRP_ID,
+               g.GRP_NAME,
+               count(gm.udn) count
+        from TB_GROUP_INFO g
+        inner join TB_GROUP_MS gm on gm.GRP_ID = g.GRP_ID
+        where g.GRP_ID = #{grpId}
+    </select>
+
+    <select id="findGrpIdIsMax" resultMap="grpMap">
+         select g.GRP_ID from TB_GROUP_INFO g ORDER BY g.GRP_ID DESC LIMIT 0,1
+    </select>
+
+    <select id="findGrpInfoById" resultMap="grpMap">
+        select  g.grp_id,
+            g.grp_name,
+            g.type,
+            g.is_temp,
+            g.meet_type,
+            g.create_time,
+            g.remark
+        from TB_GROUP_INFO g where g.ID = #{id}
+    </select>
 </mapper>

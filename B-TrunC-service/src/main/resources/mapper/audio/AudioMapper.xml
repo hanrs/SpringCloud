@@ -51,13 +51,16 @@
                a.TYPE,
                a.CREATE_TIME
         from TB_AUDIO_VIDEO a
-        where a.UDN = #{udn} or a.CALLER_UDN = #{udn}
+        where 1=1
+        <if test="queryContent == null and queryContent == ''">
+            and a.UDN = #{udn} or a.CALLER_UDN = #{udn}
+        </if>
 
         <if test="type != null and type != ''">
             and a.TYPE = #{type}
         </if>
 
-        <if test="isWeek != null and isWeek != ''">
+        <if test="isWeek == 1">
             and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(a.CREATE_TIME)
         </if>
 
@@ -65,22 +68,28 @@
             and a.CREATE_TIME BETWEEN  #{startTime} AND #{endTime}
         </if>
 
-        <if test="queryUdn != null and queryUdn != ''">
-            and a.UDN = #{queryUdn} or a.CALLER_UDN = #{queryUdn}
+        <if test="queryContent != null and queryContent != ''">
+            and (
+              (a.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%${queryContent}%') and a.CALLER_UDN=#{udn})
+              or
+              (a.CALLER_UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%${queryContent}%') and a.UDN=#{udn})
+              or
+              (a.UDN = #{queryContent} and a.CALLER_UDN=#{udn})
+              or
+              (a.CALLER_UDN = #{queryContent} and a.UDN=#{udn})
+            )
         </if>
 
-        <if test="userName != null and userName != ''">
-            and a.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
-            or a.CALLER_UDN = select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
-        </if>
-
-        limit (#{pageNow}-1) * #{pageSize}) , #{pageSize}
+        limit ${(pageNow-1)*pageSize}, #{pageSize}
     </select>
 
     <select id="findAudioVideoByCount" resultType="java.lang.Double">
         select count(1)
         from TB_AUDIO_VIDEO a
-        where a.UDN = #{udn} or a.CALLER_UDN = #{udn}
+        where 1=1
+        <if test="queryContent == null and queryContent == ''">
+            and a.UDN = #{udn} or a.CALLER_UDN = #{udn}
+        </if>
 
         <if test="type != null and type != ''">
             and a.TYPE = #{type}
@@ -94,13 +103,16 @@
             and a.CREATE_TIME BETWEEN  #{startTime} AND #{endTime}
         </if>
 
-        <if test="queryUdn != null and queryUdn != ''">
-            and a.UDN = #{queryUdn} or a.CALLER_UDN = #{queryUdn}
-        </if>
-
-        <if test="userName != null and userName != ''">
-            and a.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
-            or a.CALLER_UDN = select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
+        <if test="queryContent != null and queryContent != ''">
+            and (
+                (a.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%${queryContent}%') and a.CALLER_UDN=#{udn})
+                or
+                (a.CALLER_UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%${queryContent}%') and a.UDN=#{udn})
+                or
+                (a.UDN = #{queryContent} and a.CALLER_UDN=#{udn})
+                or
+                (a.CALLER_UDN = #{queryContent} and a.UDN=#{udn})
+            )
         </if>
 
     </select>

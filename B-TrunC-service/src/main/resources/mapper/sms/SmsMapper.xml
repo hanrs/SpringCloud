@@ -44,42 +44,55 @@
         s.STATUS,
         s.REC_TIME
         from TB_SMS_LOG s
-        where s.UDN = #{udn} or s.SEND_UDN = #{udn}
+        where 1=1
 
-        <if test="type != null and type != ''">
-            and s.STATUS = #{type}
-        </if>
-
-        <if test="isWeek != null and isWeek != ''">
+        <if test="isWeek == 1">
             and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(s.REC_TIME)
         </if>
 
         <if test="startTime != null and endTime != null">
-            and s.REC_TIME BETWEEN  #{startTime} AND #{endTime}
+            and s.REC_TIME BETWEEN  #{startTime} and #{endTime}
         </if>
 
-        <if test="queryUdn != null and queryUdn != ''">
-            and s.UDN = #{queryUdn} or s.SEND_UDN = #{queryUdn}
+        <!--接收短信-->
+        <if test="type==0">
+            <if test="queryContent == null and queryContent == ''">
+                and s.UDN = #{udn}
+            </if>
+
+            <if test="queryContent != null and queryContent != ''">
+                and (
+                (s.SEND_UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%${queryContent}%') and s.udn=#{udn})
+                or
+                (s.SEND_UDN = #{queryContent} and s.udn=#{udn})
+                )
+            </if>
         </if>
 
-        <if test="userName != null and userName != ''">
-            and s.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
-            or s.SEND_UDN = select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
+        <!--发送短信-->
+        <if test="type==1">
+            <if test="queryContent == null and queryContent == ''">
+                and s.SEND_UDN = #{udn}
+            </if>
+
+            <if test="queryContent != null and queryContent != ''">
+                and (
+                    (s.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%${queryContent}%') and s.SEND_UDN=#{udn})
+                    or
+                    (s.UDN = #{queryContent} and s.SEND_UDN=#{udn})
+                )
+            </if>
         </if>
 
-        limit ${(pageNow-1)*pageSize)}, #{pageSize}
+        limit ${(pageNow-1)*pageSize}, #{pageSize}
     </select>
 
     <select id="findSmsLogByCount" resultType="java.lang.Double">
         select count(1)
         from TB_SMS_LOG s
-        where s.UDN = #{udn} or s.SEND_UDN = #{udn}
+        where 1=1
 
-        <if test="type != null and type != ''">
-            and s.STATUS = #{type}
-        </if>
-
-        <if test="isWeek != null and isWeek != ''">
+        <if test="isWeek == 1">
             and DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(s.REC_TIME)
         </if>
 
@@ -87,13 +100,34 @@
             and s.REC_TIME BETWEEN  #{startTime} AND #{endTime}
         </if>
 
-        <if test="queryUdn != null and queryUdn != ''">
-            and s.UDN = #{queryUdn} or s.SEND_UDN = #{queryUdn}
+        <!--接收短信-->
+        <if test="type==0">
+            <if test="queryContent == null and queryContent == ''">
+                and s.UDN = #{udn}
+            </if>
+
+            <if test="queryContent != null and queryContent != ''">
+                and (
+                (s.SEND_UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%${queryContent}%') and s.udn=#{udn})
+                or
+                (s.SEND_UDN = #{queryContent} and s.udn=#{udn})
+                )
+            </if>
         </if>
 
-        <if test="userName != null and userName != ''">
-            and s.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
-            or s.SEND_UDN = select u.UDN from TB_USER u where u.USER_NAME like '%'||#{userName}||'%')
+        <!--发送短信-->
+        <if test="type==1">
+            <if test="queryContent == null and queryContent == ''">
+                and s.SEND_UDN = #{udn}
+            </if>
+
+            <if test="queryContent != null and queryContent != ''">
+                and (
+                (s.UDN = (select u.UDN from TB_USER u where u.USER_NAME like '%${queryContent}%') and s.SEND_UDN=#{udn})
+                or
+                (s.UDN = #{queryContent} and s.SEND_UDN=#{udn})
+                )
+            </if>
         </if>
 
     </select>

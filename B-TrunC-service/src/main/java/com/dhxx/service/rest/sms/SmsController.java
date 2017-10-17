@@ -42,7 +42,7 @@ public class SmsController {
 
 
     @PostMapping("delete")
-    public void delete(@RequestBody SmsLog sms) {
+    public void delete(@RequestBody List<SmsLog> sms) {
         logger.debug("/sms/delete>>>>sms="+ JSON.toJSONString(sms));
         try {
             smsBiz.delete(sms);
@@ -64,7 +64,7 @@ public class SmsController {
     }
 
     @PostMapping("findSmsLogByPage")
-    public List<SmsLog> findSmsLogByPage(SmsPageVo smsPageVo) {
+    public List<SmsLog> findSmsLogByPage(@RequestBody SmsPageVo smsPageVo) {
         logger.debug("/sms/findSmsLogByPage>>>>smsPageVo="+ JSON.toJSONString(smsPageVo));
 
         List<SmsLog> list = new ArrayList<SmsLog>();
@@ -78,7 +78,7 @@ public class SmsController {
     }
 
     @PostMapping("findSmsLogByCount")
-    public Integer findSmsLogByCount(SmsPageVo smsPageVo) {
+    public Integer findSmsLogByCount(@RequestBody SmsPageVo smsPageVo) {
         logger.debug("/sms/findSmsLogByCount>>>>smsPageVo="+ JSON.toJSONString(smsPageVo));
 
         Integer count = -1;

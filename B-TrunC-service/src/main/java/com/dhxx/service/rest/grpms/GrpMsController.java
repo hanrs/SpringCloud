@@ -1,6 +1,7 @@
 package com.dhxx.service.rest.grpms;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dhxx.common.entity.grpms.GroupMs;
 import com.dhxx.service.biz.grpms.GrpMsBiz;
 import org.slf4j.Logger;
@@ -58,10 +59,10 @@ public class GrpMsController {
         }
     }
 
-    @PostMapping("queryGrpMsByUdn")
-    public String queryGrpMsByUdn(@RequestBody GroupMs groupMs) {
+    @PostMapping("getMenu")
+    public JSONObject queryGrpMsByUdn(@RequestBody GroupMs groupMs) {
         logger.debug("/group/queryGrpMsByUdn>>>>udn="+ groupMs.getUdn());
-        String jsonMenu = null;
+        JSONObject jsonMenu = null;
         try {
             jsonMenu = grpMsBiz.queryMenuByUdn(groupMs.getUdn());
         } catch (Exception e){
@@ -69,6 +70,6 @@ public class GrpMsController {
             return null;
         }
 
-        return  jsonMenu;
+        return jsonMenu;
     }
 }

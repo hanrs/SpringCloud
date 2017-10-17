@@ -22,7 +22,7 @@ import java.util.List;
 public interface GroupFeignClient {
 
     @PostMapping("/B-TrunC-service/group/save")
-    public void save(GroupInfo group);
+    public GroupInfo save(GroupInfo group);
 
     @PostMapping("/B-TrunC-service/group/delete")
     public void delete(GroupInfo group);
@@ -36,6 +36,9 @@ public interface GroupFeignClient {
     @PostMapping("/B-TrunC-service/group/findGrpByCount")
     public Integer findGrpByCount(GrpPageVo grpPageVo);
 
+    @PostMapping("/B-TrunC-service/group/findGrpInfoByGrpId")
+    public GroupInfo findGrpInfoByGrpId(GroupInfo groupInfo);
+
     @Component
     static class HystrixGroupFeignClientFallback implements GroupFeignClient {
 
@@ -43,9 +46,10 @@ public interface GroupFeignClient {
 
 
         @Override
-        public void save(GroupInfo group) {
+        public GroupInfo save(GroupInfo group) {
             log.error("application=B-TrunC-service,url=/group/save 异常发生，进入fallback方法，接收的参数：group = " + JSON.toJSONString(group));
             group.setId(-1L);
+            return group;
         }
 
         @Override
@@ -70,6 +74,12 @@ public interface GroupFeignClient {
         public Integer findGrpByCount(GrpPageVo grpPageVo) {
             log.error("application=B-TrunC-service,url=/group/delete 异常发生，进入fallback方法，接收的参数：grpPageVo = " + JSON.toJSONString(grpPageVo));
             return -1;
+        }
+
+        @Override
+        public GroupInfo findGrpInfoByGrpId(GroupInfo groupInfo) {
+            log.error("application=B-TrunC-service,url=/group/findGrpInfoByGrpId 异常发生，进入fallback方法，接收的参数：groupInfo = " + JSON.toJSONString(groupInfo));
+            return null;
         }
     }
 }

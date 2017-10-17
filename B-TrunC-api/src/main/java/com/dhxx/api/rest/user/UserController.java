@@ -6,6 +6,7 @@ import com.dhxx.api.exception.RestException;
 import com.dhxx.api.rpc.user.UserFeignClient;
 import com.dhxx.common.entity.user.User;
 import com.dhxx.common.entity.user.UserInfo;
+import com.dhxx.common.entity.vo.UserVo;
 import com.dhxx.common.utils.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -81,5 +82,18 @@ public class UserController {
         }
 
         return Resp.SUCCESS(user);
+    }
+
+    @PostMapping("personalInfo")
+    public Object personalInfo(@RequestBody UserVo userVo) throws  Exception {
+        UserVo userVoRps = null;
+        try {
+            userVoRps = userFeignClient.personalInfo(userVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return Resp.SUCCESS(userVoRps);
     }
 }

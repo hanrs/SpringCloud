@@ -25,7 +25,15 @@ public class MsBiz {
     private MsMapper msMapper;
 
     //新增终端
-    public void save(MsInfo ms) { msMapper.save(ms); }
+    public void save(MsInfo ms) {
+        ms.setOnlineStatus(2);
+        ms.setStatus(0);
+        ms.setType("DC调度台");
+        ms.setIsTCN(0);
+        ms.setIsSubGroup(0);
+        ms.setIsSubRegister(0);
+        msMapper.save(ms);
+    }
 
     //删除终端
     public void delete(MsInfo ms) { msMapper.delete(ms); }

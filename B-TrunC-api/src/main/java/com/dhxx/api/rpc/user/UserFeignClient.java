@@ -2,6 +2,7 @@ package com.dhxx.api.rpc.user;
 
 import com.alibaba.fastjson.JSON;
 import com.dhxx.common.entity.user.User;
+import com.dhxx.common.entity.vo.UserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -42,6 +43,9 @@ public interface UserFeignClient {
     @PostMapping("/B-TrunC-service/user/delete")
     public void delete(User user);
 
+    @PostMapping("/B-TrunC-service/user/personalInfo")
+    public UserVo personalInfo(UserVo userVo);
+
     @Component
     static class HystrixUserFeignClientFallback implements UserFeignClient {
 
@@ -70,6 +74,12 @@ public interface UserFeignClient {
         public void delete(User user) {
             log.error("application=B-TrunC-service,url=/user/delete 异常发生，进入fallback方法，接收的参数：user = " + JSON.toJSONString(user));
             user.setId(-1L);
+        }
+
+        @Override
+        public UserVo personalInfo(UserVo userVo) {
+            log.error("application=B-TrunC-service,url=/user/personalInfo 异常发生，进入fallback方法，接收的参数：user = " + JSON.toJSONString(userVo));
+           return null;
         }
     }
 }

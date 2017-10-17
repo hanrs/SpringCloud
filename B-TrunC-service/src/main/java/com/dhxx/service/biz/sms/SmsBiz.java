@@ -30,7 +30,11 @@ public class SmsBiz {
     public void save(SmsLog sms) { smsMapper.save(sms); }
 
     //删除
-    public void delete(SmsLog sms) { smsMapper.delete(sms); }
+    public void delete(List<SmsLog> sms) {
+        for(int i = 0; i <sms.size(); i++) {
+            smsMapper.delete(sms.get(i));
+        }
+    }
 
     //修改
     public void update(SmsLog sms) { smsMapper.update(sms); }

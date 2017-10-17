@@ -42,10 +42,10 @@ public class CallController {
 
 
     @PostMapping("delete")
-    public void delete(@RequestBody CallLog call) {
-        logger.debug("/call/delete>>>>call="+ JSON.toJSONString(call));
+    public void delete(@RequestBody List<CallLog> calls) {
+        logger.debug("/call/delete>>>>call="+ JSON.toJSONString(calls));
         try {
-            callBiz.delete(call);
+            callBiz.delete(calls);
         }catch (Exception e){
             logger.error(e.getMessage());
             return;

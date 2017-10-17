@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dhxx.service.mapper.user.UserMapper">
 
+
     <select id="list" parameterType="com.dhxx.common.entity.user.User" resultType="com.dhxx.common.entity.user.User">
         select u.id,
         u.account account,
@@ -47,7 +48,7 @@
         </if>
     </select>
 
-    <insert id="save" parameterType="com.dhxx.common.entity.user.User">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.dhxx.common.entity.user.User">
 		insert into TB_USER(
 				account,
 				password,
@@ -116,5 +117,20 @@
     <delete id="delete" parameterType="com.dhxx.common.entity.user.User">
 		delete from TB_USER where account = #{account}
 	</delete>
+
+    <select id="personalInfo" resultType="com.dhxx.common.entity.vo.UserVo">
+        select u.UDN udn,
+               u.USER_NAME userName,
+               g.GRP_NAME grpName,
+               u.ROLE role,
+               m.ONLINE_STATUS onlineStatus,
+               (select s.TYPE subType from TB_SUBSCRIBE s where s.UDN=#{udn} and s.CALLED_UDN=#{callUdn})  subType
+        from TB_GROUP_MS gm
+        inner join TB_MS_INFO m on m.UDN=gm.UDN
+        inner join TB_GROUP_INFO g on g.GRP_ID=gm.GRP_ID
+        inner join TB_USER u on u.UDN=gm.UDN
+        where gm.UDN=#{callUdn}
+        and g.GRP_ID=#{grpId}
+    </select>
 
 </mapper>

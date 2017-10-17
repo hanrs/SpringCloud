@@ -38,7 +38,7 @@ public class SmsController {
     }
 
     @PostMapping("delete")
-    public Object delete(@RequestBody SmsLog sms) throws  Exception {
+    public Object delete(@RequestBody List<SmsLog> sms) throws  Exception {
         try {
             smsFeignClient.delete(sms);
         }catch (Exception e) {
@@ -62,7 +62,7 @@ public class SmsController {
     }
 
     @PostMapping("findSmsLogByPage")
-    public Object findSmsLogByPage(SmsPageVo smsPageVon) throws  Exception {
+    public Object findSmsLogByPage(@RequestBody SmsPageVo smsPageVon) throws  Exception {
         List<SmsLog> list = new ArrayList<SmsLog>();
         try {
             list = smsFeignClient.findSmsLogByPage(smsPageVon);
@@ -74,7 +74,7 @@ public class SmsController {
     }
 
     @PostMapping("findSmsLogByCount")
-    public Object findSmsLogByCount(SmsPageVo smsPageVon) throws  Exception {
+    public Object findSmsLogByCount(@RequestBody SmsPageVo smsPageVon) throws  Exception {
         int count = -1;
         try {
             count = smsFeignClient.findSmsLogByCount(smsPageVon);

@@ -28,7 +28,12 @@ public class AudioBiz {
     public void save(AudioVideo audioVideo) { audioMapper.save(audioVideo); }
 
     //删除
-    public void delete(AudioVideo audioVideo) { audioMapper.delete(audioVideo); }
+    public void delete(List<AudioVideo> audioVideos) {
+        for (int i = 0; i <audioVideos.size(); i++ ) {
+            audioMapper.delete(audioVideos.get(i));
+        }
+
+    }
 
     //音像记录分页按条件查询
     public List<AudioVideo> findAudioVideoByPage(AudioPageVo audioPageVo) {

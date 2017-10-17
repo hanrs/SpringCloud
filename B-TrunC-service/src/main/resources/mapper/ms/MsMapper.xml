@@ -15,6 +15,7 @@
         <result column="user_name" property="userName" />
         <result column="grp_name" property="grpName" />
         <result column="is_sub_call" property="isSubCall" />
+        <result column="grp_id" property="grpId" />
     </resultMap>
 
     <insert id="save" parameterType="com.dhxx.common.entity.ms.MsInfo" >
@@ -40,9 +41,6 @@
     <update id="update" parameterType="com.dhxx.common.entity.ms.MsInfo">
         update TB_MS_INFO
         <set>
-            <if test="udn != null and udn != ''">
-                udn = #{udn,jdbcType=VARCHAR},
-            </if>
             <if test="onlineStatus != null and onlineStatus != ''">
                 online_status = #{onlineStatus,jdbcType=VARCHAR},
             </if>
@@ -52,8 +50,13 @@
             <if test="type != null and type != ''">
                 type = #{type,jdbcType=VARCHAR},
             </if>
-            <if test="isTcn != null and isTcn != ''">
-                is_tcn = #{isTcn,jdbcType=VARCHAR},
+
+            <if test="imsi != null and imsi != ''">
+                imsi = #{imsi,jdbcType=VARCHAR},
+            </if>
+
+            <if test="isTCN != null and isTCN != ''">
+                is_tcn = #{isTCN,jdbcType=VARCHAR},
             </if>
 
             <if test="isSubGroup != null and isSubGroup != ''">
@@ -92,9 +95,12 @@
              m.TYPE,
 			 m.IS_TCN,
 			 m.IS_SUB_GROUP,
-			 m.IS_SUB_REGISTER
+			 m.IS_SUB_REGISTER,
+             gm1.GRP_ID,
+             u.USER_NAME
 			 from TB_MS_INFO m
         inner join TB_GROUP_MS gm1 on gm1.UDN=m.UDN
+        inner join TB_USER u on u.UDN=m.UDN
             where gm1.UDN != #{udn}
 
             <if  test="grpId == null and grpId == ''">
@@ -143,7 +149,7 @@
         inner join TB_GROUP_INFO g on g.GRP_ID = gm.GRP_ID
         where m.UDN= #{udn}
 
-        limit (#{pageNow}-1) * #{pageSize}) , #{pageSize}
+        limit ${(pageNow-1)*pageSize}, #{pageSize}
     </select>
 
     <select id="findMsOnManageCount" resultType="java.lang.Double">

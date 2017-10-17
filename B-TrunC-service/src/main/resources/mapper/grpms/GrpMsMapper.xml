@@ -9,6 +9,8 @@
         <result column="is_sub_call" property="isSubCall" />
         <result column="user_name" property="userName" />
         <result column="grp_name" property="grpName" />
+        <result column="online_status" property="onlineStatus" />
+        <result column="pgrp_id" property="pgrpId" />
     </resultMap>
 
     <insert id="save" parameterType="com.dhxx.common.entity.grpms.GroupMs" >
@@ -39,15 +41,27 @@
     </delete>
 
     <select id="queryGrpMsByUdn" resultMap="grpMsMap">
-        select gm.GRP_ID,grp.GRP_NAME,gm.UDN,gm.IS_SUB_CALL from TB_GROUP_MS gm
+        select gm.GRP_ID,
+               grp.GRP_NAME,
+               gm.UDN,
+               gm.IS_SUB_CALL,
+               grp.PGRP_ID
+        from TB_GROUP_MS gm
         inner join TB_GROUP_INFO grp on grp.GRP_ID=gm.GRP_ID
         where gm.UDN = #{udn}
     </select>
 
-    <select id="queryGrpMsByGrpId"  resultMap="grpMsMap">
-       select gm.GRP_ID,gm.UDN,u.USER_NAME,gm.IS_SUB_CALL from TB_GROUP_MS gm
+    <select id="queryGrpMsByGrpId"  resultType="com.dhxx.common.entity.vo.MsMenuVo">
+       select gm.GRP_ID grpId,
+              gm.UDN udn,
+              u.USER_NAME userName,
+              m.ONLINE_STATUS onlineStatus
+        from TB_GROUP_MS gm
         inner join TB_USER u on gm.UDN=u.UDN
+        inner join TB_MS_INFO m on m.UDN=gm.UDN
         where gm.GRP_ID = #{grpId}
         and gm.UDN != #{udn}
     </select>
+
+
 </mapper>

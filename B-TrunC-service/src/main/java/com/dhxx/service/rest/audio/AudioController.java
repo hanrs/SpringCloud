@@ -42,10 +42,10 @@ public class AudioController {
 
 
     @PostMapping("delete")
-    public void delete(@RequestBody AudioVideo audioVideo) {
-        logger.debug("/audio/delete>>>>audioVideo="+ JSON.toJSONString(audioVideo));
+    public void delete(@RequestBody List<AudioVideo> audioVideos) {
+        logger.debug("/audio/delete>>>>audioVideo="+ JSON.toJSONString(audioVideos));
         try {
-            audioBiz.delete(audioVideo);
+            audioBiz.delete(audioVideos);
         }catch (Exception e){
             logger.error(e.getMessage());
             return;

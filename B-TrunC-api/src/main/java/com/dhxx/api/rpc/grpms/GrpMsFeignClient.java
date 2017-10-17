@@ -1,6 +1,7 @@
 package com.dhxx.api.rpc.grpms;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dhxx.common.entity.group.GroupInfo;
 import com.dhxx.common.entity.grpms.GroupMs;
 import org.slf4j.Logger;
@@ -30,8 +31,8 @@ public interface GrpMsFeignClient {
     @PostMapping("/B-TrunC-service/grpms/update")
     public void update(GroupMs groupMs);
 
-    @PostMapping("/B-TrunC-service/grpms/queryGrpMsByUdn")
-    public String queryGrpMsByUdn(GroupMs groupMs);
+    @PostMapping("/B-TrunC-service/grpms/getMenu")
+    public JSONObject queryGrpMsByUdn(GroupMs groupMs);
 
     @Component
     static class HystrixGrpMsFeignClientFallback implements GrpMsFeignClient {
@@ -59,9 +60,9 @@ public interface GrpMsFeignClient {
         }
 
         @Override
-        public String queryGrpMsByUdn(GroupMs groupMs) {
+        public JSONObject queryGrpMsByUdn(GroupMs groupMs) {
             log.error("application=B-TrunC-service,url=/grpms/queryGrpMsByUdn 异常发生，进入fallback方法，接收的参数：udn = " + groupMs.getUdn());
-            return groupMs.getUdn();
+            return null;
         }
     }
 }

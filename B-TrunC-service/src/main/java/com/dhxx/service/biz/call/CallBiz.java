@@ -28,7 +28,11 @@ public class CallBiz {
     public void save(CallLog call) { callMapper.save(call); }
 
     //删除
-    public void delete(CallLog call) { callMapper.delete(call); }
+    public void delete(List<CallLog> calls) {
+        for(int i = 0; i < calls.size(); i++) {
+            callMapper.delete(calls.get(i));
+        }
+    }
 
     //根据通话类型查询通话记录
     public List<CallLog> findCallLogByType(CallPageVo callPageVo) {

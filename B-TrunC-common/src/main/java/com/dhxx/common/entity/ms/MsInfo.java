@@ -13,7 +13,7 @@ public class MsInfo {
     private String udn; //用户号码
     private Integer onlineStatus; //在线状态（0空闲，1离线，2未注册，3通话中）
     private Integer status; //终端状态（0正常，1冻结）
-    private Integer type; //设备类型
+    private String type; //设备类型
     private String imsi; //IMSI号码
     private Integer isTCN; //是否核心网激活（0否1是）
     private Integer isSubGroup; //所属组获取订阅（0不订阅1已订阅）
@@ -22,6 +22,7 @@ public class MsInfo {
     private String userName; //用户名
     private String grpName; //群组名
     private Integer isSubCall; //呼叫状态获取订阅（0已订阅1不订阅）
+    private String grpId; //群组ID
 
     public Long getId() { return id; }
 
@@ -39,9 +40,9 @@ public class MsInfo {
 
     public void setStatus(Integer status) { this.status = status; }
 
-    public Integer getType() { return type; }
+    public String getType() { return type; }
 
-    public void setType(Integer type) { this.type = type; }
+    public void setType(String type) { this.type = type; }
 
     public String getImsi() { return imsi; }
 
@@ -70,4 +71,8 @@ public class MsInfo {
     public Integer getIsSubCall() { return isSubCall; }
 
     public void setIsSubCall(Integer isSubCall) { this.isSubCall = isSubCall; }
+
+    public String getGrpId() { return grpId; }
+
+    public void setGrpId(String grpId) { this.grpId = grpId; }
 }

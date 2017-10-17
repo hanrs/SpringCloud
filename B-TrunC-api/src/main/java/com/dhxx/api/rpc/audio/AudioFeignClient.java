@@ -26,7 +26,7 @@ public interface AudioFeignClient {
     public void save(AudioVideo audioVideo);
 
     @PostMapping("/B-TrunC-service/audio/delete")
-    public void delete(AudioVideo audioVideo);
+    public void delete(List<AudioVideo> audioVideos);
 
     @PostMapping("/B-TrunC-service/audio/findAudioVideoByPage")
     public List<AudioVideo> findAudioVideoByPage(AudioPageVo audioPageVo);
@@ -48,9 +48,8 @@ public interface AudioFeignClient {
         }
 
         @Override
-        public void delete(AudioVideo audioVideo) {
-            log.error("application=B-TrunC-service,url=/audio/delete 异常发生，进入fallback方法，接收的参数：audioVideo = " + JSON.toJSONString(audioVideo));
-            audioVideo.setId(-1L);
+        public void delete(List<AudioVideo> audioVideos) {
+            log.error("application=B-TrunC-service,url=/audio/delete 异常发生，进入fallback方法，接收的参数：audioVideo = " + JSON.toJSONString(audioVideos));
         }
 
         @Override

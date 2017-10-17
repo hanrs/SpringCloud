@@ -1,5 +1,8 @@
 package com.dhxx.common.entity.audio;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -18,6 +21,9 @@ public class AudioVideo {
     private String filePath; //文件路径
     private Integer recDuration; //录制时长（s）
     private Integer type; //记录类型（0录音文件夹，1照片文件夹2录像文件夹）
+
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime; //开始时间
 
     public Long getId() { return id; }

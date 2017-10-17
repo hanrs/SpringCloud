@@ -1,5 +1,8 @@
 package com.dhxx.common.entity.subscribe;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -20,7 +23,11 @@ public class Subscribe {
     private Integer duplex; //单双工指示
     private Integer e2ee; //加密指示
     private Integer type; //订阅类型（0用户呼叫状态1组呼叫状态2系统通话状态）
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date startTime; //建立时间
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date endTime; //结束时间
 
     public Long getId() { return id; }
