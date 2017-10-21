@@ -2,32 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dhxx.service.mapper.user.UserMapper">
 
+    <resultMap id="userMap" type="com.dhxx.common.entity.user.User">
+        <id column="id" property="id" />
+        <result column="account" property="account" />
+        <result column="password" property="password" />
+        <result column="salt" property="salt" />
+        <result column="user_name" property="userName" />
+        <result column="udn" property="udn" />
+        <result column="role" property="role" />
+        <result column="status" property="status" />
+        <result column="register_date" property="registerDate" />
+        <result column="area" property="area" />
+        <result column="city" property="city" />
+        <result column="server" property="server" />
+        <result column="remark" property="remark" />
+    </resultMap>
 
-    <select id="list" parameterType="com.dhxx.common.entity.user.User" resultType="com.dhxx.common.entity.user.User">
-        select u.id,
-        u.account account,
-        u.password password,
-        u.salt salt,
-        u.userName userName,
-        u.udn udn,
-        u.role,
-        u.status status,
-        u.register_date registerDate,
-        u.area area,
-        u.city city,
-        u.server server,
-        u.remark remark
-        from TB_USER u
-        where 1 = 1
-        <if test="userName != null and userName != ''">
-            and u.userName like '%'||#{userName}||'%'
-        </if>
-        <if test="account != null and account != ''">
-            and u.account like '%'||#{account}||'%'
-        </if>
-    </select>
-
-    <select id="infoByAccout" resultType="com.dhxx.common.entity.user.User">
+    <select id="infoByAccout" resultMap="userMap">
         select u.id,
         u.account account,
         u.password password,
@@ -133,4 +124,23 @@
         and g.GRP_ID=#{grpId}
     </select>
 
+    <select id="findUserByPage" resultMap="userMap">
+        select u.id,
+            u.account account,
+            u.user_name userName,
+            u.udn udn,
+            u.role role,
+            u.status status,
+            u.register_date registerDate,
+            u.area area,
+            u.city city,
+            u.server server,
+            u.remark remark
+        from TB_USER u
+        limit ${(pageNow-1)*pageSize}, #{pageSize}
+    </select>
+
+    <select id="findUserByPage" resultType="java.lang.Double">
+        select count(1) from TB_USER u
+    </select>
 </mapper>

@@ -14,9 +14,8 @@ import java.util.Date;
  */
 public class Log {
     private Long id; //主键
-    private Integer userId; //操作用户
+    private String userName; //操作用户
     private String content; //操作内容
-    private Integer type; // 日志类型(0调式级别1信息级别2警告级别3错误级别)
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date operationTime; //操作时间
@@ -26,17 +25,13 @@ public class Log {
 
     public void setId(Long id) { this.id = id; }
 
-    public Integer getUserId() { return userId; }
+    public String getUserName() { return userName; }
 
-    public void setUserId(Integer userId) { this.userId = userId; }
+    public void setUserName(String userName) { this.userName = userName; }
 
     public String getContent() { return content; }
 
     public void setContent(String content) { this.content = content; }
-
-    public Integer getType() { return type; }
-
-    public void setType(Integer type) { this.type = type; }
 
     public Date getOperationTime() { return operationTime; }
 

@@ -21,11 +21,14 @@ public interface TcnInfoFeignClient {
     @PostMapping("/B-TrunC-service/tcn/save")
     public void save(TcnInfo tcn);
 
+    @PostMapping("/B-TrunC-service/tcn/update")
+    public void update(TcnInfo tcn);
+
     @PostMapping("/B-TrunC-service/tcn/delete")
     public void delete(TcnInfo tcn);
 
-    @PostMapping("/B-TrunC-service/tcn/update")
-    public void update(TcnInfo tcn);
+    @PostMapping("/B-TrunC-service/tcn/tcnInfoByAccount")
+    public TcnInfo tcnInfoByAccount(TcnInfo tcn);
 
     @Component
     static class HystrixTcnFeignClientFallback implements TcnInfoFeignClient {
@@ -49,6 +52,12 @@ public interface TcnInfoFeignClient {
         public void delete(TcnInfo tcn) {
             log.error("application=B-TrunC-service,url=/tcn/delete 异常发生，进入fallback方法，接收的参数：tcn = " + JSON.toJSONString(tcn));
             tcn.setId(-1L);
+        }
+
+        @Override
+        public TcnInfo tcnInfoByAccount(TcnInfo tcn) {
+            log.error("application=B-TrunC-service,url=/tcn/tcnInfoByAccount 异常发生，进入fallback方法，接收的参数：tcn = " + JSON.toJSONString(tcn));
+            return null;
         }
     }
 }

@@ -8,13 +8,13 @@
 				ip,
 				route_address,
 				dns,
-				realm)
+				realm_name)
 		values(
 				#{account,jdbcType=VARCHAR},
 				#{ip,jdbcType=VARCHAR},
 				#{routeAddress,jdbcType=VARCHAR},
 				#{dns,jdbcType=VARCHAR},
-				#{realm,jdbcType=VARCHAR}}
+				#{realmName,jdbcType=VARCHAR}
 				)
 	</insert>
 
@@ -33,8 +33,8 @@
                 dns = #{dns,jdbcType=VARCHAR},
             </if>
 
-            <if test="realm != null and realm != ''">
-                realm = #{realm,jdbcType=VARCHAR},
+            <if test="realmName != null and realmName != ''">
+                realm_name = #{realmName,jdbcType=VARCHAR},
             </if>
 
         </set>
@@ -44,4 +44,15 @@
     <delete id="delete" parameterType="com.dhxx.common.entity.tcn.TcnInfo">
         delete from TB_MS_INFO where account = #{account}
     </delete>
+
+    <select id="tcnInfoByAccount" resultType="com.dhxx.common.entity.tcn.TcnInfo">
+        select t.ID,
+               t.ACCOUNT,
+               t.IP,
+               t.ROUTE_ADDRESS routeAddress,
+               t.DNS,
+               t.REALM_NAME realmName
+        from TB_TCN_INFO t
+        where t.ACCOUNT = #{account}
+    </select>
 </mapper>

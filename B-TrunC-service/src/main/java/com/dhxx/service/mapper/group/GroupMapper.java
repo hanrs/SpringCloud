@@ -30,4 +30,7 @@ public interface GroupMapper {
 
     GroupInfo findGrpInfoById(@Param("id") Long id); //根据Id查找对象
 
+    List<GroupInfo> findGrpInfoAndSub(GrpPageVo grpPageVo); //查找用户管理组配置
+
+    Double findGrpInfoAndSubCount(GrpPageVo grpPageVo); //查找用户管理组配置 总记录
 }

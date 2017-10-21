@@ -39,6 +39,12 @@ public interface GroupFeignClient {
     @PostMapping("/B-TrunC-service/group/findGrpInfoByGrpId")
     public GroupInfo findGrpInfoByGrpId(GroupInfo groupInfo);
 
+    @PostMapping("/B-TrunC-service/group/findGrpInfoAndSub")
+    public List<GroupInfo> findGrpInfoAndSub(GrpPageVo grpPageVo);
+
+    @PostMapping("/B-TrunC-service/group/findGrpInfoAndSubCount")
+    public Integer findGrpInfoAndSubCount(GrpPageVo grpPageVo);
+
     @Component
     static class HystrixGroupFeignClientFallback implements GroupFeignClient {
 
@@ -66,13 +72,13 @@ public interface GroupFeignClient {
 
         @Override
         public List<GroupInfo> findGrpByPage(GrpPageVo grpPageVo) {
-            log.error("application=B-TrunC-service,url=/group/update 异常发生，进入fallback方法，接收的参数：grpPageVo = " + JSON.toJSONString(grpPageVo));
+            log.error("application=B-TrunC-service,url=/group/findGrpByPage 异常发生，进入fallback方法，接收的参数：grpPageVo = " + JSON.toJSONString(grpPageVo));
            return null;
         }
 
         @Override
         public Integer findGrpByCount(GrpPageVo grpPageVo) {
-            log.error("application=B-TrunC-service,url=/group/delete 异常发生，进入fallback方法，接收的参数：grpPageVo = " + JSON.toJSONString(grpPageVo));
+            log.error("application=B-TrunC-service,url=/group/findGrpByCount 异常发生，进入fallback方法，接收的参数：grpPageVo = " + JSON.toJSONString(grpPageVo));
             return -1;
         }
 
@@ -80,6 +86,18 @@ public interface GroupFeignClient {
         public GroupInfo findGrpInfoByGrpId(GroupInfo groupInfo) {
             log.error("application=B-TrunC-service,url=/group/findGrpInfoByGrpId 异常发生，进入fallback方法，接收的参数：groupInfo = " + JSON.toJSONString(groupInfo));
             return null;
+        }
+
+        @Override
+        public List<GroupInfo> findGrpInfoAndSub(GrpPageVo grpPageVo) {
+            log.error("application=B-TrunC-service,url=/group/findGrpInfoAndSub 异常发生，进入fallback方法，接收的参数：grpPageVo = " + JSON.toJSONString(grpPageVo));
+            return null;
+        }
+
+        @Override
+        public Integer findGrpInfoAndSubCount(GrpPageVo grpPageVo) {
+            log.error("application=B-TrunC-service,url=/group/findGrpInfoAndSubCount 异常发生，进入fallback方法，接收的参数：grpPageVo = " + JSON.toJSONString(grpPageVo));
+            return -1;
         }
     }
 }

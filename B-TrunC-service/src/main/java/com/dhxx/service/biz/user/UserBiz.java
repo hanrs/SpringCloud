@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p> 类说明 </p>
@@ -66,13 +67,13 @@ public class UserBiz {
             user.setRegisterDate(new Date());
             try {
                 userMapper.save(user);
-                if (user.getId()>0){
+                if (user.getId() > 0) {
                     MsInfo msInfo = new MsInfo();
                     msInfo.setUdn(user.getUdn());
                     msMapper.save(msInfo);
                 }
 
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } catch (Exception e) {
@@ -83,6 +84,20 @@ public class UserBiz {
 
     //修改用户信息
     public void update(User user) {
+        try {
+            if (user.getPassword() != null) {
+                //添加盐值
+                String salt = Sha1.createSalt();
+                user.setSalt(salt);
+                //密码加密
+                String password = Sha1.encryptSHA(salt + user.getPassword());
+                user.setPassword(password);
+                user.setSalt(salt);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         userMapper.update(user);
     }
 
@@ -94,5 +109,14 @@ public class UserBiz {
     //查看个人信息
     public UserVo personalInfo(UserVo userVo) {
         return userMapper.personalInfo(userVo);
+    }
+
+    public List<User> findUserByPage(UserVo userVo) { return userMapper.findUserByPage(userVo); }
+
+    //根据通话类型查询通话记录总页数
+    public Integer findUserByCount(UserVo userVo) {
+        double count =  userMapper.findUserByCount(userVo);
+        int totalPages = (int) Math.ceil(count/userVo.getPageSize());
+        return totalPages;
     }
 }

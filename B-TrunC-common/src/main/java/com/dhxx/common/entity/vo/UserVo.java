@@ -9,6 +9,9 @@ public class UserVo {
     private Integer onlineStatus;   //被查看个人信息的状态
     private Integer subType;    //与被查看个人信用户的订阅关系
 
+    private Integer pageNow;
+    private Integer pageSize;
+
     public String getUdn() { return udn; }
 
     public void setUdn(String udn) { this.udn = udn; }
@@ -36,4 +39,13 @@ public class UserVo {
     public Integer getSubType() { return subType; }
 
     public void setSubType(Integer subType) { this.subType = subType; }
+
+    public Integer getPageNow() { return pageNow; }
+
+    public void setPageNow(Integer pageNow) { this.pageNow = pageNow; }
+
+    public Integer getPageSize() { return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) { this.pageSize = pageSize; }
 }

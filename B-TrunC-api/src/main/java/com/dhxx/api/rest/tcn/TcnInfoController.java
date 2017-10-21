@@ -62,4 +62,17 @@ public class TcnInfoController {
 
         return Resp.SUCCESS(tcn);
     }
+
+    @PostMapping("tcnInfoByAccount")
+    public Object tcnInfoByAccount(@RequestBody TcnInfo tcn) throws  Exception {
+        TcnInfo tcnRes = null;
+        try {
+            tcnRes = tcninfoFeignClient.tcnInfoByAccount(tcn);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return Resp.SUCCESS(tcnRes);
+    }
 }

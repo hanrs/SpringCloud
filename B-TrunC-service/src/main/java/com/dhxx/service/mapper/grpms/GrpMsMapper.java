@@ -15,8 +15,6 @@ public interface GrpMsMapper {
 
     void delete(GroupMs groupMs); //删
 
-    void update(GroupMs groupMs); //改
-
     List<GroupMs> queryGrpMsByUdn(@Param("udn") String udn); //根据UDN来查找用户群组
 
     List<GroupMs> queryGrpMsByGrpId(@Param("grpId") String grpId, @Param("udn") String udn); //根据grpId来查找用户集

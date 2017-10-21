@@ -33,7 +33,7 @@ public class TcnInfoController {
             logger.error(e.getMessage());
             return;
         }
-        logger.debug("/ms/save>>>>保存成功");
+        logger.debug("/tcn/save>>>>保存成功");
     }
 
     @PostMapping("update")
@@ -56,5 +56,18 @@ public class TcnInfoController {
             logger.error(e.getMessage());
             return;
         }
+    }
+
+    @PostMapping("tcnInfoByAccount")
+    public TcnInfo tcnInfoByAccount(@RequestBody TcnInfo tcn) {
+        logger.debug("/tcn/tcnInfoByAccount>>>>tcn="+ JSON.toJSONString(tcn));
+        TcnInfo tcnRes = null;
+        try {
+            tcnRes = tcnInfoBiz.tcnInfoByAccount(tcn);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+        }
+
+        return tcnRes;
     }
 }

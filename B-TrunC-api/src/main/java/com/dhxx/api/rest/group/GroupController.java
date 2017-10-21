@@ -97,4 +97,28 @@ public class GroupController {
 
         return grpInfoRes;
     }
+
+    @PostMapping("findGrpInfoAndSub")
+    public Object findGrpInfoAndSub(@RequestBody GrpPageVo grpPageVo) throws Exception {
+        List<GroupInfo> list = new ArrayList<GroupInfo>();
+        try {
+            list = groupFeignClient.findGrpInfoAndSub(grpPageVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    @PostMapping("findGrpInfoAndSubCount")
+    public Object findGrpInfoAndSubCount(@RequestBody GrpPageVo grpPageVo) throws Exception {
+        int count = -1;
+        try {
+            count = groupFeignClient.findGrpInfoAndSubCount(grpPageVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return count;
+    }
 }

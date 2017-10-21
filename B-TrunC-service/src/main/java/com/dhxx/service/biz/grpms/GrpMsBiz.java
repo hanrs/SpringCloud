@@ -46,11 +46,6 @@ public class GrpMsBiz {
         grpMsMapper.delete(groupMs);
     }
 
-    //修改
-    public void update(GroupMs groupMs) {
-        grpMsMapper.update(groupMs);
-    }
-
     //组装菜单JSON
     public JSONObject queryMenuByUdn(String udn) {
         List<GroupMs> list = grpMsMapper.queryGrpMsByUdn(udn);  //用户所有群组

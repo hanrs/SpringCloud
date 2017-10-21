@@ -31,4 +31,7 @@ public class TcnInfoBiz {
 
     //修改
     public  void update(TcnInfo tcn) { tcninfoMapper.update(tcn); }
+
+    //根据账号查找核心网信息
+    public TcnInfo tcnInfoByAccount(TcnInfo tcn) { return  tcninfoMapper.tcnInfoByAccount(tcn); }
 }

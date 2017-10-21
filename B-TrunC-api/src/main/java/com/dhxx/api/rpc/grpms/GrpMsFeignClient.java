@@ -28,9 +28,6 @@ public interface GrpMsFeignClient {
     @PostMapping("/B-TrunC-service/grpms/delete")
     public void delete(GroupMs groupMs);
 
-    @PostMapping("/B-TrunC-service/grpms/update")
-    public void update(GroupMs groupMs);
-
     @PostMapping("/B-TrunC-service/grpms/getMenu")
     public JSONObject queryGrpMsByUdn(GroupMs groupMs);
 
@@ -45,13 +42,6 @@ public interface GrpMsFeignClient {
             log.error("application=B-TrunC-service,url=/grpms/save 异常发生，进入fallback方法，接收的参数：groupMs = " + JSON.toJSONString(groupMs));
             groupMs.setId(-1L);
         }
-
-        @Override
-        public void update(GroupMs groupMs) {
-            log.error("application=B-TrunC-service,url=/grpms/update 异常发生，进入fallback方法，接收的参数：groupMs = " + JSON.toJSONString(groupMs));
-            groupMs.setId(-1L);
-        }
-
 
         @Override
         public void delete(GroupMs groupMs) {

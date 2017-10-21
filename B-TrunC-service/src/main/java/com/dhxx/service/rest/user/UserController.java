@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 作用：
  * ① 测试服务实例的相关内容
@@ -91,5 +94,31 @@ public class UserController {
         }
 
         return userVoRps;
+    }
+
+    @PostMapping("findUserByPage")
+    public List<User> findUserByPage(@RequestBody UserVo userVo) {
+        logger.debug("/user/findUserByPage>>>>userVo="+ JSON.toJSONString(userVo));
+        List<User> list = new ArrayList<User>();
+        try {
+            list = userBiz.findUserByPage(userVo);
+        }catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+
+        return list;
+    }
+
+    @PostMapping("findUserByCount")
+    public Integer findUserByCount(@RequestBody UserVo userVo) {
+        logger.debug("/user/findUserByCount>>>>userVo="+ JSON.toJSONString(userVo));
+        Integer count = -1;
+        try {
+            count = userBiz.findUserByCount(userVo);
+        }catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+
+        return count;
     }
 }

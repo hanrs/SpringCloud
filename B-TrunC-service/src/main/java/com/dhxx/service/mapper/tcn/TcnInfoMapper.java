@@ -16,5 +16,5 @@ public interface TcnInfoMapper {
 
     void update(TcnInfo tsc); //改
 
-    TcnInfo MsInfoByUdn(@Param("account") String account); //根据账号查找核心网信息
+    TcnInfo tcnInfoByAccount(TcnInfo tsc); //根据账号查找核心网信息
 }

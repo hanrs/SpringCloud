@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.usergrp.UserGrpMapper">
+
+    <insert id="save" parameterType="com.dhxx.common.entity.usergrp.UserGrp" >
+        insert into TB_USER_GRP_SUB(
+				account,
+				grp_id,
+				is_sub_call)
+		values(
+				#{account,jdbcType=VARCHAR},
+				#{grpId,jdbcType=VARCHAR},
+				#{isSubCall,jdbcType=VARCHAR}
+				)
+	</insert>
+
+    <update id="update" parameterType="com.dhxx.common.entity.usergrp.UserGrp">
+        update TB_USER_GRP_SUB
+        <set>
+            <if test="isSubCall != null and isSubCall != ''">
+                is_sub_call = #{isSubCall,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where account = #{account}
+    </update>
+
+</mapper>

@@ -11,6 +11,8 @@ import com.dhxx.common.utils.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -95,5 +97,29 @@ public class UserController {
         }
 
         return Resp.SUCCESS(userVoRps);
+    }
+
+    @PostMapping("findUserByPage")
+    public Object findUserByPage(@RequestBody UserVo userVo) throws  Exception {
+        List<User> list = new ArrayList<User>();
+        try {
+            list = userFeignClient.findUserByPage(userVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return Resp.SUCCESS(list);
+    }
+
+    @PostMapping("findUserByCount")
+    public Object findUserByCount(@RequestBody UserVo userVo) throws  Exception {
+        int count = -1;
+        try {
+            count = userFeignClient.findUserByCount(userVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return Resp.SUCCESS(count);
     }
 }

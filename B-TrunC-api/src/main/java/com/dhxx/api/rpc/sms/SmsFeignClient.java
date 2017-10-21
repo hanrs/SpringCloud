@@ -65,13 +65,13 @@ public interface SmsFeignClient {
 
         @Override
         public List<SmsLog> findSmsLogByPage(SmsPageVo smsPageVo) {
-            log.error("application=B-TrunC-service,url=/call/findSmsLogByPage 异常发生，进入fallback方法，接收的参数：smsPageVo = " + JSON.toJSONString(smsPageVo));
+            log.error("application=B-TrunC-service,url=/sms/findSmsLogByPage 异常发生，进入fallback方法，接收的参数：smsPageVo = " + JSON.toJSONString(smsPageVo));
             return null;
         }
 
         @Override
         public Integer findSmsLogByCount(SmsPageVo smsPageVo) {
-            log.error("application=B-TrunC-service,url=/call/findSmsLogByCount 异常发生，进入fallback方法，接收的参数：smsPageVo = " + JSON.toJSONString(smsPageVo));
+            log.error("application=B-TrunC-service,url=/sms/findSmsLogByCount 异常发生，进入fallback方法，接收的参数：smsPageVo = " + JSON.toJSONString(smsPageVo));
             return -1;
         }
 

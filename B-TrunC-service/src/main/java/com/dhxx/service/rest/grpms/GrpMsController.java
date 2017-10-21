@@ -37,17 +37,6 @@ public class GrpMsController {
         logger.debug("/grpms/save>>>>保存成功");
     }
 
-    @PostMapping("update")
-    public void update(@RequestBody GroupMs groupMs) {
-        logger.debug("/grpms/update>>>>groupMs="+ JSON.toJSONString(groupMs));
-        try {
-            grpMsBiz.update(groupMs);
-        }catch (Exception e){
-            logger.error(e.getMessage());
-            return;
-        }
-    }
-
     @PostMapping("delete")
     public void delete(@RequestBody GroupMs groupMs) {
         logger.debug("/group/delete>>>>groupMs="+ JSON.toJSONString(groupMs));

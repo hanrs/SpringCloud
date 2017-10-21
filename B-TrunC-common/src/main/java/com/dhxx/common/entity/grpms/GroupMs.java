@@ -13,7 +13,6 @@ public class GroupMs {
     private Long id; //主键
     private String grpId; //群组ID
     private String udn; //用户号码
-    private Integer isSubCall; //呼叫状态获取订阅（0已订阅1不订阅）
 
     private String grpName; //群组名
     private String userName; //用户名
@@ -33,10 +32,6 @@ public class GroupMs {
     public String getUdn() { return udn; }
 
     public void setUdn(String udn) { this.udn = udn; }
-
-    public Integer getIsSubCall() { return isSubCall; }
-
-    public void setIsSubCall(Integer isSubCall) { this.isSubCall = isSubCall; }
 
     public String getGrpName() { return grpName; }
 

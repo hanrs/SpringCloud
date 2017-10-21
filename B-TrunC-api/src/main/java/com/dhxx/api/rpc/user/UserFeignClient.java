@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 /**
  * 使用@FeignClient("B-TrunC-service")注解绑定B-TrunC-service服务，还可以使用url参数指定一个URL。
  *
@@ -46,6 +48,12 @@ public interface UserFeignClient {
     @PostMapping("/B-TrunC-service/user/personalInfo")
     public UserVo personalInfo(UserVo userVo);
 
+    @PostMapping("/B-TrunC-service/user/findUserByPage")
+    public List<User> findUserByPage(UserVo userVo);
+
+    @PostMapping("/B-TrunC-service/user/findUserByCount")
+    public Integer findUserByCount(UserVo userVo);
+
     @Component
     static class HystrixUserFeignClientFallback implements UserFeignClient {
 
@@ -78,8 +86,20 @@ public interface UserFeignClient {
 
         @Override
         public UserVo personalInfo(UserVo userVo) {
-            log.error("application=B-TrunC-service,url=/user/personalInfo 异常发生，进入fallback方法，接收的参数：user = " + JSON.toJSONString(userVo));
+            log.error("application=B-TrunC-service,url=/user/personalInfo 异常发生，进入fallback方法，接收的参数：userVo = " + JSON.toJSONString(userVo));
            return null;
+        }
+
+        @Override
+        public List<User> findUserByPage(UserVo userVo) {
+            log.error("application=B-TrunC-service,url=/user/findUserByPage 异常发生，进入fallback方法，接收的参数：userVo = " + JSON.toJSONString(userVo));
+            return null;
+        }
+
+        @Override
+        public Integer findUserByCount(UserVo userVo) {
+            log.error("application=B-TrunC-service,url=/user/findUserByCount 异常发生，进入fallback方法，接收的参数：userVo = " + JSON.toJSONString(userVo));
+            return -1;
         }
     }
 }

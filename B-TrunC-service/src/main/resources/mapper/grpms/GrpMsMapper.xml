@@ -6,7 +6,6 @@
         <id column="id" property="id" />
         <result column="grp_id" property="grpId" />
         <result column="udn" property="udn" />
-        <result column="is_sub_call" property="isSubCall" />
         <result column="user_name" property="userName" />
         <result column="grp_name" property="grpName" />
         <result column="online_status" property="onlineStatus" />
@@ -16,25 +15,13 @@
     <insert id="save" parameterType="com.dhxx.common.entity.grpms.GroupMs" >
         insert into TB_GROUP_MS(
         grp_id,
-        udn,
-        is_sub_call)
+        udn)
         values(
         #{grpId,jdbcType=VARCHAR},
         #{udn,jdbcType=VARCHAR},
         #{isSubCall,jdbcType=VARCHAR}
         )
     </insert>
-
-    <update id="update" parameterType="com.dhxx.common.entity.grpms.GroupMs">
-        update TB_GROUP_MS
-        <set>
-            <if test="isSubCall != null and isSubCall != ''">
-                is_sub_call = #{isSubCall,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where grp_id = #{grpId}
-        and udn = #{udn}
-    </update>
 
     <delete id="delete" parameterType="com.dhxx.common.entity.grpms.GroupMs">
         delete from TB_GROUP_MS where grp_id = #{grpId}  and udn = #{udn}
@@ -44,7 +31,6 @@
         select gm.GRP_ID,
                grp.GRP_NAME,
                gm.UDN,
-               gm.IS_SUB_CALL,
                grp.PGRP_ID
         from TB_GROUP_MS gm
         inner join TB_GROUP_INFO grp on grp.GRP_ID=gm.GRP_ID

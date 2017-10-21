@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.subscribe.SubscribeMapper">
+
+    <resultMap id="subMap" type="com.dhxx.common.entity.subscribe.Subscribe">
+        <id column="id" property="id" />
+        <result column="account" property="account" />
+        <result column="udn" property="udn" />
+        <result column="called_udn" property="calledUdn" />
+        <result column="call_status" property="callStatus" />
+        <result column="call_type" property="callType" />
+        <result column="prio_attribute" property="prioAttribute" />
+        <result column="duplex" property="duplex" />
+        <result column="e2ee" property="e2ee" />
+        <result column="type" property="type" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+    </resultMap>
+
+    <insert id="save" parameterType="com.dhxx.common.entity.subscribe.Subscribe" >
+        insert into TB_SMS_LOG(
+        account,
+        udn,
+        called_udn,
+        call_status,
+        call_type,
+        prio_attribute,
+        duplex,
+        e2ee,
+        type,
+        start_time,
+        end_time)
+        values(
+        #{account,jdbcType=VARCHAR},
+        #{udn,jdbcType=VARCHAR},
+        #{calledUdn,jdbcType=VARCHAR},
+        #{callStatus,jdbcType=VARCHAR},
+        #{callType,jdbcType=VARCHAR},
+        #{prioAttribute,jdbcType=VARCHAR},
+        #{duplex,jdbcType=VARCHAR},
+        #{e2ee,jdbcType=VARCHAR},
+        #{type,jdbcType=VARCHAR},
+        #{startTime,jdbcType=VARCHAR},
+        #{endTime,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <select id="findSubByPage" resultMap="subMap">
+        select s.ID,
+               s.ACCOUNT,
+               s.UDN,
+               s.CALLED_UDN calledUdn,
+               s.CALL_STATUS callStatus,
+               s.CALL_TYPE callType,
+               s.PRIO_ATTRIBUTE prioAttribute,
+               s.DUPLEX,
+               s.E2EE,
+               s.TYPE,
+               s.START_TIME startTime,
+               s.END_TIME endTime
+        from TB_SUBSCRIBE s
+
+        limit ${(pageNow-1)*pageSize}, #{pageSize}
+    </select>
+
+    <select id="findSubByCount" resultType="java.lang.Double">
+        select count(1) from TB_SUBSCRIBE s
+    </select>
+
+</mapper>

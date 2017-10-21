@@ -37,18 +37,6 @@ public class GrpMsController {
         return Resp.SUCCESS(groupMs);
     }
 
-    @PostMapping("update")
-    public Object update(@RequestBody GroupMs groupMs) throws  Exception {
-        try {
-            grpMsFeignClient.update(groupMs);
-        }catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return Resp.SUCCESS(groupMs);
-    }
-
     @PostMapping("delete")
     public Object delete(@RequestBody GroupMs groupMs) throws  Exception {
         try {

@@ -34,12 +34,12 @@ public class CallBiz {
         }
     }
 
-    //根据通话类型查询通话记录
+    //根据通话类型查询通话记录分页
     public List<CallLog> findCallLogByType(CallPageVo callPageVo) {
         return callMapper.findCallLogByType(callPageVo);
     }
 
-    //根据通话类型查询通话记录
+    //根据通话类型查询通话记录总页数
     public Integer findCallLogByCount(CallPageVo callPageVo) {
         double count =  callMapper.findCallLogByCount(callPageVo);
         int totalPages = (int) Math.ceil(count/callPageVo.getPageSize());

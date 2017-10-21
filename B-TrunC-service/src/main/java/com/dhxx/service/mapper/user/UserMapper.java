@@ -21,7 +21,9 @@ public interface UserMapper {
 
     User infoByAccout(@Param("account") String account); //根据账号查找用户信息
 
-    List<User> list(User user);
-
     UserVo personalInfo(UserVo userVo); //根据udn查询用户信息
+
+    List<User> findUserByPage(UserVo userVo); //查看调度账号分页
+
+    Double findUserByCount(UserVo userVo); //查看调度账号总记录
 }

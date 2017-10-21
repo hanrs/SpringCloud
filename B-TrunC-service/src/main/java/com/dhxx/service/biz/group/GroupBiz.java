@@ -54,7 +54,7 @@ public class GroupBiz {
         return groupMapper.findGrpByPage(grpPageVo);
     }
 
-    //组总页数
+     //组总页数
     public Integer findGrpByCount(GrpPageVo grpPageVo){
         double count = groupMapper.findGrpByCount(grpPageVo);
         int totalPages = (int) Math.ceil(count/grpPageVo.getPageSize());
@@ -64,4 +64,13 @@ public class GroupBiz {
     //查找群组信息
     public GroupInfo findGrpInfoByGrpId(String grpId){ return groupMapper.findGrpInfoByGrpId(grpId); }
 
+    //查找用户管理组配置
+    public List<GroupInfo> findGrpInfoAndSub(GrpPageVo grpPageVo){ return groupMapper.findGrpInfoAndSub(grpPageVo); }
+
+    //查找用户管理组配置总页数
+    public Integer findGrpInfoAndSubCount(GrpPageVo grpPageVo){
+        double count = groupMapper.findGrpInfoAndSubCount(grpPageVo);
+        int totalPages = (int) Math.ceil(count/grpPageVo.getPageSize());
+        return totalPages;
+    }
 }

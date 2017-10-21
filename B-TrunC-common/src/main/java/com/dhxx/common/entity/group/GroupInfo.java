@@ -26,6 +26,7 @@ public class GroupInfo {
     private String pgrpId; //父级群组ID，0代表一级群组，最多二级群组
 
     private Integer count; //某个群组下的用户总数
+    private Integer isSubCall; //呼叫状态获取订阅（0不订阅1已订阅）
 
     public Long getId() { return id; }
 
@@ -66,4 +67,9 @@ public class GroupInfo {
     public String getPgrpId() { return pgrpId; }
 
     public void setPgrpId(String pgrpId) { this.pgrpId = pgrpId; }
+
+    public Integer getIsSubCall() { return isSubCall; }
+
+    public void setIsSubCall(Integer isSubCall) { this.isSubCall = isSubCall; }
+
 }

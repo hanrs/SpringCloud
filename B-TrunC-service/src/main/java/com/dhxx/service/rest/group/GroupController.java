@@ -66,7 +66,7 @@ public class GroupController {
 
     @PostMapping("findGrpByPage")
     public List<GroupInfo> findGrpByPage(@RequestBody GrpPageVo grpPageVo) {
-        logger.debug("/group/findGrpByPage>>>>group="+ JSON.toJSONString(grpPageVo));
+        logger.debug("/group/findGrpByPage>>>>grpPageVo="+ JSON.toJSONString(grpPageVo));
         List<GroupInfo> list = new ArrayList<GroupInfo>();
         try {
             list = groupBiz.findGrpByPage(grpPageVo);
@@ -78,7 +78,7 @@ public class GroupController {
 
     @PostMapping("findGrpByCount")
     public Integer findGrpByCount(@RequestBody GrpPageVo grpPageVo) {
-        logger.debug("/group/findGrpByPage>>>>group="+ JSON.toJSONString(grpPageVo));
+        logger.debug("/group/findGrpByPage>>>>grpPageVo="+ JSON.toJSONString(grpPageVo));
         int count = -1;
         try {
             count = groupBiz.findGrpByCount(grpPageVo);
@@ -98,5 +98,29 @@ public class GroupController {
             logger.error(e.getMessage());
         }
         return grpInfoRes;
+    }
+
+    @PostMapping("findGrpInfoAndSub")
+    public List<GroupInfo> findGrpInfoAndSub(@RequestBody GrpPageVo grpPageVo) {
+        logger.debug("/group/findGrpInfoAndSub>>>>grpPageVo="+ JSON.toJSONString(grpPageVo));
+        List<GroupInfo> list = new ArrayList<GroupInfo>();
+        try {
+            list = groupBiz.findGrpInfoAndSub(grpPageVo);
+        }catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return list;
+    }
+
+    @PostMapping("findGrpInfoAndSubCount")
+    public Integer findGrpInfoAndSubCount(@RequestBody GrpPageVo grpPageVo) {
+        logger.debug("/group/findGrpInfoAndSubCount>>>>grpPageVo="+ JSON.toJSONString(grpPageVo));
+        int count = -1;
+        try {
+            count = groupBiz.findGrpInfoAndSubCount(grpPageVo);
+        }catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return count;
     }
 }
