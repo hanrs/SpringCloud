@@ -9,23 +9,29 @@ package com.dhxx.common.entity.roleper;
  */
 public class RolePermission {
     private Long id; //主键
-    private String role; //角色
-    private Long permission; //权限ID
+    private Long roleId; //角色
+    private Long permissionId; //权限ID
     private String describe; //描述
+
+    private String permissionName; //权限名
 
     public Long getId() { return id; }
 
     public void setId(Long id) { this.id = id; }
 
-    public String getRole() { return role; }
+    public Long getRoleId() { return roleId; }
 
-    public void setRole(String role) { this.role = role; }
+    public void setRoleId(Long roleId) { this.roleId = roleId; }
 
-    public Long getPermission() { return permission; }
+    public Long getPermissionId() { return permissionId; }
 
-    public void setPermission(Long permission) { this.permission = permission; }
+    public void setPermissionId(Long permissionId) { this.permissionId = permissionId; }
 
     public String getDescribe() { return describe; }
 
     public void setDescribe(String describe) { this.describe = describe; }
+
+    public String getPermissionName() { return permissionName; }
+
+    public void setPermissionName(String permissionName) { this.permissionName = permissionName; }
 }

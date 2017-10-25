@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.permission.PermissionMapper">
+
+    <resultMap id="permissionMap" type="com.dhxx.common.entity.permission.Permission">
+        <id column="id" property="id" />
+        <result column="permission_name" property="permissionName" />
+        <result column="describe" property="describe" />
+    </resultMap>
+
+    <insert id="save" parameterType="com.dhxx.common.entity.permission.Permission" >
+        insert into TB_PERMISSION(
+				`permission_name`,
+				`describe`)
+		values(
+				#{permissionName,jdbcType=VARCHAR},
+				#{describe,jdbcType=VARCHAR}
+				)
+	</insert>
+
+    <update id="update" parameterType="com.dhxx.common.entity.permission.Permission">
+        update TB_PERMISSION
+        <set>
+            <if test="permissionName != null and permissionName != ''">
+                `permission_name` = #{permissionName,jdbcType=VARCHAR}
+            </if>
+
+            <if test="describe != null and describe != ''">
+                `describe` = #{describe,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="com.dhxx.common.entity.permission.Permission">
+        delete from TB_PERMISSION where id = #{id}
+    </delete>
+
+    <select id="findPermission" resultMap="permissionMap">
+        select p.id,
+               p.permission_name,
+               p.describe
+        from TB_PERMISSION p
+    </select>
+</mapper>

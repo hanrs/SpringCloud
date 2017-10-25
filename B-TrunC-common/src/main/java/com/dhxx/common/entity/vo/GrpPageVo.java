@@ -11,6 +11,7 @@ public class GrpPageVo {
     private Integer pageSize;
     private String udn;
     private Integer isTemp; //是否临时组（0不是1是）
+    private String account; //账号
 
     public Integer getPageNow() { return pageNow; }
 
@@ -27,4 +28,8 @@ public class GrpPageVo {
     public Integer getIsTemp() { return isTemp; }
 
     public void setIsTemp(Integer isTemp) { this.isTemp = isTemp; }
+
+    public String getAccount() { return account; }
+
+    public void setAccount(String account) { this.account = account; }
 }

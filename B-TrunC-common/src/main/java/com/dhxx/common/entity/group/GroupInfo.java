@@ -27,6 +27,7 @@ public class GroupInfo {
 
     private Integer count; //某个群组下的用户总数
     private Integer isSubCall; //呼叫状态获取订阅（0不订阅1已订阅）
+    private Integer ugId; //用户组订阅关系表id
 
     public Long getId() { return id; }
 
@@ -72,4 +73,8 @@ public class GroupInfo {
 
     public void setIsSubCall(Integer isSubCall) { this.isSubCall = isSubCall; }
 
+    public Integer getUgId() { return ugId; }
+
+    public void setUgId(Integer ugId) { this.ugId = ugId;
+    }
 }

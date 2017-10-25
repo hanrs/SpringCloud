@@ -16,6 +16,7 @@
         <result column="grp_name" property="grpName" />
         <result column="is_sub_call" property="isSubCall" />
         <result column="grp_id" property="grpId" />
+        <result column="umId" property="umId" />
     </resultMap>
 
     <insert id="save" parameterType="com.dhxx.common.entity.ms.MsInfo" >
@@ -133,30 +134,30 @@
     </select>
 
     <select id="findMsOnManage" resultMap="msMap">
-        select g.GRP_NAME,
+         select g.GRP_NAME,
 			 m.UDN,
 			 u.USER_NAME,
 			 m.ONLINE_STATUS,
 			 m.`STATUS`,
 			 m.IMSI,m.TYPE,
 			 m.IS_TCN,
-			 um.IS_SUB_GROUP,
-			 um.IS_SUB_REGISTER,
-			 um.IS_SUB_CALL from TB_MS_INFO m
+			 temp.ID umId,
+			 temp.IS_SUB_GROUP,
+			 temp.IS_SUB_REGISTER,
+			 temp.IS_SUB_CALL from TB_MS_INFO m
         inner join TB_GROUP_MS gm on gm.UDN = m.UDN
         inner join TB_USER u on u.UDN = m.UDN
         inner join TB_GROUP_INFO g on g.GRP_ID = gm.GRP_ID
-        left join TB_USER_MS_SUB um on  um.UDN=m.UDN
+        left join (select um.* from TB_USER_MS_SUB um where um.ACCOUNT='zhan2') temp on  temp.UDN=m.UDN
 
         limit ${(pageNow-1)*pageSize}, #{pageSize}
     </select>
 
     <select id="findMsOnManageCount" resultType="java.lang.Double">
-        select count(1) from TB_MS_INFO m
+         select count(1) from TB_MS_INFO m
         inner join TB_GROUP_MS gm on gm.UDN = m.UDN
         inner join TB_USER u on u.UDN = m.UDN
         inner join TB_GROUP_INFO g on g.GRP_ID = gm.GRP_ID
-        left join TB_USER_MS_SUB um on  um.UDN=m.UDN
-
+        left join (select um.* from TB_USER_MS_SUB um where um.ACCOUNT='zhan2') temp on  temp.UDN=m.UDN
     </select>
 </mapper>

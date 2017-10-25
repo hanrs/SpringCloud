@@ -21,7 +21,7 @@
                 is_sub_call = #{isSubCall,jdbcType=VARCHAR},
             </if>
         </set>
-        where account = #{account}
+        where id = #{id}
     </update>
 
 </mapper>

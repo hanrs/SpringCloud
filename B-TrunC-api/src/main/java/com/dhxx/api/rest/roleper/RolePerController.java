@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author liangz
  * Date 2017-10-21
@@ -34,7 +37,7 @@ public class RolePerController {
     }
 
     @PostMapping("delete")
-    public Object update(@RequestBody RolePermission rolePermission) throws  Exception {
+    public Object delete(@RequestBody RolePermission rolePermission) throws  Exception {
         try {
             rolePerFeignClient.delete(rolePermission);
         }catch (Exception e) {
@@ -43,6 +46,18 @@ public class RolePerController {
         }
 
         return Resp.SUCCESS(rolePermission);
+    }
+
+    @PostMapping("findRolePerByRoleId")
+    public Object findRolePerByRoleId(@RequestBody RolePermission rolePermission) throws  Exception {
+        List<RolePermission> list = new ArrayList<RolePermission>();
+        try {
+            list = rolePerFeignClient.findRolePerByRoleId(rolePermission);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return Resp.SUCCESS(list);
     }
 
 }

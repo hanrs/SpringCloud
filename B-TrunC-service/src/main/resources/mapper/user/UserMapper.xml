@@ -140,7 +140,7 @@
         limit ${(pageNow-1)*pageSize}, #{pageSize}
     </select>
 
-    <select id="findUserByPage" resultType="java.lang.Double">
+    <select id="findUserByCount" resultType="java.lang.Double">
         select count(1) from TB_USER u
     </select>
 </mapper>

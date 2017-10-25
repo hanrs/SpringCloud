@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhxx.service.mapper.role.RoleMapper">
+
+    <resultMap id="roleMap" type="com.dhxx.common.entity.role.Role">
+        <id column="id" property="id" />
+        <result column="role_name" property="roleName" />
+        <result column="describe" property="describe" />
+    </resultMap>
+
+    <insert id="save" parameterType="com.dhxx.common.entity.role.Role" >
+        insert into TB_ROLE(
+				role_name,
+				`describe`)
+		values(
+				#{roleName,jdbcType=VARCHAR},
+				#{describe,jdbcType=VARCHAR}
+				)
+	</insert>
+
+    <update id="update" parameterType="com.dhxx.common.entity.role.Role">
+        update TB_ROLE
+        <set>
+            <if test="roleName != null and roleName != ''">
+                role_name = #{roleName,jdbcType=VARCHAR}
+            </if>
+
+            <if test="describe != null and describe != ''">
+                `describe` = #{describe,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="com.dhxx.common.entity.role.Role">
+        delete from TB_ROLE where id = #{id}
+    </delete>
+
+    <select id="findRole" resultMap="roleMap">
+        select r.id,
+               r.role_name,
+               r.describe
+        from TB_ROLE r
+    </select>
+</mapper>

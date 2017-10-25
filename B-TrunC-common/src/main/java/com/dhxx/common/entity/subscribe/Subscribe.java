@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Subscribe {
     private Long id; //主键
-    private Integer userId; //用户id
+    private String account; //用户账号
     private String udn; //主叫号码
     private String callerUdn; //被叫号码
     private Integer callStatus; //呼叫状态
@@ -34,9 +34,9 @@ public class Subscribe {
 
     public void setId(Long id) { this.id = id; }
 
-    public Integer getUserId() { return userId; }
+    public String getAccount() { return account; }
 
-    public void setUserId(Integer userId) { this.userId = userId; }
+    public void setAccount(String account) { this.account = account; }
 
     public String getUdn() { return udn; }
 

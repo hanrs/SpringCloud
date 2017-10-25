@@ -14,6 +14,7 @@
         <result column="pgrp_id" property="pgrpId" />
         <result column="count" property="count" />
         <result column="is_sub_call" property="isSubCall" />
+        <result column="ugId" property="ugId" />
     </resultMap>
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.dhxx.common.entity.group.GroupInfo" >
@@ -61,10 +62,10 @@
     </delete>
 
     <select id="findGrpByPage" resultMap="grpMap">
-        select g.GRP_ID,
-               g.GRP_NAME,
-               g.CREATE_TIME,
-               g.REMARK,
+        select g.GRP_ID grpId,
+               g.GRP_NAME grpName,
+               g.CREATE_TIME createTime,
+               g.REMARK remark,
                (select count(gm1.UDN) from TB_GROUP_MS gm1 where gm1.GRP_ID=g.GRP_ID) count
         from TB_GROUP_INFO g
         inner join TB_GROUP_MS gm on gm.GRP_ID = g.GRP_ID
@@ -124,17 +125,22 @@
 
     <select id="findGrpInfoAndSub" resultMap="grpMap">
         select g.*,
-               ug.IS_SUB_CALL
+               temp.IS_SUB_CALL,
+               temp.id ugId
         from TB_GROUP_INFO g
-        LEFT JOIN TB_USER_GRP_SUB ug on ug.GRP_ID=g.GRP_ID
+        LEFT JOIN
+          (select ug.* from TB_USER_GRP_SUB ug where ug.ACCOUNT=#{account}) temp
+        on temp.GRP_ID=g.GRP_ID
+
         where g.IS_TEMP=0
         limit ${(pageNow-1)*pageSize}, #{pageSize}
     </select>
 
     <select id="findGrpInfoAndSubCount" resultType="java.lang.Double">
-        select count(1)
-        from TB_GROUP_INFO g
-        LEFT JOIN TB_USER_GRP_SUB ug on ug.GRP_ID=g.GRP_ID
+        select count(1) from TB_GROUP_INFO g
+        LEFT JOIN
+          (select ug.* from TB_USER_GRP_SUB ug where ug.ACCOUNT=#{account}) temp
+        on temp.GRP_ID=g.GRP_ID
         where g.IS_TEMP=0
     </select>
 </mapper>

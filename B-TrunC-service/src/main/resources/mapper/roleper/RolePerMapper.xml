@@ -2,11 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dhxx.service.mapper.roleper.RolePerMapper">
 
+	<resultMap id="rolePerMap" type="com.dhxx.common.entity.roleper.RolePermission">
+		<id column="id" property="id" />
+		<result column="role_id" property="roleId" />
+		<result column="permission_id" property="permissionId" />
+		<result column="describe" property="describe" />
+		<result column="permission_name" property="permissionName" />
+	</resultMap>
+
     <insert id="save" parameterType="com.dhxx.common.entity.roleper.RolePermission" >
         insert into TB_ROLE_PERMISSION(
 				role_id,
 				permission_id,
-				describe)
+				`describe`)
 		values(
 				#{roleId,jdbcType=VARCHAR},
 				#{permissionId,jdbcType=VARCHAR},
@@ -17,5 +25,16 @@
     <delete id="delete" parameterType="com.dhxx.common.entity.roleper.RolePermission">
         delete from TB_ROLE_PERMISSION where id = #{id}
     </delete>
+
+	<select id="findRolePerByRoleId" resultMap="rolePerMap">
+		select rp.ID,
+			   rp.ROLE_ID,
+			   rp.PERMISSION_ID,
+			   rp.`DESCRIBE`,
+			   p.PERMISSION_NAME
+		from TB_ROLE_PERMISSION rp
+		inner join TB_PERMISSION p on p.ID=rp.PERMISSION_ID
+		where rp.ROLE_ID= #{roleId}
+	</select>
 
 </mapper>

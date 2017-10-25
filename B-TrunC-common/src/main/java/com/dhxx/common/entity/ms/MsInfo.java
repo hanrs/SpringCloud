@@ -23,6 +23,7 @@ public class MsInfo {
     private String grpName; //群组名
     private Integer isSubCall; //呼叫状态获取订阅（0已订阅1不订阅）
     private String grpId; //群组ID
+    private Integer umId; //用户终端订阅关系表id
 
     public Long getId() { return id; }
 
@@ -75,4 +76,8 @@ public class MsInfo {
     public String getGrpId() { return grpId; }
 
     public void setGrpId(String grpId) { this.grpId = grpId; }
+
+    public Integer getUmId() { return umId; }
+
+    public void setUmId(Integer umId) { this.umId = umId; }
 }

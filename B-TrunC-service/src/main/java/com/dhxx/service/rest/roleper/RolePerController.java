@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author liangz
  * Date 2017-10-21
@@ -47,6 +50,20 @@ public class RolePerController {
             logger.error(e.getMessage());
             return;
         }
+    }
+
+    @PostMapping("findRolePerByRoleId")
+    public List<RolePermission> findRolePerByRoleId(@RequestBody RolePermission rolePermission) {
+        logger.debug("/rolePer/findRolePerByRoleId>>>>rolePermission="+ JSON.toJSONString(rolePermission));
+
+        List<RolePermission> list = new ArrayList<RolePermission>();
+        try {
+            list = rolePerBiz.findRolePerByRoleId(rolePermission);
+        }catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+
+        return list;
     }
 
 }

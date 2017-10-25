@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * <p> 类说明 </p>
  * @author liangz
@@ -33,4 +35,7 @@ public class RolePerBiz {
     public void delete(RolePermission rolePermission) { rolePerMapper.delete(rolePermission); }
 
     //根据角色ID查该角色所拥有得到权限
+    public List<RolePermission> findRolePerByRoleId(RolePermission rolePermission){
+        return rolePerMapper.findRolePerByRoleId(rolePermission);
+    }
 }
