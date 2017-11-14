@@ -8,6 +8,7 @@
 		<result column="permission_id" property="permissionId" />
 		<result column="describe" property="describe" />
 		<result column="permission_name" property="permissionName" />
+		<result column="menu_url" property="menuUrl" />
 	</resultMap>
 
     <insert id="save" parameterType="com.dhxx.common.entity.roleper.RolePermission" >
@@ -28,10 +29,11 @@
 
 	<select id="findRolePerByRoleId" resultMap="rolePerMap">
 		select rp.ID,
-			   rp.ROLE_ID,
-			   rp.PERMISSION_ID,
+			   rp.ROLE_ID roleId,
+			   rp.PERMISSION_ID permissionId,
 			   rp.`DESCRIBE`,
-			   p.PERMISSION_NAME
+			   p.PERMISSION_NAME permissionName,
+			   p.MENU_URL menuUrl
 		from TB_ROLE_PERMISSION rp
 		inner join TB_PERMISSION p on p.ID=rp.PERMISSION_ID
 		where rp.ROLE_ID= #{roleId}

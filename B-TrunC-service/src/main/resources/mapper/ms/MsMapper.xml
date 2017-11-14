@@ -9,7 +9,7 @@
         <result column="status" property="status" />
         <result column="imsi" property="imsi" />
         <result column="type" property="type" />
-        <result column="is_tnc" property="isTcn" />
+        <result column="is_tnc" property="isTCN" />
         <result column="is_sub_group" property="isSubGroup" />
         <result column="is_sub_register" property="isSubRegister" />
         <result column="user_name" property="userName" />
@@ -33,7 +33,7 @@
 				#{onlineStatus,jdbcType=VARCHAR},
 				#{status,jdbcType=VARCHAR},
 				#{type,jdbcType=VARCHAR},
-				#{isTcn,jdbcType=VARCHAR},
+				#{isTCN,jdbcType=VARCHAR},
 				#{isSubGroup,jdbcType=VARCHAR},
 				#{isSubRegister,jdbcType=VARCHAR}
 				)
@@ -90,15 +90,15 @@
 
     <select id="findMsByPage" resultMap="msMap">
         select distinct m.UDN,
-			 m.ONLINE_STATUS,
-			 m.`STATUS`,
-			 m.IMSI,
-             m.TYPE,
-			 m.IS_TCN,
-			 m.IS_SUB_GROUP,
-			 m.IS_SUB_REGISTER,
-             gm1.GRP_ID,
-             u.USER_NAME
+			 m.ONLINE_STATUS onlineStatus,
+			 m.`STATUS` status,
+			 m.IMSI imsi,
+             m.TYPE type,
+			 m.IS_TCN isTCN,
+			 m.IS_SUB_GROUP isSubGroup,
+			 m.IS_SUB_REGISTER isSubRegister,
+             gm1.GRP_ID grpId,
+             u.USER_NAME userName
 			 from TB_MS_INFO m
         inner join TB_GROUP_MS gm1 on gm1.UDN=m.UDN
         inner join TB_USER u on u.UDN=m.UDN
@@ -134,17 +134,19 @@
     </select>
 
     <select id="findMsOnManage" resultMap="msMap">
-         select g.GRP_NAME,
-			 m.UDN,
-			 u.USER_NAME,
-			 m.ONLINE_STATUS,
-			 m.`STATUS`,
-			 m.IMSI,m.TYPE,
-			 m.IS_TCN,
+         select g.GRP_NAME grpName,
+			 m.UDN udn,
+			 u.USER_NAME userName,
+			 m.ONLINE_STATUS onlineStatus,
+			 m.`STATUS` status,
+			 m.IMSI imsi,
+			 m.TYPE type,
+			 m.IS_TCN isTCN,
 			 temp.ID umId,
-			 temp.IS_SUB_GROUP,
-			 temp.IS_SUB_REGISTER,
-			 temp.IS_SUB_CALL from TB_MS_INFO m
+			 temp.IS_SUB_GROUP isSubGroup,
+			 temp.IS_SUB_REGISTER isSubRegister,
+			 temp.IS_SUB_CALL isSubCall
+		from TB_MS_INFO m
         inner join TB_GROUP_MS gm on gm.UDN = m.UDN
         inner join TB_USER u on u.UDN = m.UDN
         inner join TB_GROUP_INFO g on g.GRP_ID = gm.GRP_ID

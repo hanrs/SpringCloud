@@ -9,13 +9,9 @@
         <result column="salt" property="salt" />
         <result column="user_name" property="userName" />
         <result column="udn" property="udn" />
-        <result column="role" property="role" />
+        <result column="role_id" property="roleId" />
         <result column="status" property="status" />
         <result column="register_date" property="registerDate" />
-        <result column="area" property="area" />
-        <result column="city" property="city" />
-        <result column="server" property="server" />
-        <result column="remark" property="remark" />
     </resultMap>
 
     <select id="infoByAccout" resultMap="userMap">
@@ -25,13 +21,9 @@
         u.salt salt,
         u.user_name userName,
         u.udn udn,
-        u.role role,
+        u.role_id roleId,
         u.status status,
-        u.register_date registerDate,
-        u.area area,
-        u.city city,
-        u.server server,
-        u.remark remark
+        u.register_date registerDate
         from TB_USER u
         where 1 = 1
         <if test="account != null and account != ''">
@@ -46,26 +38,18 @@
 				salt,
 				user_name,
 				udn,
-				role,
+				role_id,
 				status, 
-				register_date,
-				area,
-				city,
-				server,
-				remark)
+				register_date)
 		values(
 				#{account,jdbcType=VARCHAR},
 				#{password,jdbcType=VARCHAR},
 				#{salt,jdbcType=VARCHAR},
 				#{userName,jdbcType=VARCHAR},
 				#{udn,jdbcType=VARCHAR},
-				#{role,jdbcType=VARCHAR},
+				#{roleId,jdbcType=VARCHAR},
 				#{status,jdbcType=VARCHAR},
-				#{registerDate,jdbcType=VARCHAR},
-				#{area,jdbcType=VARCHAR},
-				#{city,jdbcType=VARCHAR},
-				#{server,jdbcType=VARCHAR},
-				#{remark,jdbcType=VARCHAR})
+				#{registerDate,jdbcType=VARCHAR})
 	</insert>
 
     <update id="update" parameterType="com.dhxx.common.entity.user.User">
@@ -83,23 +67,11 @@
             <if test="udn != null and udn != ''">
                 udn = #{udn,jdbcType=VARCHAR},
             </if>
-            <if test="role != null and role != ''">
-                role = #{role,jdbcType=VARCHAR},
+            <if test="roleId != null and roleId != ''">
+                role_id = #{roleId,jdbcType=VARCHAR},
             </if>
             <if test="status != null">
                 status=#{status},
-            </if>
-            <if test="area != null and area != ''">
-                area = #{area,jdbcType=VARCHAR},
-            </if>
-            <if test="city != null and city != ''">
-                city = #{city,jdbcType=VARCHAR},
-            </if>
-            <if test="server != null and server != ''">
-                server = #{server,jdbcType=VARCHAR},
-            </if>
-            <if test="remark != null and remark != ''">
-                remark = #{remark,jdbcType=VARCHAR},
             </if>
         </set>
         where account = #{account}
@@ -109,11 +81,11 @@
 		delete from TB_USER where account = #{account}
 	</delete>
 
-    <select id="personalInfo" resultType="com.dhxx.common.entity.vo.UserVo">
+    <select id="personalInfo" resultType="com.dhxx.common.entity.dto.UserDTO">
         select u.UDN udn,
                u.USER_NAME userName,
                g.GRP_NAME grpName,
-               u.ROLE role,
+               u.ROLE_ID roleId,
                m.ONLINE_STATUS onlineStatus,
                (select s.TYPE subType from TB_SUBSCRIBE s where s.UDN=#{udn} and s.CALLED_UDN=#{callUdn})  subType
         from TB_GROUP_MS gm
@@ -129,13 +101,9 @@
             u.account account,
             u.user_name userName,
             u.udn udn,
-            u.role role,
+            u.ROLE_ID roleId,
             u.status status,
-            u.register_date registerDate,
-            u.area area,
-            u.city city,
-            u.server server,
-            u.remark remark
+            u.register_date registerDate
         from TB_USER u
         limit ${(pageNow-1)*pageSize}, #{pageSize}
     </select>

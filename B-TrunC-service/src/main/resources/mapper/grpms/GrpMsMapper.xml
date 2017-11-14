@@ -37,7 +37,7 @@
         where gm.UDN = #{udn}
     </select>
 
-    <select id="queryGrpMsByGrpId"  resultType="com.dhxx.common.entity.vo.MsMenuVo">
+    <select id="queryGrpMsByGrpId"  resultType="com.dhxx.common.entity.dto.MsMenuDTO">
        select gm.GRP_ID grpId,
               gm.UDN udn,
               u.USER_NAME userName,

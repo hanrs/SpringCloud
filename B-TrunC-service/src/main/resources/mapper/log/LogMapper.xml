@@ -4,20 +4,27 @@
 
     <resultMap id="logMap" type="com.dhxx.common.entity.log.Log">
         <id column="id" property="id" />
-        <result column="user_name" property="userName" />
+        <result column="user_id" property="userId" />
+        <result column="login_ip" property="loginIp" />
+        <result column="type" property="type" />
         <result column="content" property="content" />
         <result column="operation_time" property="operationTime" />
         <result column="other" property="other" />
+        <result column="user_name" property="userName" />
     </resultMap>
 
     <insert id="save" parameterType="com.dhxx.common.entity.log.Log" >
         insert into TB_LOG(
-				user_name,
+				user_id,
+				login_ip,
+				type,
 				content,
 				operation_time,
 				other)
 		values(
-				#{userName,jdbcType=VARCHAR},
+				#{userId,jdbcType=VARCHAR},
+				#{loginIp,jdbcType=VARCHAR},
+				#{type,jdbcType=VARCHAR},
 				#{content,jdbcType=VARCHAR},
 				#{operationTime,jdbcType=VARCHAR},
 				#{other,jdbcType=VARCHAR}
@@ -26,13 +33,15 @@
 
 
     <select id="findLogByPage" resultMap="logMap">
-        select l.USER_NAME,
+        select u.USER_NAME,
                l.CONTENT,
                l.OPERATION_TIME,
                l.OTHER
-        from TB_LOG l where 1=1
+        from TB_LOG l
+        inner join TB_USER u on u.id=l.user_id
+        where 1=1
         <if test="userName != null and userName != ''">
-            and l.USER_NAME = #{userName}
+            and u.USER_NAME = #{userName}
         </if>
         <if test="startTime != null and endTime != null">
             and l.OPERATION_TIME BETWEEN #{startTime} AND #{endTime}
@@ -43,9 +52,11 @@
 
     <select id="findLogByCount" resultType="java.lang.Double">
         select count(1)
-        from TB_LOG l where 1=1
+        from TB_LOG l
+        inner join TB_USER u on u.id=l.user_id
+        where 1=1
         <if test="userName != null and userName != ''">
-            and l.USER_NAME = #{userName}
+            and u.USER_NAME = #{userName}
         </if>
         <if test="startTime != null and endTime != null">
             and l.OPERATION_TIME BETWEEN #{startTime} AND #{endTime}

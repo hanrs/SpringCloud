@@ -5,15 +5,18 @@
     <resultMap id="permissionMap" type="com.dhxx.common.entity.permission.Permission">
         <id column="id" property="id" />
         <result column="permission_name" property="permissionName" />
+        <result column="menu_id" property="menuId" />
         <result column="describe" property="describe" />
     </resultMap>
 
     <insert id="save" parameterType="com.dhxx.common.entity.permission.Permission" >
         insert into TB_PERMISSION(
 				`permission_name`,
+				`menu_id`,
 				`describe`)
 		values(
 				#{permissionName,jdbcType=VARCHAR},
+				#{menuId,jdbcType=VARCHAR},
 				#{describe,jdbcType=VARCHAR}
 				)
 	</insert>
@@ -23,6 +26,10 @@
         <set>
             <if test="permissionName != null and permissionName != ''">
                 `permission_name` = #{permissionName,jdbcType=VARCHAR}
+            </if>
+
+            <if test="menuId != null and menuId != ''">
+                `menu_id` = #{menuId,jdbcType=VARCHAR}
             </if>
 
             <if test="describe != null and describe != ''">
