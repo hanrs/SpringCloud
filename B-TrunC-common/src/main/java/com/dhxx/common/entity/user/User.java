@@ -24,18 +24,14 @@ public class User implements Serializable {
 	private String salt;// 密码干扰
 	private String userName;// 用户名
 	private String udn; //用户号码
-	private String role;// 角色 [sys_admin, sys_user, ]
+	private Long roleId;// 角色
 	private int status;// 状态 0: 正常 1:注销
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date registerDate;// 注册时间
 
-	private String area; //TZ地区
-	private String city; //TZ城市
-	private String server; //NTP服务器
-	private String remark; //备注
-
 	private String newPassword;// 新密码：只做修改密码的时候使用
+	private String imsi; //imsi号
 
 	public Long getId() { return id; }
 
@@ -61,9 +57,9 @@ public class User implements Serializable {
 
 	public void setUdn(String udn) { this.udn = udn; }
 
-	public String getRole() { return role; }
+	public Long getRoleId() { return roleId; }
 
-	public void setRole(String role) { this.role = role; }
+	public void setRoleId(Long roleId) { this.roleId = roleId; }
 
 	public int getStatus() { return status; }
 
@@ -73,23 +69,11 @@ public class User implements Serializable {
 
 	public void setRegisterDate(Date registerDate) { this.registerDate = registerDate; }
 
-	public String getArea() { return area; }
-
-	public void setArea(String area) { this.area = area; }
-
-	public String getCity() { return city; }
-
-	public void setCity(String city) { this.city = city; }
-
-	public String getServer() { return server; }
-
-	public void setServer(String server) { this.server = server; }
-
-	public String getRemark() { return remark; }
-
-	public void setRemark(String remark) { this.remark = remark; }
-
 	public String getNewPassword() { return newPassword; }
 
 	public void setNewPassword(String newPassword) { this.newPassword = newPassword; }
+
+	public String getImsi() { return imsi; }
+
+	public void setImsi(String imsi) { this.imsi = imsi; }
 }

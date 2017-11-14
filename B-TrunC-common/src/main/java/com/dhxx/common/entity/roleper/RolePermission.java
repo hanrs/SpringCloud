@@ -14,6 +14,7 @@ public class RolePermission {
     private String describe; //描述
 
     private String permissionName; //权限名
+    private String menuUrl; //菜单路径
 
     public Long getId() { return id; }
 
@@ -34,4 +35,8 @@ public class RolePermission {
     public String getPermissionName() { return permissionName; }
 
     public void setPermissionName(String permissionName) { this.permissionName = permissionName; }
+
+    public String getMenuUrl() { return menuUrl; }
+
+    public void setMenuUrl(String menuUrl) { this.menuUrl = menuUrl; }
 }

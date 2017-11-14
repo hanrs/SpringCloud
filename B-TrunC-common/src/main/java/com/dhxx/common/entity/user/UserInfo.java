@@ -11,7 +11,7 @@ public class UserInfo implements Serializable {
 
     private String account;// 登录帐号
     
-    private String role;// 角色
+    private Long roleId;// 角色
     
     private String token;//身份令牌
 
@@ -31,13 +31,9 @@ public class UserInfo implements Serializable {
 
     public void setAccount(String account) { this.account = account; }
 
-    public String getRole() {
-        return role;
-    }
+    public Long getRoleId() { return roleId; }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public void setRoleId(Long roleId) { this.roleId = roleId; }
 
     public String getToken() {
         return token;
