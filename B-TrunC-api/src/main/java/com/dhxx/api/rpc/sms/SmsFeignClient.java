@@ -1,9 +1,8 @@
 package com.dhxx.api.rpc.sms;
 
 import com.alibaba.fastjson.JSON;
-import com.dhxx.common.entity.call.CallLog;
+import com.dhxx.common.entity.dto.SmsPageDTO;
 import com.dhxx.common.entity.sms.SmsLog;
-import com.dhxx.common.entity.vo.SmsPageVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -32,10 +31,10 @@ public interface SmsFeignClient {
     public void update(SmsLog sms);
 
     @PostMapping("/B-TrunC-service/sms/findSmsLogByPage")
-    public List<SmsLog> findSmsLogByPage(SmsPageVo smsPageVo);
+    public List<SmsLog> findSmsLogByPage(SmsPageDTO smsPageDTO);
 
     @PostMapping("/B-TrunC-service/sms/findSmsLogByCount")
-    public Integer findSmsLogByCount(SmsPageVo smsPageVo);
+    public Integer findSmsLogByCount(SmsPageDTO smsPageDTO);
 
     @PostMapping("/B-TrunC-service/sms/smsCountByStatus0")
     public Integer smsCountByStatus0(SmsLog sms);
@@ -64,14 +63,14 @@ public interface SmsFeignClient {
         }
 
         @Override
-        public List<SmsLog> findSmsLogByPage(SmsPageVo smsPageVo) {
-            log.error("application=B-TrunC-service,url=/sms/findSmsLogByPage 异常发生，进入fallback方法，接收的参数：smsPageVo = " + JSON.toJSONString(smsPageVo));
+        public List<SmsLog> findSmsLogByPage(SmsPageDTO smsPageDTO) {
+            log.error("application=B-TrunC-service,url=/sms/findSmsLogByPage 异常发生，进入fallback方法，接收的参数：smsPageDTO = " + JSON.toJSONString(smsPageDTO));
             return null;
         }
 
         @Override
-        public Integer findSmsLogByCount(SmsPageVo smsPageVo) {
-            log.error("application=B-TrunC-service,url=/sms/findSmsLogByCount 异常发生，进入fallback方法，接收的参数：smsPageVo = " + JSON.toJSONString(smsPageVo));
+        public Integer findSmsLogByCount(SmsPageDTO smsPageDTO) {
+            log.error("application=B-TrunC-service,url=/sms/findSmsLogByCount 异常发生，进入fallback方法，接收的参数：smsPageDTO = " + JSON.toJSONString(smsPageDTO));
             return -1;
         }
 

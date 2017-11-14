@@ -1,8 +1,8 @@
 package com.dhxx.api.rest.ms;
 
 import com.dhxx.api.rpc.ms.MsFeignClient;
+import com.dhxx.common.entity.dto.MsPageDTO;
 import com.dhxx.common.entity.ms.MsInfo;
-import com.dhxx.common.entity.vo.MsPageVo;
 import com.dhxx.common.utils.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,10 +74,10 @@ public class MsController {
     }
 
     @PostMapping("findMsByPage")
-    public Object findMsByPage(@RequestBody MsPageVo msPageVo) {
+    public Object findMsByPage(@RequestBody MsPageDTO msPageDTO) {
         List<MsInfo> list = new ArrayList<MsInfo>();
         try {
-            list = msFeignClient.findMsByPage(msPageVo);
+            list = msFeignClient.findMsByPage(msPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,10 +86,10 @@ public class MsController {
     }
 
     @PostMapping("findMsByCount")
-    public Object findMsByCount(@RequestBody MsPageVo msPageVo) {
+    public Object findMsByCount(@RequestBody MsPageDTO msPageDTO) {
         int totalPages = -1;
         try {
-            totalPages = msFeignClient.findMsByCount(msPageVo);
+            totalPages = msFeignClient.findMsByCount(msPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,10 +98,10 @@ public class MsController {
     }
 
     @PostMapping("findMsOnManage")
-    public Object findMsOnManage(@RequestBody MsPageVo msPageVo) {
+    public Object findMsOnManage(@RequestBody MsPageDTO msPageDTO) {
         List<MsInfo> list = new ArrayList<MsInfo>();
         try {
-            list = msFeignClient.findMsOnManage(msPageVo);
+            list = msFeignClient.findMsOnManage(msPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -110,10 +110,10 @@ public class MsController {
     }
 
     @PostMapping("findMsOnManageCount")
-    public Object findMsOnManageCount(@RequestBody MsPageVo msPageVo) {
+    public Object findMsOnManageCount(@RequestBody MsPageDTO msPageDTO) {
         int totalPages = -1;
         try {
-            totalPages = msFeignClient.findMsOnManageCount(msPageVo);
+            totalPages = msFeignClient.findMsOnManageCount(msPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }

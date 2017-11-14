@@ -1,8 +1,8 @@
 package com.dhxx.api.rest.log;
 
 import com.dhxx.api.rpc.log.LogFeignClient;
+import com.dhxx.common.entity.dto.LogPageDTO;
 import com.dhxx.common.entity.log.Log;
-import com.dhxx.common.entity.vo.LogPageVo;
 import com.dhxx.common.utils.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,10 +38,10 @@ public class LogController {
 
 
     @PostMapping("findLogByPage")
-    public Object findLogByPage(@RequestBody LogPageVo logPageVo) throws  Exception {
+    public Object findLogByPage(@RequestBody LogPageDTO logPageDTO) throws  Exception {
         List<Log> list= new ArrayList<>();
         try {
-            list = logFeignClient.findLogByPage(logPageVo);
+            list = logFeignClient.findLogByPage(logPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,10 +50,10 @@ public class LogController {
     }
 
     @PostMapping("findLogByCount")
-    public Object findLogByCount(@RequestBody LogPageVo logPageVo) throws  Exception {
+    public Object findLogByCount(@RequestBody LogPageDTO logPageDTO) throws  Exception {
         int count = -1;
         try {
-            count = logFeignClient.findLogByCount(logPageVo);
+            count = logFeignClient.findLogByCount(logPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }

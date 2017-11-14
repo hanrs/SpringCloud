@@ -1,8 +1,8 @@
 package com.dhxx.api.rpc.log;
 
 import com.alibaba.fastjson.JSON;
+import com.dhxx.common.entity.dto.LogPageDTO;
 import com.dhxx.common.entity.log.Log;
-import com.dhxx.common.entity.vo.LogPageVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -25,10 +25,10 @@ public interface LogFeignClient {
     public void save(Log log);
 
     @PostMapping("/B-TrunC-service/log/findLogByPage")
-    public List<Log> findLogByPage(LogPageVo logPageVo);
+    public List<Log> findLogByPage(LogPageDTO logPageDTO);
 
     @PostMapping("/B-TrunC-service/log/findLogByCount")
-    public Integer findLogByCount(LogPageVo logPageVo);
+    public Integer findLogByCount(LogPageDTO logPageDTO);
 
     @Component
     static class HystrixLogFeignClientFallback implements LogFeignClient {
@@ -43,14 +43,14 @@ public interface LogFeignClient {
         }
 
         @Override
-        public List<Log> findLogByPage(LogPageVo logPageVo) {
-            logger.error("application=B-TrunC-service,url=/log/logPageVo 异常发生，进入fallback方法，接收的参数：logPageVo = " + JSON.toJSONString(logPageVo));
+        public List<Log> findLogByPage(LogPageDTO logPageDTO) {
+            logger.error("application=B-TrunC-service,url=/log/logPageDTO 异常发生，进入fallback方法，接收的参数：logPageDTO = " + JSON.toJSONString(logPageDTO));
             return null;
         }
 
         @Override
-        public Integer findLogByCount(LogPageVo logPageVo) {
-            logger.error("application=B-TrunC-service,url=/log/logPageVo 异常发生，进入fallback方法，接收的参数：logPageVo = " + JSON.toJSONString(logPageVo));
+        public Integer findLogByCount(LogPageDTO logPageDTO) {
+            logger.error("application=B-TrunC-service,url=/log/logPageDTO 异常发生，进入fallback方法，接收的参数：logPageDTO = " + JSON.toJSONString(logPageDTO));
             return -1;
         }
     }

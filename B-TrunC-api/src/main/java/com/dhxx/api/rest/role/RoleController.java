@@ -1,5 +1,7 @@
 package com.dhxx.api.rest.role;
 
+import com.dhxx.api.authorization.annotation.Authorization;
+import com.dhxx.api.authorization.annotation.Permission;
 import com.dhxx.api.rpc.role.RoleFeignClient;
 import com.dhxx.api.rpc.tcn.TcnInfoFeignClient;
 import com.dhxx.common.entity.role.Role;
@@ -27,6 +29,7 @@ public class RoleController {
     private RoleFeignClient roleFeignClient;
 
     @PostMapping("save")
+    @Permission
     public Object save(@RequestBody Role role) throws Exception {
         try {
             roleFeignClient.save(role);

@@ -1,12 +1,14 @@
 package com.dhxx.api.rest.user;
 
 import com.dhxx.api.authorization.annotation.Authorization;
+import com.dhxx.api.authorization.manager.PermissionManager;
 import com.dhxx.api.authorization.manager.TokenManager;
-import com.dhxx.api.exception.RestException;
+import com.dhxx.api.rpc.roleper.RolePerFeignClient;
 import com.dhxx.api.rpc.user.UserFeignClient;
+import com.dhxx.common.entity.dto.UserDTO;
+import com.dhxx.common.entity.roleper.RolePermission;
 import com.dhxx.common.entity.user.User;
 import com.dhxx.common.entity.user.UserInfo;
-import com.dhxx.common.entity.vo.UserVo;
 import com.dhxx.common.utils.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,13 @@ public class UserController {
     private UserFeignClient userFeignClient;
 
     @Autowired
+    private RolePerFeignClient rolePerFeignClient;
+
+    @Autowired
     TokenManager manager;
+
+    @Autowired
+    PermissionManager permissionManager;
 
     private String msg = null;
     private boolean isSuccess = true;
@@ -35,10 +43,16 @@ public class UserController {
         if(usered!=null){
             String token = UUID.randomUUID().toString();
             u.setAccount(usered.getAccount());
-            u.setRole(usered.getRole());
+            u.setRoleId(usered.getRoleId());
             u.setUserName(usered.getUserName());
             u.setToken(token);
             manager.createToken(u);
+
+            RolePermission rolePermission = new RolePermission();
+            rolePermission.setRoleId(usered.getRoleId());
+            List<RolePermission> list = rolePerFeignClient.findRolePerByRoleId(rolePermission);
+            permissionManager.createAccount(list, usered.getAccount());
+
             msg = "登陆成功";
         }else {
             msg = "用户名或密码错误";
@@ -62,6 +76,7 @@ public class UserController {
     }
 
     @PostMapping("update")
+    @Authorization
     public Object update(@RequestBody User user) throws  Exception {
         try {
             userFeignClient.update(user);
@@ -87,23 +102,23 @@ public class UserController {
     }
 
     @PostMapping("personalInfo")
-    public Object personalInfo(@RequestBody UserVo userVo) throws  Exception {
-        UserVo userVoRps = null;
+    public Object personalInfo(@RequestBody UserDTO userDTO) throws  Exception {
+        UserDTO userDTORps = null;
         try {
-            userVoRps = userFeignClient.personalInfo(userVo);
+            userDTORps = userFeignClient.personalInfo(userDTO);
         }catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
-        return Resp.SUCCESS(userVoRps);
+        return Resp.SUCCESS(userDTORps);
     }
 
     @PostMapping("findUserByPage")
-    public Object findUserByPage(@RequestBody UserVo userVo) throws  Exception {
+    public Object findUserByPage(@RequestBody UserDTO userDTO) throws  Exception {
         List<User> list = new ArrayList<User>();
         try {
-            list = userFeignClient.findUserByPage(userVo);
+            list = userFeignClient.findUserByPage(userDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,10 +127,10 @@ public class UserController {
     }
 
     @PostMapping("findUserByCount")
-    public Object findUserByCount(@RequestBody UserVo userVo) throws  Exception {
+    public Object findUserByCount(@RequestBody UserDTO userDTO) throws  Exception {
         int count = -1;
         try {
-            count = userFeignClient.findUserByCount(userVo);
+            count = userFeignClient.findUserByCount(userDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }

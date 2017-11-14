@@ -47,12 +47,12 @@ public class RestException extends BusinessException {
     public static final RestException USER_EXISTS = new RestException("用户已存在");
     
     /**
-     * 密码错误
+     * 用户已登录
      */
     public static final RestException USER_LOGINED_ERROR = new RestException("用户已登录, 不允许重复登录");
     
     /**
-     * 用户已登录
+     * 密码错误
      */
     public static final RestException USER_PASS_ERROR = new RestException("密码错误");
     

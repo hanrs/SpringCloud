@@ -2,7 +2,7 @@ package com.dhxx.api.rest.call;
 
 import com.dhxx.api.rpc.call.CallFeignClient;
 import com.dhxx.common.entity.call.CallLog;
-import com.dhxx.common.entity.vo.CallPageVo;
+import com.dhxx.common.entity.dto.CallPageDTO;
 import com.dhxx.common.utils.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,10 +50,10 @@ public class CallController {
     }
 
     @PostMapping("findCallLogByType")
-    public Object findCallLogByType(@RequestBody CallPageVo callPageVo) throws  Exception {
+    public Object findCallLogByType(@RequestBody CallPageDTO callPageDTO) throws  Exception {
         List<CallLog> list = new ArrayList<CallLog>();
         try {
-            list = callFeignClient.findCallLogByType(callPageVo);
+            list = callFeignClient.findCallLogByType(callPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,10 +62,10 @@ public class CallController {
     }
 
     @PostMapping("findCallLogByCount")
-    public Object findCallLogByCount(@RequestBody CallPageVo callPageVo) throws  Exception {
+    public Object findCallLogByCount(@RequestBody CallPageDTO callPageDTO) throws  Exception {
         int count = -1;
         try {
-            count = callFeignClient.findCallLogByCount(callPageVo);
+            count = callFeignClient.findCallLogByCount(callPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }

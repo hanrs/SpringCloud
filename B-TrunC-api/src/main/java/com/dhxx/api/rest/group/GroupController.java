@@ -1,8 +1,8 @@
 package com.dhxx.api.rest.group;
 
 import com.dhxx.api.rpc.group.GroupFeignClient;
+import com.dhxx.common.entity.dto.GrpPageDTO;
 import com.dhxx.common.entity.group.GroupInfo;
-import com.dhxx.common.entity.vo.GrpPageVo;
 import com.dhxx.common.utils.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,27 +63,27 @@ public class GroupController {
     }
 
     @PostMapping("findGrpByPage")
-    public Object findGrpByPage(@RequestBody GrpPageVo grpPageVo) throws Exception {
+    public Object findGrpByPage(@RequestBody GrpPageDTO grpPageDTO) throws Exception {
         List<GroupInfo> list = new ArrayList<GroupInfo>();
         try {
-            list = groupFeignClient.findGrpByPage(grpPageVo);
+            list = groupFeignClient.findGrpByPage(grpPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
 
-        return list;
+        return Resp.SUCCESS(list);
     }
 
     @PostMapping("findGrpByCount")
-    public Object findGrpByCount(@RequestBody GrpPageVo grpPageVo) throws Exception {
+    public Object findGrpByCount(@RequestBody GrpPageDTO grpPageDTO) throws Exception {
         int count = -1;
         try {
-            count = groupFeignClient.findGrpByCount(grpPageVo);
+            count = groupFeignClient.findGrpByCount(grpPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
 
-        return count;
+        return Resp.SUCCESS(count);
     }
 
     @PostMapping("findGrpInfoByGrpId")
@@ -95,30 +95,30 @@ public class GroupController {
             e.printStackTrace();
         }
 
-        return grpInfoRes;
+        return Resp.SUCCESS(grpInfoRes);
     }
 
     @PostMapping("findGrpInfoAndSub")
-    public Object findGrpInfoAndSub(@RequestBody GrpPageVo grpPageVo) throws Exception {
+    public Object findGrpInfoAndSub(@RequestBody GrpPageDTO grpPageDTO) throws Exception {
         List<GroupInfo> list = new ArrayList<GroupInfo>();
         try {
-            list = groupFeignClient.findGrpInfoAndSub(grpPageVo);
+            list = groupFeignClient.findGrpInfoAndSub(grpPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
 
-        return list;
+        return Resp.SUCCESS(list);
     }
 
     @PostMapping("findGrpInfoAndSubCount")
-    public Object findGrpInfoAndSubCount(@RequestBody GrpPageVo grpPageVo) throws Exception {
+    public Object findGrpInfoAndSubCount(@RequestBody GrpPageDTO grpPageDTO) throws Exception {
         int count = -1;
         try {
-            count = groupFeignClient.findGrpInfoAndSubCount(grpPageVo);
+            count = groupFeignClient.findGrpInfoAndSubCount(grpPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
 
-        return count;
+        return Resp.SUCCESS(count);
     }
 }

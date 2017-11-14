@@ -1,15 +1,14 @@
 package com.dhxx.api.rpc.user;
 
 import com.alibaba.fastjson.JSON;
+import com.dhxx.common.entity.dto.UserDTO;
 import com.dhxx.common.entity.user.User;
-import com.dhxx.common.entity.vo.UserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -46,13 +45,13 @@ public interface UserFeignClient {
     public void delete(User user);
 
     @PostMapping("/B-TrunC-service/user/personalInfo")
-    public UserVo personalInfo(UserVo userVo);
+    public UserDTO personalInfo(UserDTO userDTO);
 
     @PostMapping("/B-TrunC-service/user/findUserByPage")
-    public List<User> findUserByPage(UserVo userVo);
+    public List<User> findUserByPage(UserDTO userDTO);
 
     @PostMapping("/B-TrunC-service/user/findUserByCount")
-    public Integer findUserByCount(UserVo userVo);
+    public Integer findUserByCount(UserDTO userDTO);
 
     @Component
     static class HystrixUserFeignClientFallback implements UserFeignClient {
@@ -85,20 +84,20 @@ public interface UserFeignClient {
         }
 
         @Override
-        public UserVo personalInfo(UserVo userVo) {
-            log.error("application=B-TrunC-service,url=/user/personalInfo 异常发生，进入fallback方法，接收的参数：userVo = " + JSON.toJSONString(userVo));
+        public UserDTO personalInfo(UserDTO userDTO) {
+            log.error("application=B-TrunC-service,url=/user/personalInfo 异常发生，进入fallback方法，接收的参数：userDTO = " + JSON.toJSONString(userDTO));
            return null;
         }
 
         @Override
-        public List<User> findUserByPage(UserVo userVo) {
-            log.error("application=B-TrunC-service,url=/user/findUserByPage 异常发生，进入fallback方法，接收的参数：userVo = " + JSON.toJSONString(userVo));
+        public List<User> findUserByPage(UserDTO userDTO) {
+            log.error("application=B-TrunC-service,url=/user/findUserByPage 异常发生，进入fallback方法，接收的参数：userDTO = " + JSON.toJSONString(userDTO));
             return null;
         }
 
         @Override
-        public Integer findUserByCount(UserVo userVo) {
-            log.error("application=B-TrunC-service,url=/user/findUserByCount 异常发生，进入fallback方法，接收的参数：userVo = " + JSON.toJSONString(userVo));
+        public Integer findUserByCount(UserDTO userDTO) {
+            log.error("application=B-TrunC-service,url=/user/findUserByCount 异常发生，进入fallback方法，接收的参数：userDTO = " + JSON.toJSONString(userDTO));
             return -1;
         }
     }

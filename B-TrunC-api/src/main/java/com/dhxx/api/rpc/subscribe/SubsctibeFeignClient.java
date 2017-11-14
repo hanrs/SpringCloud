@@ -1,8 +1,8 @@
 package com.dhxx.api.rpc.subscribe;
 
 import com.alibaba.fastjson.JSON;
+import com.dhxx.common.entity.dto.SubscribePageDTO;
 import com.dhxx.common.entity.subscribe.Subscribe;
-import com.dhxx.common.entity.vo.SubscribePageVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -25,10 +25,10 @@ public interface SubsctibeFeignClient {
     public void save(Subscribe subscribe);
 
     @PostMapping("/B-TrunC-service/sub/findSubByPage")
-    public List<Subscribe> findSubByPage(SubscribePageVo subscribePageVo);
+    public List<Subscribe> findSubByPage(SubscribePageDTO subscribePageDTO);
 
     @PostMapping("/B-TrunC-service/sub/findSubByCount")
-    public Integer findSubByCount(SubscribePageVo subscribePageVo);
+    public Integer findSubByCount(SubscribePageDTO subscribePageDTO);
 
     @Component
     static class HystrixSubFeignClientFallback implements SubsctibeFeignClient {
@@ -43,14 +43,14 @@ public interface SubsctibeFeignClient {
         }
 
         @Override
-        public List<Subscribe> findSubByPage(SubscribePageVo subscribePageVo) {
-            log.error("application=B-TrunC-service,url=/sub/findSubByPage 异常发生，进入fallback方法，接收的参数：subscribePageVo = " + JSON.toJSONString(subscribePageVo));
+        public List<Subscribe> findSubByPage(SubscribePageDTO subscribePageDTO) {
+            log.error("application=B-TrunC-service,url=/sub/findSubByPage 异常发生，进入fallback方法，接收的参数：subscribePageDTO = " + JSON.toJSONString(subscribePageDTO));
             return null;
         }
 
         @Override
-        public Integer findSubByCount(SubscribePageVo subscribePageVo) {
-            log.error("application=B-TrunC-service,url=/sub/findSubByCount 异常发生，进入fallback方法，接收的参数：subscribePageVo = " + JSON.toJSONString(subscribePageVo));
+        public Integer findSubByCount(SubscribePageDTO subscribePageDTO) {
+            log.error("application=B-TrunC-service,url=/sub/findSubByCount 异常发生，进入fallback方法，接收的参数：subscribePageDTO = " + JSON.toJSONString(subscribePageDTO));
             return -1;
         }
 

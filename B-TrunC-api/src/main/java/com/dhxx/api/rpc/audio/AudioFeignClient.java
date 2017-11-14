@@ -2,8 +2,7 @@ package com.dhxx.api.rpc.audio;
 
 import com.alibaba.fastjson.JSON;
 import com.dhxx.common.entity.audio.AudioVideo;
-import com.dhxx.common.entity.call.CallLog;
-import com.dhxx.common.entity.vo.AudioPageVo;
+import com.dhxx.common.entity.dto.AudioPageDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -29,10 +28,10 @@ public interface AudioFeignClient {
     public void delete(List<AudioVideo> audioVideos);
 
     @PostMapping("/B-TrunC-service/audio/findAudioVideoByPage")
-    public List<AudioVideo> findAudioVideoByPage(AudioPageVo audioPageVo);
+    public List<AudioVideo> findAudioVideoByPage(AudioPageDTO audioPageDTO);
 
     @PostMapping("/B-TrunC-service/audio/findAudioVideoByCount")
-    public Integer findAudioVideoByCount(AudioPageVo audioPageVo);
+    public Integer findAudioVideoByCount(AudioPageDTO audioPageDTO);
 
 
     @Component
@@ -53,14 +52,14 @@ public interface AudioFeignClient {
         }
 
         @Override
-        public List<AudioVideo> findAudioVideoByPage(AudioPageVo audioPageVo) {
-            log.error("application=B-TrunC-service,url=/audio/findAudioVideoByPage 异常发生，进入fallback方法，接收的参数：audioPageVo = " + JSON.toJSONString(audioPageVo));
+        public List<AudioVideo> findAudioVideoByPage(AudioPageDTO audioPageDTO) {
+            log.error("application=B-TrunC-service,url=/audio/findAudioVideoByPage 异常发生，进入fallback方法，接收的参数：audioPageDTO = " + JSON.toJSONString(audioPageDTO));
             return null;
         }
 
         @Override
-        public Integer findAudioVideoByCount(AudioPageVo audioPageVo) {
-            log.error("application=B-TrunC-service,url=/audio/findAudioVideoByCount 异常发生，进入fallback方法，接收的参数：audioPageVo = " + JSON.toJSONString(audioPageVo));
+        public Integer findAudioVideoByCount(AudioPageDTO audioPageDTO) {
+            log.error("application=B-TrunC-service,url=/audio/findAudioVideoByCount 异常发生，进入fallback方法，接收的参数：audioPageDTO = " + JSON.toJSONString(audioPageDTO));
             return -1;
         }
 

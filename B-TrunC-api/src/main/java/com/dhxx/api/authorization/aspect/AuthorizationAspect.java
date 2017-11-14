@@ -1,4 +1,4 @@
-package com.dhxx.api.authorization;
+package com.dhxx.api.authorization.aspect;
 
 import com.dhxx.api.authorization.manager.TokenManager;
 import com.dhxx.common.entity.user.UserInfo;
@@ -36,7 +36,7 @@ public class AuthorizationAspect {
     // Controller层切点
     @Pointcut("@annotation(com.dhxx.api.authorization.annotation.Authorization)")
     public void controllerAspect() {
-       logger.debug("我是一个切入点");
+       logger.debug("Authorization切入点");
     }
 
     /**
@@ -46,9 +46,7 @@ public class AuthorizationAspect {
      *            切点
      */
     @Before("controllerAspect()")
-    public void doBefore(JoinPoint joinPoint) {
-        logger.debug("=====SysLogAspect前置通知开始=====");
-    }
+    public void doBefore(JoinPoint joinPoint) { logger.debug("=====SysLogAspect前置通知开始====="); }
 
     @Around("controllerAspect()")
     @RequestMapping(produces = "application/json; charset=UTF-8")
@@ -68,7 +66,7 @@ public class AuthorizationAspect {
         }else{
             HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder
                     .getRequestAttributes()).getResponse();
-            response.setStatus(response.SC_UNAUTHORIZED);
+            response.setStatus(response.SC_NOT_ACCEPTABLE);
             return null;
         }
 

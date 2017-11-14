@@ -1,8 +1,8 @@
 package com.dhxx.api.rest.subscribe;
 
 import com.dhxx.api.rpc.subscribe.SubsctibeFeignClient;
+import com.dhxx.common.entity.dto.SubscribePageDTO;
 import com.dhxx.common.entity.subscribe.Subscribe;
-import com.dhxx.common.entity.vo.SubscribePageVo;
 import com.dhxx.common.utils.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,10 +38,10 @@ public class SubscribeController {
     }
 
     @PostMapping("findSubByPage")
-    public Object findSubByPage(@RequestBody SubscribePageVo subscribePageVo) throws  Exception {
+    public Object findSubByPage(@RequestBody SubscribePageDTO subscribePageDTO) throws  Exception {
         List<Subscribe> list = new ArrayList<Subscribe>();
         try {
-            list = subsctibeFeignClient.findSubByPage(subscribePageVo);
+            list = subsctibeFeignClient.findSubByPage(subscribePageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,10 +50,10 @@ public class SubscribeController {
     }
 
     @PostMapping("findSubByCount")
-    public Object findSubByCount(@RequestBody SubscribePageVo subscribePageVo) throws  Exception {
+    public Object findSubByCount(@RequestBody SubscribePageDTO subscribePageDTO) throws  Exception {
         int count = -1;
         try {
-            count = subsctibeFeignClient.findSubByCount(subscribePageVo);
+            count = subsctibeFeignClient.findSubByCount(subscribePageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }

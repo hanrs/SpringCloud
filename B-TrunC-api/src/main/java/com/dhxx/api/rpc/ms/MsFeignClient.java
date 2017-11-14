@@ -1,8 +1,8 @@
 package com.dhxx.api.rpc.ms;
 
 import com.alibaba.fastjson.JSON;
+import com.dhxx.common.entity.dto.MsPageDTO;
 import com.dhxx.common.entity.ms.MsInfo;
-import com.dhxx.common.entity.vo.MsPageVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -34,16 +34,16 @@ public interface MsFeignClient {
     public MsInfo findMsByUdn(MsInfo ms);
 
     @PostMapping("/B-TrunC-service/ms/findMsByPage")
-    public List<MsInfo> findMsByPage(MsPageVo msPageVo);
+    public List<MsInfo> findMsByPage(MsPageDTO msPageDTO);
 
     @PostMapping("/B-TrunC-service/ms/findMsByCount")
-    public Integer findMsByCount(MsPageVo msPageVo);
+    public Integer findMsByCount(MsPageDTO msPageDTO);
 
     @PostMapping("/B-TrunC-service/ms/findMsOnManage")
-    public List<MsInfo> findMsOnManage(MsPageVo msPageVo);
+    public List<MsInfo> findMsOnManage(MsPageDTO msPageDTO);
 
     @PostMapping("/B-TrunC-service/ms/findMsOnManageCount")
-    public Integer findMsOnManageCount(MsPageVo msPageVo);
+    public Integer findMsOnManageCount(MsPageDTO msPageDTO);
 
     @Component
     static class HystrixMsFeignClientFallback implements MsFeignClient {
@@ -76,26 +76,26 @@ public interface MsFeignClient {
         }
 
         @Override
-        public List<MsInfo> findMsByPage(MsPageVo msPageVo) {
-            log.error("application=B-TrunC-service,url=/ms/findMsByPage 异常发生，进入fallback方法，接收的参数：msPageVo = " + JSON.toJSONString(msPageVo));
+        public List<MsInfo> findMsByPage(MsPageDTO msPageDTO) {
+            log.error("application=B-TrunC-service,url=/ms/findMsByPage 异常发生，进入fallback方法，接收的参数：msPageDTO = " + JSON.toJSONString(msPageDTO));
             return null;
         }
 
         @Override
-        public Integer findMsByCount(MsPageVo msPageVo) {
-            log.error("application=B-TrunC-service,url=/ms/findMsByCount 异常发生，进入fallback方法，接收的参数：msPageVo = " + JSON.toJSONString(msPageVo));
+        public Integer findMsByCount(MsPageDTO msPageDTO) {
+            log.error("application=B-TrunC-service,url=/ms/findMsByCount 异常发生，进入fallback方法，接收的参数：msPageDTO = " + JSON.toJSONString(msPageDTO));
             return -1;
         }
 
         @Override
-        public List<MsInfo> findMsOnManage(MsPageVo msPageVo) {
-            log.error("application=B-TrunC-service,url=/ms/findMsOnManage 异常发生，进入fallback方法，接收的参数：msPageVo = " + JSON.toJSONString(msPageVo));
+        public List<MsInfo> findMsOnManage(MsPageDTO msPageDTO) {
+            log.error("application=B-TrunC-service,url=/ms/findMsOnManage 异常发生，进入fallback方法，接收的参数：msPageDTO = " + JSON.toJSONString(msPageDTO));
             return null;
         }
 
         @Override
-        public Integer findMsOnManageCount(MsPageVo msPageVo) {
-            log.error("application=B-TrunC-service,url=/ms/findMsOnManageCount 异常发生，进入fallback方法，接收的参数：msPageVo = " + JSON.toJSONString(msPageVo));
+        public Integer findMsOnManageCount(MsPageDTO msPageDTO) {
+            log.error("application=B-TrunC-service,url=/ms/findMsOnManageCount 异常发生，进入fallback方法，接收的参数：msPageDTO = " + JSON.toJSONString(msPageDTO));
             return -1;
         }
     }

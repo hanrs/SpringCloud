@@ -1,8 +1,8 @@
 package com.dhxx.api.rest.sms;
 
 import com.dhxx.api.rpc.sms.SmsFeignClient;
+import com.dhxx.common.entity.dto.SmsPageDTO;
 import com.dhxx.common.entity.sms.SmsLog;
-import com.dhxx.common.entity.vo.SmsPageVo;
 import com.dhxx.common.utils.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,7 +62,7 @@ public class SmsController {
     }
 
     @PostMapping("findSmsLogByPage")
-    public Object findSmsLogByPage(@RequestBody SmsPageVo smsPageVon) throws  Exception {
+    public Object findSmsLogByPage(@RequestBody SmsPageDTO smsPageVon) throws  Exception {
         List<SmsLog> list = new ArrayList<SmsLog>();
         try {
             list = smsFeignClient.findSmsLogByPage(smsPageVon);
@@ -74,7 +74,7 @@ public class SmsController {
     }
 
     @PostMapping("findSmsLogByCount")
-    public Object findSmsLogByCount(@RequestBody SmsPageVo smsPageVon) throws  Exception {
+    public Object findSmsLogByCount(@RequestBody SmsPageDTO smsPageVon) throws  Exception {
         int count = -1;
         try {
             count = smsFeignClient.findSmsLogByCount(smsPageVon);

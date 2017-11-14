@@ -1,8 +1,8 @@
 package com.dhxx.api.rpc.group;
 
 import com.alibaba.fastjson.JSON;
+import com.dhxx.common.entity.dto.GrpPageDTO;
 import com.dhxx.common.entity.group.GroupInfo;
-import com.dhxx.common.entity.vo.GrpPageVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -31,19 +31,19 @@ public interface GroupFeignClient {
     public void update(GroupInfo group);
 
     @PostMapping("/B-TrunC-service/group/findGrpByPage")
-    public List<GroupInfo> findGrpByPage(GrpPageVo grpPageVo);
+    public List<GroupInfo> findGrpByPage(GrpPageDTO grpPageDTO);
 
     @PostMapping("/B-TrunC-service/group/findGrpByCount")
-    public Integer findGrpByCount(GrpPageVo grpPageVo);
+    public Integer findGrpByCount(GrpPageDTO grpPageDTO);
 
     @PostMapping("/B-TrunC-service/group/findGrpInfoByGrpId")
     public GroupInfo findGrpInfoByGrpId(GroupInfo groupInfo);
 
     @PostMapping("/B-TrunC-service/group/findGrpInfoAndSub")
-    public List<GroupInfo> findGrpInfoAndSub(GrpPageVo grpPageVo);
+    public List<GroupInfo> findGrpInfoAndSub(GrpPageDTO grpPageDTO);
 
     @PostMapping("/B-TrunC-service/group/findGrpInfoAndSubCount")
-    public Integer findGrpInfoAndSubCount(GrpPageVo grpPageVo);
+    public Integer findGrpInfoAndSubCount(GrpPageDTO grpPageDTO);
 
     @Component
     static class HystrixGroupFeignClientFallback implements GroupFeignClient {
@@ -71,14 +71,14 @@ public interface GroupFeignClient {
         }
 
         @Override
-        public List<GroupInfo> findGrpByPage(GrpPageVo grpPageVo) {
-            log.error("application=B-TrunC-service,url=/group/findGrpByPage 异常发生，进入fallback方法，接收的参数：grpPageVo = " + JSON.toJSONString(grpPageVo));
+        public List<GroupInfo> findGrpByPage(GrpPageDTO grpPageDTO) {
+            log.error("application=B-TrunC-service,url=/group/findGrpByPage 异常发生，进入fallback方法，接收的参数：grpPageDTO = " + JSON.toJSONString(grpPageDTO));
            return null;
         }
 
         @Override
-        public Integer findGrpByCount(GrpPageVo grpPageVo) {
-            log.error("application=B-TrunC-service,url=/group/findGrpByCount 异常发生，进入fallback方法，接收的参数：grpPageVo = " + JSON.toJSONString(grpPageVo));
+        public Integer findGrpByCount(GrpPageDTO grpPageDTO) {
+            log.error("application=B-TrunC-service,url=/group/findGrpByCount 异常发生，进入fallback方法，接收的参数：grpPageDTO = " + JSON.toJSONString(grpPageDTO));
             return -1;
         }
 
@@ -89,14 +89,14 @@ public interface GroupFeignClient {
         }
 
         @Override
-        public List<GroupInfo> findGrpInfoAndSub(GrpPageVo grpPageVo) {
-            log.error("application=B-TrunC-service,url=/group/findGrpInfoAndSub 异常发生，进入fallback方法，接收的参数：grpPageVo = " + JSON.toJSONString(grpPageVo));
+        public List<GroupInfo> findGrpInfoAndSub(GrpPageDTO grpPageDTO) {
+            log.error("application=B-TrunC-service,url=/group/findGrpInfoAndSub 异常发生，进入fallback方法，接收的参数：grpPageDTO = " + JSON.toJSONString(grpPageDTO));
             return null;
         }
 
         @Override
-        public Integer findGrpInfoAndSubCount(GrpPageVo grpPageVo) {
-            log.error("application=B-TrunC-service,url=/group/findGrpInfoAndSubCount 异常发生，进入fallback方法，接收的参数：grpPageVo = " + JSON.toJSONString(grpPageVo));
+        public Integer findGrpInfoAndSubCount(GrpPageDTO grpPageDTO) {
+            log.error("application=B-TrunC-service,url=/group/findGrpInfoAndSubCount 异常发生，进入fallback方法，接收的参数：grpPageDTO = " + JSON.toJSONString(grpPageDTO));
             return -1;
         }
     }

@@ -1,5 +1,11 @@
 package com.dhxx.api.authorization.manager.impl;
-
+/**
+ * 通过Redis存储和验证token的实现类
+ *
+ * @see com.dhxx.api.authorization.manager.TokenManager
+ * @author hanrs
+ * @date 2017/08/11
+ */
 import com.dhxx.api.authorization.manager.TokenManager;
 import com.dhxx.common.entity.user.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;

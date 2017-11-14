@@ -2,7 +2,7 @@ package com.dhxx.api.rpc.call;
 
 import com.alibaba.fastjson.JSON;
 import com.dhxx.common.entity.call.CallLog;
-import com.dhxx.common.entity.vo.CallPageVo;
+import com.dhxx.common.entity.dto.CallPageDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -28,10 +28,10 @@ public interface CallFeignClient {
     public void delete(List<CallLog> calls);
 
     @PostMapping("/B-TrunC-service/call/findCallLogByType")
-    public List<CallLog> findCallLogByType(CallPageVo callPageVo);
+    public List<CallLog> findCallLogByType(CallPageDTO callPageDTO);
 
     @PostMapping("/B-TrunC-service/call/findCallLogByCount")
-    public Integer findCallLogByCount(CallPageVo callPageVo);
+    public Integer findCallLogByCount(CallPageDTO callPageDTO);
 
     @PostMapping("/B-TrunC-service/call/missedCalls")
     public Integer missedCalls(CallLog call);
@@ -57,14 +57,14 @@ public interface CallFeignClient {
         }
 
         @Override
-        public List<CallLog> findCallLogByType(CallPageVo callPageVo) {
-            log.error("application=B-TrunC-service,url=/call/findCallLogByType 异常发生，进入fallback方法，接收的参数：callPageVo = " + JSON.toJSONString(callPageVo));
+        public List<CallLog> findCallLogByType(CallPageDTO callPageDTO) {
+            log.error("application=B-TrunC-service,url=/call/findCallLogByType 异常发生，进入fallback方法，接收的参数：callPageDTO = " + JSON.toJSONString(callPageDTO));
             return null;
         }
 
         @Override
-        public Integer findCallLogByCount(CallPageVo callPageVo) {
-            log.error("application=B-TrunC-service,url=/call/findCallLogByType 异常发生，进入fallback方法，接收的参数：callPageVo = " + JSON.toJSONString(callPageVo));
+        public Integer findCallLogByCount(CallPageDTO callPageDTO) {
+            log.error("application=B-TrunC-service,url=/call/findCallLogByType 异常发生，进入fallback方法，接收的参数：callPageDTO = " + JSON.toJSONString(callPageDTO));
             return -1;
         }
 

@@ -2,7 +2,7 @@ package com.dhxx.api.rest.audio;
 
 import com.dhxx.api.rpc.audio.AudioFeignClient;
 import com.dhxx.common.entity.audio.AudioVideo;
-import com.dhxx.common.entity.vo.AudioPageVo;
+import com.dhxx.common.entity.dto.AudioPageDTO;
 import com.dhxx.common.utils.Resp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,10 +50,10 @@ public class AudioController {
     }
 
     @PostMapping("findAudioVideoByPage")
-    public Object findAudioVideoByPage(@RequestBody AudioPageVo audioPageVo) throws  Exception {
+    public Object findAudioVideoByPage(@RequestBody AudioPageDTO audioPageDTO) throws  Exception {
         List<AudioVideo> list = new ArrayList<AudioVideo>();
         try {
-            list = audioFeignClient.findAudioVideoByPage(audioPageVo);
+            list = audioFeignClient.findAudioVideoByPage(audioPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,10 +62,10 @@ public class AudioController {
     }
 
     @PostMapping("findCallLogByCount")
-    public Object findAudioVideoByCount(@RequestBody  AudioPageVo audioPageVo) throws  Exception {
+    public Object findAudioVideoByCount(@RequestBody AudioPageDTO audioPageDTO) throws  Exception {
         int count = -1;
         try {
-            count = audioFeignClient.findAudioVideoByCount(audioPageVo);
+            count = audioFeignClient.findAudioVideoByCount(audioPageDTO);
         }catch (Exception e) {
             e.printStackTrace();
         }
