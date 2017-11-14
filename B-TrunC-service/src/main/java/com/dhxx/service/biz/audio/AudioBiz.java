@@ -1,7 +1,7 @@
 package com.dhxx.service.biz.audio;
 
 import com.dhxx.common.entity.audio.AudioVideo;
-import com.dhxx.common.entity.vo.AudioPageVo;
+import com.dhxx.common.entity.dto.AudioPageDTO;
 import com.dhxx.service.mapper.audio.AudioMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,14 +36,14 @@ public class AudioBiz {
     }
 
     //音像记录分页按条件查询
-    public List<AudioVideo> findAudioVideoByPage(AudioPageVo audioPageVo) {
-        return audioMapper.findAudioVideoByPage(audioPageVo);
+    public List<AudioVideo> findAudioVideoByPage(AudioPageDTO audioPageDTO) {
+        return audioMapper.findAudioVideoByPage(audioPageDTO);
     }
 
     //音像记录查询 总页数
-    public Integer findAudioVideoByCount(AudioPageVo audioPageVo) {
-         double count = audioMapper.findAudioVideoByCount(audioPageVo);
-        int totalPages = (int) Math.ceil(count/audioPageVo.getPageSize());
+    public Integer findAudioVideoByCount(AudioPageDTO audioPageDTO) {
+         double count = audioMapper.findAudioVideoByCount(audioPageDTO);
+        int totalPages = (int) Math.ceil(count/ audioPageDTO.getPageSize());
         return totalPages;
     }
 

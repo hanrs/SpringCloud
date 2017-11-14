@@ -1,8 +1,8 @@
 package com.dhxx.service.mapper.subscribe;
 
 
+import com.dhxx.common.entity.dto.SubscribePageDTO;
 import com.dhxx.common.entity.subscribe.Subscribe;
-import com.dhxx.common.entity.vo.SubscribePageVo;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import java.util.List;
 public interface SubscribeMapper {
     void save(Subscribe subscribe); //增
 
-    List<Subscribe> findSubByPage(SubscribePageVo subscribeVo); //订阅查询
+    List<Subscribe> findSubByPage(SubscribePageDTO subscribeVo); //订阅查询
 
-    Double findSubByCount(SubscribePageVo subscribeVo); //订阅记录查询 总记录
+    Double findSubByCount(SubscribePageDTO subscribeVo); //订阅记录查询 总记录
 
 }

@@ -1,7 +1,7 @@
 package com.dhxx.service.biz.log;
 
+import com.dhxx.common.entity.dto.LogPageDTO;
 import com.dhxx.common.entity.log.Log;
-import com.dhxx.common.entity.vo.LogPageVo;
 import com.dhxx.service.mapper.log.LogMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,12 +30,12 @@ public class LogBiz {
     public void save(Log log) { logMapper.save(log); }
 
     //操作日志分页
-    public List<Log> findLogByPage(LogPageVo logPageVo) { return  logMapper.findLogByPage(logPageVo); }
+    public List<Log> findLogByPage(LogPageDTO logPageDTO) { return  logMapper.findLogByPage(logPageDTO); }
 
     //日志分页总页数
-    public Integer findLogByCount(LogPageVo logPageVo) {
-        double count =  logMapper.findLogByCount(logPageVo);
-        int totalPages = (int) Math.ceil(count/logPageVo.getPageSize());
+    public Integer findLogByCount(LogPageDTO logPageDTO) {
+        double count =  logMapper.findLogByCount(logPageDTO);
+        int totalPages = (int) Math.ceil(count/ logPageDTO.getPageSize());
         return totalPages;
     }
 }

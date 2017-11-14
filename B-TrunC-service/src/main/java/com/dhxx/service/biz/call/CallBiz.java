@@ -1,7 +1,7 @@
 package com.dhxx.service.biz.call;
 
 import com.dhxx.common.entity.call.CallLog;
-import com.dhxx.common.entity.vo.CallPageVo;
+import com.dhxx.common.entity.dto.CallPageDTO;
 import com.dhxx.service.mapper.call.CallMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +35,14 @@ public class CallBiz {
     }
 
     //根据通话类型查询通话记录分页
-    public List<CallLog> findCallLogByType(CallPageVo callPageVo) {
-        return callMapper.findCallLogByType(callPageVo);
+    public List<CallLog> findCallLogByType(CallPageDTO callPageDTO) {
+        return callMapper.findCallLogByType(callPageDTO);
     }
 
     //根据通话类型查询通话记录总页数
-    public Integer findCallLogByCount(CallPageVo callPageVo) {
-        double count =  callMapper.findCallLogByCount(callPageVo);
-        int totalPages = (int) Math.ceil(count/callPageVo.getPageSize());
+    public Integer findCallLogByCount(CallPageDTO callPageDTO) {
+        double count =  callMapper.findCallLogByCount(callPageDTO);
+        int totalPages = (int) Math.ceil(count/ callPageDTO.getPageSize());
         return totalPages;
     }
 

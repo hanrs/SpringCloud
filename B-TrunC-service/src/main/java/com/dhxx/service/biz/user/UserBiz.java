@@ -1,8 +1,8 @@
 package com.dhxx.service.biz.user;
 
+import com.dhxx.common.entity.dto.UserDTO;
 import com.dhxx.common.entity.ms.MsInfo;
 import com.dhxx.common.entity.user.User;
-import com.dhxx.common.entity.vo.UserVo;
 import com.dhxx.common.utils.Sha1;
 import com.dhxx.service.mapper.ms.MsMapper;
 import com.dhxx.service.mapper.user.UserMapper;
@@ -62,7 +62,7 @@ public class UserBiz {
             String password = Sha1.encryptSHA(salt + user.getPassword());
             user.setPassword(password);
 
-            user.setRole("user");// 角色
+            user.setRoleId(Long.parseLong("1"));// 角色
             user.setStatus(0);// 状态 0: 启用 1:禁用
             user.setRegisterDate(new Date());
             try {
@@ -70,6 +70,9 @@ public class UserBiz {
                 if (user.getId() > 0) {
                     MsInfo msInfo = new MsInfo();
                     msInfo.setUdn(user.getUdn());
+                    if (user.getImsi() != null) {
+                        msInfo.setImsi(user.getImsi());
+                    }
                     msMapper.save(msInfo);
                 }
 
@@ -107,16 +110,16 @@ public class UserBiz {
     }
 
     //查看个人信息
-    public UserVo personalInfo(UserVo userVo) {
-        return userMapper.personalInfo(userVo);
+    public UserDTO personalInfo(UserDTO userDTO) {
+        return userMapper.personalInfo(userDTO);
     }
 
-    public List<User> findUserByPage(UserVo userVo) { return userMapper.findUserByPage(userVo); }
+    public List<User> findUserByPage(UserDTO userDTO) { return userMapper.findUserByPage(userDTO); }
 
     //根据通话类型查询通话记录总页数
-    public Integer findUserByCount(UserVo userVo) {
-        double count =  userMapper.findUserByCount(userVo);
-        int totalPages = (int) Math.ceil(count/userVo.getPageSize());
+    public Integer findUserByCount(UserDTO userDTO) {
+        double count =  userMapper.findUserByCount(userDTO);
+        int totalPages = (int) Math.ceil(count/ userDTO.getPageSize());
         return totalPages;
     }
 }

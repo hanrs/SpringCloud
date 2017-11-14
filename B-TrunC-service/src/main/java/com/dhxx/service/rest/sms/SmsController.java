@@ -1,8 +1,8 @@
 package com.dhxx.service.rest.sms;
 
 import com.alibaba.fastjson.JSON;
+import com.dhxx.common.entity.dto.SmsPageDTO;
 import com.dhxx.common.entity.sms.SmsLog;
-import com.dhxx.common.entity.vo.SmsPageVo;
 import com.dhxx.service.biz.sms.SmsBiz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,12 +64,12 @@ public class SmsController {
     }
 
     @PostMapping("findSmsLogByPage")
-    public List<SmsLog> findSmsLogByPage(@RequestBody SmsPageVo smsPageVo) {
-        logger.debug("/sms/findSmsLogByPage>>>>smsPageVo="+ JSON.toJSONString(smsPageVo));
+    public List<SmsLog> findSmsLogByPage(@RequestBody SmsPageDTO smsPageDTO) {
+        logger.debug("/sms/findSmsLogByPage>>>>smsPageDTO="+ JSON.toJSONString(smsPageDTO));
 
         List<SmsLog> list = new ArrayList<SmsLog>();
         try {
-           list = smsBiz.findSmsLogByPage(smsPageVo);
+           list = smsBiz.findSmsLogByPage(smsPageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -78,12 +78,12 @@ public class SmsController {
     }
 
     @PostMapping("findSmsLogByCount")
-    public Integer findSmsLogByCount(@RequestBody SmsPageVo smsPageVo) {
-        logger.debug("/sms/findSmsLogByCount>>>>smsPageVo="+ JSON.toJSONString(smsPageVo));
+    public Integer findSmsLogByCount(@RequestBody SmsPageDTO smsPageDTO) {
+        logger.debug("/sms/findSmsLogByCount>>>>smsPageDTO="+ JSON.toJSONString(smsPageDTO));
 
         Integer count = -1;
         try {
-            count = smsBiz.findSmsLogByCount(smsPageVo);
+            count = smsBiz.findSmsLogByCount(smsPageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }

@@ -2,7 +2,7 @@ package com.dhxx.service.rest.call;
 
 import com.alibaba.fastjson.JSON;
 import com.dhxx.common.entity.call.CallLog;
-import com.dhxx.common.entity.vo.CallPageVo;
+import com.dhxx.common.entity.dto.CallPageDTO;
 import com.dhxx.service.biz.call.CallBiz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,11 +53,11 @@ public class CallController {
     }
 
     @PostMapping("findCallLogByType")
-    public List<CallLog> findCallLogByType(@RequestBody CallPageVo callPageVo) {
-        logger.debug("/call/findCallLogByType>>>>callPageVo="+ JSON.toJSONString(callPageVo));
+    public List<CallLog> findCallLogByType(@RequestBody CallPageDTO callPageDTO) {
+        logger.debug("/call/findCallLogByType>>>>callPageDTO="+ JSON.toJSONString(callPageDTO));
         List<CallLog> list = new ArrayList<CallLog>();
         try {
-           list = callBiz.findCallLogByType(callPageVo);
+           list = callBiz.findCallLogByType(callPageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -66,11 +66,11 @@ public class CallController {
     }
 
     @PostMapping("findCallLogByCount")
-    public Integer findCallLogByCount(@RequestBody CallPageVo callPageVo) {
-        logger.debug("/call/findCallLogByCount>>>>callPageVo="+ JSON.toJSONString(callPageVo));
+    public Integer findCallLogByCount(@RequestBody CallPageDTO callPageDTO) {
+        logger.debug("/call/findCallLogByCount>>>>callPageDTO="+ JSON.toJSONString(callPageDTO));
         Integer count = -1;
         try {
-            count = callBiz.findCallLogByCount(callPageVo);
+            count = callBiz.findCallLogByCount(callPageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }

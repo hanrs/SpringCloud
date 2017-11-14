@@ -1,7 +1,7 @@
 package com.dhxx.service.biz.group;
 
+import com.dhxx.common.entity.dto.GrpPageDTO;
 import com.dhxx.common.entity.group.GroupInfo;
-import com.dhxx.common.entity.vo.GrpPageVo;
 import com.dhxx.service.mapper.group.GroupMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,14 +50,14 @@ public class GroupBiz {
     public  void update(GroupInfo group) { groupMapper.update(group); }
 
     //组 分页
-    public List<GroupInfo> findGrpByPage(GrpPageVo grpPageVo){
-        return groupMapper.findGrpByPage(grpPageVo);
+    public List<GroupInfo> findGrpByPage(GrpPageDTO grpPageDTO){
+        return groupMapper.findGrpByPage(grpPageDTO);
     }
 
      //组总页数
-    public Integer findGrpByCount(GrpPageVo grpPageVo){
-        double count = groupMapper.findGrpByCount(grpPageVo);
-        int totalPages = (int) Math.ceil(count/grpPageVo.getPageSize());
+    public Integer findGrpByCount(GrpPageDTO grpPageDTO){
+        double count = groupMapper.findGrpByCount(grpPageDTO);
+        int totalPages = (int) Math.ceil(count/ grpPageDTO.getPageSize());
         return totalPages;
     }
 
@@ -65,12 +65,12 @@ public class GroupBiz {
     public GroupInfo findGrpInfoByGrpId(String grpId){ return groupMapper.findGrpInfoByGrpId(grpId); }
 
     //查找用户管理组配置
-    public List<GroupInfo> findGrpInfoAndSub(GrpPageVo grpPageVo){ return groupMapper.findGrpInfoAndSub(grpPageVo); }
+    public List<GroupInfo> findGrpInfoAndSub(GrpPageDTO grpPageDTO){ return groupMapper.findGrpInfoAndSub(grpPageDTO); }
 
     //查找用户管理组配置总页数
-    public Integer findGrpInfoAndSubCount(GrpPageVo grpPageVo){
-        double count = groupMapper.findGrpInfoAndSubCount(grpPageVo);
-        int totalPages = (int) Math.ceil(count/grpPageVo.getPageSize());
+    public Integer findGrpInfoAndSubCount(GrpPageDTO grpPageDTO){
+        double count = groupMapper.findGrpInfoAndSubCount(grpPageDTO);
+        int totalPages = (int) Math.ceil(count/ grpPageDTO.getPageSize());
         return totalPages;
     }
 }

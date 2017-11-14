@@ -1,8 +1,8 @@
 package com.dhxx.service.rest.subscribe;
 
 import com.alibaba.fastjson.JSON;
+import com.dhxx.common.entity.dto.SubscribePageDTO;
 import com.dhxx.common.entity.subscribe.Subscribe;
-import com.dhxx.common.entity.vo.SubscribePageVo;
 import com.dhxx.service.biz.subscribe.SubscribeBiz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,12 +41,12 @@ public class SubscribeController {
     }
 
     @PostMapping("findSubByPage")
-    public List<Subscribe> findSubByPage(@RequestBody SubscribePageVo subscribePageVo) {
-        logger.debug("/sub/findSubByPage>>>>subscribePageVo="+ JSON.toJSONString(subscribePageVo));
+    public List<Subscribe> findSubByPage(@RequestBody SubscribePageDTO subscribePageDTO) {
+        logger.debug("/sub/findSubByPage>>>>subscribePageDTO="+ JSON.toJSONString(subscribePageDTO));
 
         List<Subscribe> list = new ArrayList<Subscribe>();
         try {
-           list = subscribeBiz.findSubByPage(subscribePageVo);
+           list = subscribeBiz.findSubByPage(subscribePageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -55,12 +55,12 @@ public class SubscribeController {
     }
 
     @PostMapping("findSubByCount")
-    public Integer findSubByCount(@RequestBody SubscribePageVo subscribePageVo) {
-        logger.debug("/sub/findSubByCount>>>>subscribePageVo="+ JSON.toJSONString(subscribePageVo));
+    public Integer findSubByCount(@RequestBody SubscribePageDTO subscribePageDTO) {
+        logger.debug("/sub/findSubByCount>>>>subscribePageDTO="+ JSON.toJSONString(subscribePageDTO));
 
         Integer count = -1;
         try {
-            count = subscribeBiz.findSubByCount(subscribePageVo);
+            count = subscribeBiz.findSubByCount(subscribePageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }

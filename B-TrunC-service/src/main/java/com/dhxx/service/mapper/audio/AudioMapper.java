@@ -1,8 +1,7 @@
 package com.dhxx.service.mapper.audio;
 
 import com.dhxx.common.entity.audio.AudioVideo;
-import com.dhxx.common.entity.vo.AudioPageVo;
-import org.apache.ibatis.annotations.Param;
+import com.dhxx.common.entity.dto.AudioPageDTO;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public interface AudioMapper {
 
     void delete(AudioVideo audioVideo); //删
 
-    List<AudioVideo> findAudioVideoByPage(AudioPageVo audioPageVo); //音像记录分页按条件查询
+    List<AudioVideo> findAudioVideoByPage(AudioPageDTO audioPageDTO); //音像记录分页按条件查询
 
-    Double findAudioVideoByCount(AudioPageVo audioPageVo); //音像记录查询 总记录
+    Double findAudioVideoByCount(AudioPageDTO audioPageDTO); //音像记录查询 总记录
 }

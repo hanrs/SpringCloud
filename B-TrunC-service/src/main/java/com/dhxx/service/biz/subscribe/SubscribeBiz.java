@@ -1,7 +1,7 @@
 package com.dhxx.service.biz.subscribe;
 
+import com.dhxx.common.entity.dto.SubscribePageDTO;
 import com.dhxx.common.entity.subscribe.Subscribe;
-import com.dhxx.common.entity.vo.SubscribePageVo;
 import com.dhxx.service.mapper.subscribe.SubscribeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,14 +29,14 @@ public class SubscribeBiz {
 
 
     //订阅记录分页按条件查询
-    public List<Subscribe> findSubByPage(SubscribePageVo subscribePageVo) {
-        return subscribeMapper.findSubByPage(subscribePageVo);
+    public List<Subscribe> findSubByPage(SubscribePageDTO subscribePageDTO) {
+        return subscribeMapper.findSubByPage(subscribePageDTO);
     }
 
     //订阅记录查询 总记录
-    public Integer findSubByCount(SubscribePageVo subscribePageVo) {
-        double count =  subscribeMapper.findSubByCount(subscribePageVo);
-        int totalPages = (int) Math.ceil(count/subscribePageVo.getPageSize());
+    public Integer findSubByCount(SubscribePageDTO subscribePageDTO) {
+        double count =  subscribeMapper.findSubByCount(subscribePageDTO);
+        int totalPages = (int) Math.ceil(count/ subscribePageDTO.getPageSize());
         return totalPages;
     }
 

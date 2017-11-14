@@ -1,9 +1,7 @@
 package com.dhxx.service.biz.sms;
 
-import com.dhxx.common.entity.call.CallLog;
+import com.dhxx.common.entity.dto.SmsPageDTO;
 import com.dhxx.common.entity.sms.SmsLog;
-import com.dhxx.common.entity.vo.SmsPageVo;
-import com.dhxx.service.mapper.call.CallMapper;
 import com.dhxx.service.mapper.sms.SmsMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,14 +38,14 @@ public class SmsBiz {
     public void update(SmsLog sms) { smsMapper.update(sms); }
 
     //短信记录分页按条件查询
-    public List<SmsLog> findSmsLogByPage(SmsPageVo smsPageVo) {
-        return smsMapper.findSmsLogByPage(smsPageVo);
+    public List<SmsLog> findSmsLogByPage(SmsPageDTO smsPageDTO) {
+        return smsMapper.findSmsLogByPage(smsPageDTO);
     }
 
     //短信记录查询 总记录
-    public Integer findSmsLogByCount(SmsPageVo smsPageVo) {
-        double count =  smsMapper.findSmsLogByCount(smsPageVo);
-        int totalPages = (int) Math.ceil(count/smsPageVo.getPageSize());
+    public Integer findSmsLogByCount(SmsPageDTO smsPageDTO) {
+        double count =  smsMapper.findSmsLogByCount(smsPageDTO);
+        int totalPages = (int) Math.ceil(count/ smsPageDTO.getPageSize());
         return totalPages;
     }
 

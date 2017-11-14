@@ -1,8 +1,8 @@
 package com.dhxx.service.rest.ms;
 
 import com.alibaba.fastjson.JSON;
+import com.dhxx.common.entity.dto.MsPageDTO;
 import com.dhxx.common.entity.ms.MsInfo;
-import com.dhxx.common.entity.vo.MsPageVo;
 import com.dhxx.service.biz.ms.MsBiz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,11 +77,11 @@ public class MsController {
     }
 
     @PostMapping("findMsByPage")
-    public List<MsInfo> findMsByPage(@RequestBody MsPageVo msPageVo) {
-        logger.debug("/ms/findMsByPage>>>>msPageVo="+ JSON.toJSONString(msPageVo));
+    public List<MsInfo> findMsByPage(@RequestBody MsPageDTO msPageDTO) {
+        logger.debug("/ms/findMsByPage>>>>msPageDTO="+ JSON.toJSONString(msPageDTO));
         List<MsInfo> list = new ArrayList<MsInfo>();
         try {
-            list = msBiz.findMsByPage(msPageVo);
+            list = msBiz.findMsByPage(msPageDTO);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return null;
@@ -91,11 +91,11 @@ public class MsController {
     }
 
     @PostMapping("findMsByCount")
-    public Integer findMsByCount(@RequestBody MsPageVo msPageVo) {
-        logger.debug("/ms/findMsByPage>>>>msPageVo="+ JSON.toJSONString(msPageVo));
+    public Integer findMsByCount(@RequestBody MsPageDTO msPageDTO) {
+        logger.debug("/ms/findMsByPage>>>>msPageDTO="+ JSON.toJSONString(msPageDTO));
         int totalPages = -1;
         try {
-            totalPages = msBiz.findMsByCount(msPageVo);
+            totalPages = msBiz.findMsByCount(msPageDTO);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -104,11 +104,11 @@ public class MsController {
     }
 
     @PostMapping("findMsOnManage")
-    public List<MsInfo> findMsOnManage(@RequestBody MsPageVo msPageVo) {
-        logger.debug("/ms/findMsOnManage>>>>msPageVo="+ JSON.toJSONString(msPageVo));
+    public List<MsInfo> findMsOnManage(@RequestBody MsPageDTO msPageDTO) {
+        logger.debug("/ms/findMsOnManage>>>>msPageDTO="+ JSON.toJSONString(msPageDTO));
         List<MsInfo> list = new ArrayList<MsInfo>();
         try {
-            list = msBiz.findMsOnManage(msPageVo);
+            list = msBiz.findMsOnManage(msPageDTO);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return null;
@@ -118,11 +118,11 @@ public class MsController {
     }
 
     @PostMapping("findMsOnManageCount")
-    public Integer findMsOnManageCount(@RequestBody MsPageVo msPageVo) {
-        logger.debug("/ms/findMsOnManageCount>>>>msPageVo="+ JSON.toJSONString(msPageVo));
+    public Integer findMsOnManageCount(@RequestBody MsPageDTO msPageDTO) {
+        logger.debug("/ms/findMsOnManageCount>>>>msPageDTO="+ JSON.toJSONString(msPageDTO));
         int totalPages = -1;
         try {
-            totalPages = msBiz.findMsOnManageCount(msPageVo);
+            totalPages = msBiz.findMsOnManageCount(msPageDTO);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

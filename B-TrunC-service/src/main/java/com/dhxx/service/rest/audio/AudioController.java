@@ -2,7 +2,7 @@ package com.dhxx.service.rest.audio;
 
 import com.alibaba.fastjson.JSON;
 import com.dhxx.common.entity.audio.AudioVideo;
-import com.dhxx.common.entity.vo.AudioPageVo;
+import com.dhxx.common.entity.dto.AudioPageDTO;
 import com.dhxx.service.biz.audio.AudioBiz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,12 +53,12 @@ public class AudioController {
     }
 
     @PostMapping("findAudioVideoByPage")
-    public List<AudioVideo> findAudioVideoByPage(@RequestBody AudioPageVo audioPageVo) {
-        logger.debug("/audio/findAudioVideoByPage>>>>audioPageVo="+ JSON.toJSONString(audioPageVo));
+    public List<AudioVideo> findAudioVideoByPage(@RequestBody AudioPageDTO audioPageDTO) {
+        logger.debug("/audio/findAudioVideoByPage>>>>audioPageDTO="+ JSON.toJSONString(audioPageDTO));
 
         List<AudioVideo> list = new ArrayList<AudioVideo>();
         try {
-           list = audioBiz.findAudioVideoByPage(audioPageVo);
+           list = audioBiz.findAudioVideoByPage(audioPageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -67,12 +67,12 @@ public class AudioController {
     }
 
     @PostMapping("findAudioVideoByCount")
-    public Integer findAudioVideoByCount(@RequestBody AudioPageVo audioPageVo) {
-        logger.debug("/audio/findAudioVideoByCount>>>>audioPageVo="+ JSON.toJSONString(audioPageVo));
+    public Integer findAudioVideoByCount(@RequestBody AudioPageDTO audioPageDTO) {
+        logger.debug("/audio/findAudioVideoByCount>>>>audioPageDTO="+ JSON.toJSONString(audioPageDTO));
 
         Integer count = -1;
         try {
-            count = audioBiz.findAudioVideoByCount(audioPageVo);
+            count = audioBiz.findAudioVideoByCount(audioPageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }

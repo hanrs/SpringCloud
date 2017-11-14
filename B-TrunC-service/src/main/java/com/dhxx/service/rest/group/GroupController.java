@@ -1,8 +1,8 @@
 package com.dhxx.service.rest.group;
 
 import com.alibaba.fastjson.JSON;
+import com.dhxx.common.entity.dto.GrpPageDTO;
 import com.dhxx.common.entity.group.GroupInfo;
-import com.dhxx.common.entity.vo.GrpPageVo;
 import com.dhxx.service.biz.group.GroupBiz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,11 +65,11 @@ public class GroupController {
     }
 
     @PostMapping("findGrpByPage")
-    public List<GroupInfo> findGrpByPage(@RequestBody GrpPageVo grpPageVo) {
-        logger.debug("/group/findGrpByPage>>>>grpPageVo="+ JSON.toJSONString(grpPageVo));
+    public List<GroupInfo> findGrpByPage(@RequestBody GrpPageDTO grpPageDTO) {
+        logger.debug("/group/findGrpByPage>>>>grpPageDTO="+ JSON.toJSONString(grpPageDTO));
         List<GroupInfo> list = new ArrayList<GroupInfo>();
         try {
-            list = groupBiz.findGrpByPage(grpPageVo);
+            list = groupBiz.findGrpByPage(grpPageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -77,11 +77,11 @@ public class GroupController {
     }
 
     @PostMapping("findGrpByCount")
-    public Integer findGrpByCount(@RequestBody GrpPageVo grpPageVo) {
-        logger.debug("/group/findGrpByPage>>>>grpPageVo="+ JSON.toJSONString(grpPageVo));
+    public Integer findGrpByCount(@RequestBody GrpPageDTO grpPageDTO) {
+        logger.debug("/group/findGrpByPage>>>>grpPageDTO="+ JSON.toJSONString(grpPageDTO));
         int count = -1;
         try {
-            count = groupBiz.findGrpByCount(grpPageVo);
+            count = groupBiz.findGrpByCount(grpPageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -101,11 +101,11 @@ public class GroupController {
     }
 
     @PostMapping("findGrpInfoAndSub")
-    public List<GroupInfo> findGrpInfoAndSub(@RequestBody GrpPageVo grpPageVo) {
-        logger.debug("/group/findGrpInfoAndSub>>>>grpPageVo="+ JSON.toJSONString(grpPageVo));
+    public List<GroupInfo> findGrpInfoAndSub(@RequestBody GrpPageDTO grpPageDTO) {
+        logger.debug("/group/findGrpInfoAndSub>>>>grpPageDTO="+ JSON.toJSONString(grpPageDTO));
         List<GroupInfo> list = new ArrayList<GroupInfo>();
         try {
-            list = groupBiz.findGrpInfoAndSub(grpPageVo);
+            list = groupBiz.findGrpInfoAndSub(grpPageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -113,11 +113,11 @@ public class GroupController {
     }
 
     @PostMapping("findGrpInfoAndSubCount")
-    public Integer findGrpInfoAndSubCount(@RequestBody GrpPageVo grpPageVo) {
-        logger.debug("/group/findGrpInfoAndSubCount>>>>grpPageVo="+ JSON.toJSONString(grpPageVo));
+    public Integer findGrpInfoAndSubCount(@RequestBody GrpPageDTO grpPageDTO) {
+        logger.debug("/group/findGrpInfoAndSubCount>>>>grpPageDTO="+ JSON.toJSONString(grpPageDTO));
         int count = -1;
         try {
-            count = groupBiz.findGrpInfoAndSubCount(grpPageVo);
+            count = groupBiz.findGrpInfoAndSubCount(grpPageDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }

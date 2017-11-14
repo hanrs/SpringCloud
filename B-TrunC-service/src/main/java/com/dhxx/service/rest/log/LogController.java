@@ -1,11 +1,9 @@
 package com.dhxx.service.rest.log;
 
 import com.alibaba.fastjson.JSON;
+import com.dhxx.common.entity.dto.LogPageDTO;
 import com.dhxx.common.entity.log.Log;
-import com.dhxx.common.entity.tcn.TcnInfo;
-import com.dhxx.common.entity.vo.LogPageVo;
 import com.dhxx.service.biz.log.LogBiz;
-import com.dhxx.service.biz.tcn.TcnInfoBiz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +41,11 @@ public class LogController {
     }
 
     @PostMapping("findLogByPage")
-    public List<Log> findLogByPage(@RequestBody LogPageVo logPageVo) {
-        logger.debug("/log/findLogByPage>>>>logPageVo="+ JSON.toJSONString(logPageVo));
+    public List<Log> findLogByPage(@RequestBody LogPageDTO logPageDTO) {
+        logger.debug("/log/findLogByPage>>>>logPageDTO="+ JSON.toJSONString(logPageDTO));
         List<Log> list = new ArrayList<>();
         try {
-            list = logBiz.findLogByPage(logPageVo);
+            list = logBiz.findLogByPage(logPageDTO);
         }catch (Exception e){
             logger.error(e.getMessage());
         }
@@ -56,11 +54,11 @@ public class LogController {
     }
 
     @PostMapping("findLogByCount")
-    public Integer findLogByCount(@RequestBody LogPageVo logPageVo) {
-        logger.debug("/log/findLogByCount>>>>logPageVo="+ JSON.toJSONString(logPageVo));
+    public Integer findLogByCount(@RequestBody LogPageDTO logPageDTO) {
+        logger.debug("/log/findLogByCount>>>>logPageDTO="+ JSON.toJSONString(logPageDTO));
         int count = -1;
         try {
-            count = logBiz.findLogByCount(logPageVo);
+            count = logBiz.findLogByCount(logPageDTO);
         }catch (Exception e){
             logger.error(e.getMessage());
         }

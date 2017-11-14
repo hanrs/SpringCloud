@@ -1,7 +1,7 @@
 package com.dhxx.service.rest.user;
 
 import com.alibaba.fastjson.JSON;
-import com.dhxx.common.entity.vo.UserVo;
+import com.dhxx.common.entity.dto.UserDTO;
 import com.dhxx.service.biz.user.UserBiz;
 import com.dhxx.common.entity.user.User;
 import org.slf4j.Logger;
@@ -83,25 +83,25 @@ public class UserController {
     }
 
     @PostMapping("personalInfo")
-    public UserVo personalInfo(@RequestBody UserVo userVo) {
-        logger.debug("/user/personalInfo>>>>personalInfo="+ JSON.toJSONString(userVo));
-        UserVo userVoRps = null;
+    public UserDTO personalInfo(@RequestBody UserDTO userDTO) {
+        logger.debug("/user/personalInfo>>>>personalInfo="+ JSON.toJSONString(userDTO));
+        UserDTO userDTORps = null;
         try {
-            userVoRps= userBiz.personalInfo(userVo);
+            userDTORps = userBiz.personalInfo(userDTO);
         }catch (Exception e){
             logger.error(e.getMessage());
             return null;
         }
 
-        return userVoRps;
+        return userDTORps;
     }
 
     @PostMapping("findUserByPage")
-    public List<User> findUserByPage(@RequestBody UserVo userVo) {
-        logger.debug("/user/findUserByPage>>>>userVo="+ JSON.toJSONString(userVo));
+    public List<User> findUserByPage(@RequestBody UserDTO userDTO) {
+        logger.debug("/user/findUserByPage>>>>userDTO="+ JSON.toJSONString(userDTO));
         List<User> list = new ArrayList<User>();
         try {
-            list = userBiz.findUserByPage(userVo);
+            list = userBiz.findUserByPage(userDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -110,11 +110,11 @@ public class UserController {
     }
 
     @PostMapping("findUserByCount")
-    public Integer findUserByCount(@RequestBody UserVo userVo) {
-        logger.debug("/user/findUserByCount>>>>userVo="+ JSON.toJSONString(userVo));
+    public Integer findUserByCount(@RequestBody UserDTO userDTO) {
+        logger.debug("/user/findUserByCount>>>>userDTO="+ JSON.toJSONString(userDTO));
         Integer count = -1;
         try {
-            count = userBiz.findUserByCount(userVo);
+            count = userBiz.findUserByCount(userDTO);
         }catch (Exception e) {
             logger.error(e.getMessage());
         }

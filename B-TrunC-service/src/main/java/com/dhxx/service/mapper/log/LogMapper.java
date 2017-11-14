@@ -2,8 +2,8 @@ package com.dhxx.service.mapper.log;
 
 
 
+import com.dhxx.common.entity.dto.LogPageDTO;
 import com.dhxx.common.entity.log.Log;
-import com.dhxx.common.entity.vo.LogPageVo;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface LogMapper {
 
     void save(Log log);   //增
 
-    List<Log> findLogByPage(LogPageVo logPageVo); //操作日志分页
+    List<Log> findLogByPage(LogPageDTO logPageDTO); //操作日志分页
 
-    Double findLogByCount(LogPageVo logPageVo); //操作日志总页数
+    Double findLogByCount(LogPageDTO logPageDTO); //操作日志总页数
 }

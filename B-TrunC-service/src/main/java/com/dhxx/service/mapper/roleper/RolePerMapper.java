@@ -17,4 +17,5 @@ public interface RolePerMapper {
 
     List<RolePermission> findRolePerByRoleId(RolePermission rolePermission); //根据角色ID查该角色所拥有得到权限
 
+
 }

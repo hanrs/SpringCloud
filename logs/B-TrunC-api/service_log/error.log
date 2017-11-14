@@ -1,4 +1,4 @@
-2017-10-20 17:15:15.609 [Thread-7] ERROR c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error
+2017-11-07 19:10:53.998 [Thread-7] ERROR c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error
 com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect
 	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:187)
 	at com.sun.jersey.api.client.filter.GZIPContentEncodingFilter.handle(GZIPContentEncodingFilter.java:123)
@@ -88,7 +88,7 @@ Caused by: java.net.ConnectException: Connection refused: connect
 	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)
 	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:173)
 	... 67 common frames omitted
-2017-10-20 17:15:15.792 [Thread-7] ERROR c.netflix.discovery.DiscoveryClient - DiscoveryClient_B-TRUNC-API/localhost:B-TrunC-api:-1 - was unable to refresh its cache! status = Cannot execute request on any known server
+2017-11-07 19:10:54.188 [Thread-7] ERROR c.netflix.discovery.DiscoveryClient - DiscoveryClient_B-TRUNC-API/localhost:B-TrunC-api:-1 - was unable to refresh its cache! status = Cannot execute request on any known server
 com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
 	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:111)
 	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.getApplications(EurekaHttpClientDecorator.java:134)
@@ -141,7 +141,7 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:347)
 	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:991)
 	at org.springframework.context.support.AbstractApplicationContext$2.run(AbstractApplicationContext.java:929)
-2017-10-20 17:15:18.023 [Thread-7] ERROR c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error
+2017-11-07 19:10:56.698 [Thread-7] ERROR c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error
 com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect
 	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:187)
 	at com.sun.jersey.api.client.filter.GZIPContentEncodingFilter.handle(GZIPContentEncodingFilter.java:123)
@@ -173,7 +173,7 @@ com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Con
 	at org.springframework.cloud.context.config.StandardBeanLifecycleDecorator$2.invoke(StandardBeanLifecycleDecorator.java:85)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:673)
-	at org.springframework.cloud.netflix.eureka.CloudEurekaClient$$EnhancerBySpringCGLIB$$557bf282.shutdown(<generated>)
+	at org.springframework.cloud.netflix.eureka.CloudEurekaClient$$EnhancerBySpringCGLIB$$98f352c2.shutdown(<generated>)
 	at org.springframework.cloud.netflix.eureka.serviceregistry.EurekaServiceRegistry.deregister(EurekaServiceRegistry.java:71)
 	at org.springframework.cloud.netflix.eureka.serviceregistry.EurekaAutoServiceRegistration.stop(EurekaAutoServiceRegistration.java:82)
 	at org.springframework.cloud.netflix.eureka.serviceregistry.EurekaAutoServiceRegistration.onApplicationEvent(EurekaAutoServiceRegistration.java:126)
@@ -210,7 +210,7 @@ Caused by: java.net.ConnectException: Connection refused: connect
 	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)
 	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:173)
 	... 46 common frames omitted
-2017-10-20 17:15:18.026 [Thread-7] ERROR c.netflix.discovery.DiscoveryClient - DiscoveryClient_B-TRUNC-API/localhost:B-TrunC-api:-1 - de-registration failedCannot execute request on any known server
+2017-11-07 19:10:56.699 [Thread-7] ERROR c.netflix.discovery.DiscoveryClient - DiscoveryClient_B-TRUNC-API/localhost:B-TrunC-api:-1 - de-registration failedCannot execute request on any known server
 com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
 	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:111)
 	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
@@ -226,7 +226,7 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 	at org.springframework.cloud.context.config.StandardBeanLifecycleDecorator$2.invoke(StandardBeanLifecycleDecorator.java:85)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:673)
-	at org.springframework.cloud.netflix.eureka.CloudEurekaClient$$EnhancerBySpringCGLIB$$557bf282.shutdown(<generated>)
+	at org.springframework.cloud.netflix.eureka.CloudEurekaClient$$EnhancerBySpringCGLIB$$98f352c2.shutdown(<generated>)
 	at org.springframework.cloud.netflix.eureka.serviceregistry.EurekaServiceRegistry.deregister(EurekaServiceRegistry.java:71)
 	at org.springframework.cloud.netflix.eureka.serviceregistry.EurekaAutoServiceRegistration.stop(EurekaAutoServiceRegistration.java:82)
 	at org.springframework.cloud.netflix.eureka.serviceregistry.EurekaAutoServiceRegistration.onApplicationEvent(EurekaAutoServiceRegistration.java:126)

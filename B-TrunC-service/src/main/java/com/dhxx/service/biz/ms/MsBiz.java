@@ -1,7 +1,7 @@
 package com.dhxx.service.biz.ms;
 
+import com.dhxx.common.entity.dto.MsPageDTO;
 import com.dhxx.common.entity.ms.MsInfo;
-import com.dhxx.common.entity.vo.MsPageVo;
 import com.dhxx.service.mapper.ms.MsMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,28 +45,28 @@ public class MsBiz {
     public MsInfo findMsByUdn(String udn) { return msMapper.findMsByUdn(udn); }
 
     //查询指定群组、指定页的终端用户信息
-    public List<MsInfo> findMsByPage(MsPageVo msPageVo) {
-        List list = msMapper.findMsByPage(msPageVo);
+    public List<MsInfo> findMsByPage(MsPageDTO msPageDTO) {
+        List list = msMapper.findMsByPage(msPageDTO);
         return list;
     }
 
     //查询全部终端或指定群组下的终端总页数
-    public Integer findMsByCount(MsPageVo msPageVo) {
-        Double count = msMapper.findMsByCount(msPageVo);
-        int totalPages = (int) Math.ceil(count/msPageVo.getPageSize());
+    public Integer findMsByCount(MsPageDTO msPageDTO) {
+        Double count = msMapper.findMsByCount(msPageDTO);
+        int totalPages = (int) Math.ceil(count/ msPageDTO.getPageSize());
         return totalPages;
     }
 
     //查询指定页的终端用户信息   用于用户管理
-    public List<MsInfo> findMsOnManage(MsPageVo msPageVo) {
-        List list = msMapper.findMsOnManage(msPageVo);
+    public List<MsInfo> findMsOnManage(MsPageDTO msPageDTO) {
+        List list = msMapper.findMsOnManage(msPageDTO);
         return list;
     }
 
     //查询全部终端总页数   用于用户管理
-    public Integer findMsOnManageCount(MsPageVo msPageVo) {
-        Double count = msMapper.findMsOnManageCount(msPageVo);
-        int totalPages = (int) Math.ceil(count/msPageVo.getPageSize());
+    public Integer findMsOnManageCount(MsPageDTO msPageDTO) {
+        Double count = msMapper.findMsOnManageCount(msPageDTO);
+        int totalPages = (int) Math.ceil(count/ msPageDTO.getPageSize());
         return totalPages;
     }
 }
